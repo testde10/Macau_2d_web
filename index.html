@@ -1,49 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live</title>
-    <style>
-        body { background-color: #000; color: #f1c40f; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .header { width: 100%; text-align: center; border-bottom: 2px solid #f1c40f; padding-bottom: 10px; margin-bottom: 20px; }
-        .main-result { border: 8px solid #f1c40f; border-radius: 50%; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; font-size: 70px; font-weight: bold; margin: 20px 0; box-shadow: 0 0 30px rgba(241, 196, 15, 0.5); background: radial-gradient(circle, #222, #000); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 450px; }
-        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; text-align: center; }
-        .card.highlight { border-color: #f1c40f; background: linear-gradient(145deg, #2c2201, #111); }
-        .time { color: #f1c40f; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
-        .num { font-size: 36px; font-weight: bold; margin: 5px 0; color: #fff; }
-        .info { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; border-top: 1px solid #333; padding-top: 8px; margin-top: 8px; }
+/* Active/Highlight Card */
+        .card.active {
+            border: 2px solid var(--border-gold);
+            background: linear-gradient(145deg, #2c2201, #111);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+        
+        /* Subtle Gold Corner Decoration for active card */
+        .card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--border-gold) 0%, transparent 70%);
+        }
+
+        .time {
+            color: var(--text-gold);
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .num {
+            font-size: 44px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--text-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #ccc;
+            border-top: 1px solid #444;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .val-label { color: #888; margin-right: 3px; }
+        .val-num { color: #eee; font-weight: bold; }
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 style="margin:0;">MACAU 2D LIVE</h1>
-    </div>
+    <div class="container">
+        <div class="header">
+            <h1>MACAU 2D LIVE</h1>
+        </div>
 
-    <div class="main-result">29</div>
-    <p style="color: #888;">Updated: 2026-04-03 11:35 AM</p>
+        <div class="main-result-container">
+            <div class="main-result">29</div>
+        </div>
+        <div class="update-time">Updated: 2026-04-03 11:35 AM</div>
 
-    <div class="grid">
-        <div class="card">
-            <div class="time">08:30 AM</div>
-            <div class="num">77</div>
-            <div class="info"><span>SET: 1068.17</span><span>VAL: 16985.34</span></div>
-        </div>
-        <div class="card highlight">
-            <div class="time">10:30 AM</div>
-            <div class="num">56</div>
-            <div class="info"><span>SET: 1201.34</span><span>VAL: 49791.01</span></div>
-        </div>
-        <div class="card">
-            <div class="time">12:30 PM</div>
-            <div class="num">04</div>
-            <div class="info"><span>SET: 1160.40</span><span>VAL: 11683.47</span></div>
-        </div>
-        <div class="card">
-            <div class="time">02:30 PM</div>
-            <div class="num">81</div>
-            <div class="info"><span>SET: 1122.69</span><span>VAL: 22716.00</span></div>
+        <div class="grid">
+            <div class="card">
+                <div class="time">08:30 AM</div>
+                <div class="num">77</div>
+                <div class="info">
+                    <div><span class="val-label">SET:</span><span class="val-num">1068.17</span></div>
+                    <div><span class="val-label">VAL:</span><span class="val-num">16985.34</span></div>
+                </div>
+            </div>
+            <div class="card active">
+                <div class="time">10:30 AM</div>
+                <div class="num">56</div>
+                <div class="info">
+                    <div><span class="val-label">SET:</span><span class="val-num">1201.34</span></div>
+                    <div><span class="val-label">VAL:</span><span class="val-num">49791.01</span></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="time">12:30 PM</div>
+                <div class="num">04</div>
+                <div class="info">
+                    <div><span class="val-label">SET:</span><span class="val-num">1160.40</span></div>
+                    <div><span class="val-label">VAL:</span><span class="val-num">11683.47</span></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="time">02:30 PM</div>
+                <div class="num">81</div>
+                <div class="info">
+                    <div><span class="val-label">SET:</span><span class="val-num">1122.69</span></div>
+                    <div><span class="val-label">VAL:</span><span class="val-num">22716.00</span></div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
