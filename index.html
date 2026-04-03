@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macau 2D Live</title>
+    <style>
+        body { background-color: #000; color: #f1c40f; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .header { width: 100%; text-align: center; border-bottom: 2px solid #f1c40f; padding-bottom: 10px; margin-bottom: 20px; }
+        .main-result { border: 8px solid #f1c40f; border-radius: 50%; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; font-size: 70px; font-weight: bold; margin: 20px 0; box-shadow: 0 0 30px rgba(241, 196, 15, 0.5); background: radial-gradient(circle, #222, #000); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 450px; }
+        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; text-align: center; }
+        .card.highlight { border-color: #f1c40f; background: linear-gradient(145deg, #2c2201, #111); }
+        .time { color: #f1c40f; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
+        .num { font-size: 36px; font-weight: bold; margin: 5px 0; color: #fff; }
+        .info { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; border-top: 1px solid #333; padding-top: 8px; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="margin:0;">MACAU 2D LIVE</h1>
+    </div>
+
+    <div class="main-result">29</div>
+    <p style="color: #888;">Updated: 2026-04-03 11:35 AM</p>
+
+    <div class="grid">
+        <div class="card">
+            <div class="time">08:30 AM</div>
+            <div class="num">77</div>
+            <div class="info"><span>SET: 1068.17</span><span>VAL: 16985.34</span></div>
+        </div>
+        <div class="card highlight">
+            <div class="time">10:30 AM</div>
+            <div class="num">56</div>
+            <div class="info"><span>SET: 1201.34</span><span>VAL: 49791.01</span></div>
+        </div>
+        <div class="card">
+            <div class="time">12:30 PM</div>
+            <div class="num">04</div>
+            <div class="info"><span>SET: 1160.40</span><span>VAL: 11683.47</span></div>
+        </div>
+        <div class="card">
+            <div class="time">02:30 PM</div>
+            <div class="num">81</div>
+            <div class="info"><span>SET: 1122.69</span><span>VAL: 22716.00</span></div>
+        </div>
+    </div>
+</body>
+</html>
