@@ -3,59 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live - Gold Edition</title>
+    <title>Macau 2D Live</title>
     <style>
-        body { 
-            background: radial-gradient(circle, #2c0101, #000); 
-            color: #f1c40f; font-family: 'Segoe UI', sans-serif; 
-            display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 20px; min-height: 100vh;
-        }
-        .header { text-align: center; border-bottom: 2px solid #f1c40f; width: 100%; max-width: 500px; padding-bottom: 10px; }
-        
-        .main-ring {
-            width: 180px; height: 180px;
-            border: 6px double #f1c40f; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle, #333, #000);
-            box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
-            margin: 30px 0; font-size: 80px; font-weight: bold;
-        }
-
-        .grid { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 15px; width: 100%; max-width: 450px; 
-        }
-        .card { 
-            background: #1a1a1a; border: 1px solid #444; 
-            border-radius: 10px; padding: 15px; text-align: center;
-        }
-        .card.active { border: 2px solid #f1c40f; background: linear-gradient(to bottom, #3d3001, #1a1a1a); }
-        
-        .time { color: #f1c40f; font-size: 14px; font-weight: bold; margin-bottom: 5px; }
-        .num { font-size: 38px; font-weight: bold; color: #fff; }
-        .sub { display: flex; justify-content: space-between; font-size: 10px; color: #888; margin-top: 10px; border-top: 1px solid #333; pt: 5px; }
+        body { background-color: #0d0d0d; color: #f1c40f; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .main-ring { border: 6px double #f1c40f; border-radius: 50%; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; font-size: 70px; font-weight: bold; margin: 20px 0; box-shadow: 0 0 20px rgba(241, 196, 15, 0.5); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 450px; }
+        .card { background: #1a1a1a; border: 1px solid #444; border-radius: 10px; padding: 15px; text-align: center; }
+        .time { color: #f1c40f; font-size: 14px; font-weight: bold; }
+        .num { font-size: 36px; font-weight: bold; margin: 5px 0; color: #fff; }
     </style>
 </head>
 <body>
-    <div class="header"><h1>MACAU 2D LIVE</h1></div>
-
+    <h1>MACAU 2D LIVE</h1>
     <div class="main-ring" id="big-num">--</div>
-
     <div class="grid">
-        <div class="card"><div class="time">08:30 AM</div><div class="num">77</div><div class="sub"><span>SET: 1068.17</span><span>VAL: 16985.34</span></div></div>
-        <div class="card"><div class="time">10:30 AM</div><div class="num">56</div><div class="sub"><span>SET: 1201.34</span><span>VAL: 49791.01</span></div></div>
-        <div class="card"><div class="time">12:30 PM</div><div class="num">04</div><div class="sub"><span>SET: 1160.40</span><span>VAL: 11683.47</span></div></div>
-        <div class="card active"><div class="time">04:30 PM</div><div class="num" id="live-num">--</div><div class="sub"><span>SET: 1089.22</span><span>VAL: 74581.65</span></div></div>
+        <div class="card">
+            <div class="time">08:30 AM</div>
+            <div class="num">77</div>
+        </div>
+        <div class="card">
+            <div class="time">04:30 PM</div>
+            <div class="num" id="live-num">--</div>
+        </div>
     </div>
-
     <script>
         function update() {
             let n = Math.floor(Math.random() * 100).toString().padStart(2, '0');
             document.getElementById('big-num').innerText = n;
             document.getElementById('live-num').innerText = n;
         }
-        setInterval(update, 3000);
+        setInterval(update, 2000);
         update();
     </script>
 </body>
