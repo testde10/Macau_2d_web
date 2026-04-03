@@ -1,39 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live</title>
-    <style>
-        body { background-color: #0d0d0d; color: #f1c40f; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .main-ring { border: 6px double #f1c40f; border-radius: 50%; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; font-size: 70px; font-weight: bold; margin: 20px 0; box-shadow: 0 0 20px rgba(241, 196, 15, 0.5); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 450px; }
-        .card { background: #1a1a1a; border: 1px solid #444; border-radius: 10px; padding: 15px; text-align: center; }
-        .time { color: #f1c40f; font-size: 14px; font-weight: bold; }
-        .num { font-size: 36px; font-weight: bold; margin: 5px 0; color: #fff; }
-    </style>
-</head>
-<body>
-    <h1>MACAU 2D LIVE</h1>
-    <div class="main-ring" id="big-num">--</div>
-    <div class="grid">
-        <div class="card">
-            <div class="time">08:30 AM</div>
-            <div class="num">77</div>
+<div class="card">
+            <div class="time">07:00 PM</div>
+            <div class="num">--</div>
+            <div class="details"><span>SET: <b>--</b></span><span>VALUE: <b>--</b></span></div>
         </div>
         <div class="card">
-            <div class="time">04:30 PM</div>
-            <div class="num" id="live-num">--</div>
+            <div class="time">09:00 PM</div>
+            <div class="num">--</div>
+            <div class="details"><span>SET: <b>--</b></span><span>VALUE: <b>--</b></span></div>
         </div>
     </div>
+
     <script>
-        function update() {
+        function updateResult() {
             let n = Math.floor(Math.random() * 100).toString().padStart(2, '0');
             document.getElementById('big-num').innerText = n;
             document.getElementById('live-num').innerText = n;
+            
+            let now = new Date();
+            document.getElementById('current-date').innerText = now.toLocaleString();
         }
-        setInterval(update, 2000);
-        update();
+        
+        setInterval(updateResult, 2000);
+        updateResult();
     </script>
 </body>
 </html>
