@@ -1,0 +1,112 @@
+/* style.css */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: radial-gradient(circle, #1a0505 0%, #000000 100%);
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.badge {
+    background: #c29b40;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #000;
+}
+
+.main-result {
+    margin-top: 20px;
+}
+
+.circle-border {
+    width: 120px;
+    height: 120px;
+    border: 4px solid #c29b40;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: radial-gradient(circle, #4d3a12 0%, #000 70%);
+}
+
+.big-number {
+    font-size: 60px;
+    color: #f1d289;
+}
+
+.update-time {
+    font-size: 11px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 15px;
+}
+
+.result-card {
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #111;
+    text-align: center;
+    overflow: hidden;
+}
+
+.active {
+    border: 1px solid #f1d289;
+}
+
+.card-time {
+    background: #222;
+    padding: 5px;
+    font-size: 13px;
+    color: #f1d289;
+}
+
+.active .card-time {
+    background: #f1d289;
+    color: #000;
+}
+
+.card-number {
+    font-size: 30px;
+    padding: 10px;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    font-size: 10px;
+    color: #777;
+    border-top: 1px solid #222;
+}
+
+.card-details span {
+    color: #fff;
+    display: block;
+}
