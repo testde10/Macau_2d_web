@@ -185,37 +185,37 @@
         setInterval(runEngine, 1000);
         runEngine();
       function createFallingElements() {
-        const coinImages = [
+        const items = [
+            // အန်စာတုံး ၁ မှ ၆ (လှပသေသပ်သော SVG ပုံစံများ)
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="256" cy="256" r="45" fill="red"/></svg>', // ၁
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="160" cy="160" r="35" fill="black"/><circle cx="352" cy="352" r="35" fill="black"/></svg>', // ၂
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="150" cy="150" r="35" fill="black"/><circle cx="256" cy="256" r="35" fill="black"/><circle cx="362" cy="362" r="35" fill="black"/></svg>', // ၃
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="160" cy="160" r="35" fill="black"/><circle cx="352" cy="160" r="35" fill="black"/><circle cx="160" cy="352" r="35" fill="black"/><circle cx="352" cy="352" r="35" fill="black"/></svg>', // ၄
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="150" cy="150" r="35" fill="black"/><circle cx="362" cy="150" r="35" fill="black"/><circle cx="256" cy="256" r="35" fill="black"/><circle cx="150" cy="362" r="35" fill="black"/><circle cx="362" cy="362" r="35" fill="black"/></svg>', // ၅
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="160" cy="140" r="35" fill="black"/><circle cx="160" cy="256" r="35" fill="black"/><circle cx="160" cy="372" r="35" fill="black"/><circle cx="352" cy="140" r="35" fill="black"/><circle cx="352" cy="256" r="35" fill="black"/><circle cx="352" cy="372" r="35" fill="black"/></svg>', // ၆
+            // အကြွေစေ့ ၅ ရောင်
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%2328a745" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
         ];
-
-        const diceImages = [
-            'https://cdn-icons-png.flaticon.com/512/7510/7510632.png',
-            'https://cdn-icons-png.flaticon.com/512/7510/7510633.png',
-            'https://cdn-icons-png.flaticon.com/512/7510/7510634.png',
-            'https://cdn-icons-png.flaticon.com/512/7510/7510635.png',
-            'https://cdn-icons-png.flaticon.com/512/7510/7510636.png',
-            'https://cdn-icons-png.flaticon.com/512/7510/7510637.png'
-        ];
-
-        const allItems = [...coinImages, ...diceImages];
-
-        setInterval(() => {
+          setInterval(() => {
             const el = document.createElement('img');
-            el.src = allItems[Math.floor(Math.random() * allItems.length)];
+            el.src = items[Math.floor(Math.random() * items.length)];
             el.className = 'coin';
             el.style.left = Math.random() * 100 + "vw";
-            const sizes = ['15px', '25px', '35px'];
+            
+            // အကြီး အလတ် အသေး ၃ မျိုး
+            const sizes = ['18px', '28px', '38px'];
             el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
-            el.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
+            
+            el.style.animationDuration = (Math.random() * 5 + 5) + "s"; 
             el.style.opacity = Math.random() * 0.15 + 0.1;
+            
             document.body.appendChild(el);
             setTimeout(() => { el.remove(); }, 10000);
-        }, 1100);
+        }, 1200);
     }
     createFallingElements();
     </script>
