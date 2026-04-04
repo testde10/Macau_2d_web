@@ -71,24 +71,28 @@
             { id: "1900", h: 19, m: 0 }, { id: "2100", h: 21, m: 0 }
         ];
 
+        let currentRandomRes = "--";
+        let lastChangeTime = 0;
+
         function runEngine() {
             const now = new Date();
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
             const hh = mmTime.getHours();
             const mm = mmTime.getMinutes();
-            const currentTotal = (hh * 60) + mm;
+            const ss = mmTime.getSeconds();
+            const currentTotalMins = (hh * 60) + mm;
+            const currentSecs = (currentTotalMins * 60) + ss;
 
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
             let activeDrawIdx = -1;
 
-            // ၇:၁၅ ကျော်တာနဲ့ နောက်ပွဲအတွက် စတင်လည်မယ့် Logic
             for(let i=0; i < sessions.length; i++) {
                 const drawMins = (sessions[i].h * 60) + sessions[i].m;
                 const prevDrawMins = (i === 0) ? 0 : (sessions[i-1].h * 60);
                 const startRandomMins = (i === 0) ? 480 : prevDrawMins + 15;
                 
-                if (currentTotal >= startRandomMins && currentTotal < drawMins) {
+                if (currentTotalMins >= startRandomMins && currentTotalMins < drawMins) {
                     activeDrawIdx = i;
                     break;
                 }
@@ -96,7 +100,7 @@
 
             sessions.forEach(s => {
                 const drawMins = (s.h * 60) + s.m;
-                if (currentTotal >= drawMins) {
+                if (currentTotalMins >= drawMins) {
                     document.getElementById("res-" + s.id).innerText = resultsData[s.id].res;
                     document.getElementById("set-" + s.id).innerText = resultsData[s.id].set;
                     document.getElementById("val-" + s.id).innerText = resultsData[s.id].val;
@@ -107,29 +111,33 @@
                 }
             });
 
-            if (activeDrawIdx !== -1 && currentTotal >= 480) { 
-                const sNum = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-                const vNum = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
-                
-                // SET: ဒသမနောက်က နောက်ဆုံးဂဏန်း (5)
-                const sLast = sNum.slice(-1);
-                // VALUE: ဒသမအရှေ့က နောက်ဆုံးဂဏန်း (1)
-                const vLast = vNum.split('.')[0].slice(-1);
-                
-                document.getElementById("main-num").innerText = sLast + vLast;
-            } else {
+            if (activeDrawIdx !== -1 && currentTotalMins >= 480) { 
+                // ၆ စက္ကန့်ပြည့်မှ ဂဏန်းအသစ်ပြောင်းမည့် logic
+                if (currentSecs - lastChangeTime >= 6) {
+                    const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
+                    const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
+                    
+                    const sLast = sNum.slice(-1);
+                    const vLast = vNum.split('.')[0].slice(-1);
+                    currentRandomRes = sLast + vLast;
+                    
+                    lastChangeTime = currentSecs;
+                }
+                document.getElementById("main-num").innerText = currentRandomRes;
+                } else {
                 let lastSession = sessions[0].id;
                 for(let i = sessions.length - 1; i >= 0; i--) {
-                    if (currentTotal >= (sessions[i].h * 60)) {
+                    if (currentTotalMins >= (sessions[i].h * 60)) {
                         lastSession = sessions[i].id;
                         break;
                     }
                 }
-                if (currentTotal >= 1260 || currentTotal < 480) lastSession = "2100";
+                if (currentTotalMins >= 1260 || currentTotalMins < 480) lastSession = "2100";
                 document.getElementById("main-num").innerText = resultsData[lastSession].res;
             }
         }
-        setInterval(runEngine, 100);
+
+        setInterval(runEngine, 1000); // တစ်စက္ကန့်တစ်ခါစစ်ဆေးမယ်
         runEngine();
     </script>
 </body>
