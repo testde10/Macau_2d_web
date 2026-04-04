@@ -84,37 +84,47 @@
         </div>
     </div>
 <script>
-    <script>
+   <script>
     function update() {
-        // ၁။ SET နဲ့ VALUE ကို ကျပန်းဂဏန်းများ ထွက်လာအောင် လုပ်ခြင်း
-        let randomSet = (Math.random() * 2000).toFixed(2);   // ဥပမာ - 1567.89
-        let randomValue = (Math.random() * 80000).toFixed(2); // ဥပမာ - 45231.50
+        try {
+            // ၁။ SET နဲ့ VALUE ကို ကျပန်းဂဏန်းများ ထွက်လာအောင် လုပ်ခြင်း
+            let randomSet = (Math.random() * 2000 + 1000).toFixed(2);   
+            let randomValue = (Math.random() * 80000 + 10000).toFixed(2); 
 
-        // ၂။ SET ရဲ့ နောက်ဆုံးဂဏန်းကို ယူခြင်း (ဥပမာ - 1567 ရဲ့ 7)
-        let setMain = randomSet.split('.')[0]; 
-        let firstNum = setMain.slice(-1); 
+            // ၂။ SET ရဲ့ နောက်ဆုံးဂဏန်း (ထိပ်စီး)
+            let setMain = randomSet.split('.')[0]; 
+            let firstNum = setMain.slice(-1); 
 
-        // ၃။ VALUE ရဲ့ ဒသမရှေ့ဂဏန်းကို ယူခြင်း (ဥပမာ - 45231 ရဲ့ 1)
-        let valueMain = randomValue.split('.')[0];
-        let lastNum = valueMain.slice(-1);
+            // ၃။ VALUE ရဲ့ ဒသမရှေ့ဂဏန်း (နောက်ပိတ်)
+            let valueMain = randomValue.split('.')[0];
+            let lastNum = valueMain.slice(-1);
 
-        // ၄။ ၂လုံးတည်းဖြစ်အောင် ပေါင်းစပ်ခြင်း (71)
-        let result2D = firstNum + lastNum;
+            // ၄။ ၂လုံးဂဏန်း ပေါင်းစပ်ခြင်း
+            let result2D = firstNum + lastNum;
 
-        // ၅။ Website ပေါ်ရှိ နေရာအသီးသီးတွင် ပြသခြင်း
-        document.getElementById('big-num').innerText = result2D;
-        document.getElementById('live-num').innerText = result2D;
-        
-        // အောက်က SET နဲ့ VALUE စာသားလေးတွေကိုပါ အသစ်လဲပေးခြင်း
-        // (ဒီ ID တွေက HTML ထဲမှာ ရှိဖို့ လိုပါတယ်)
-        if(document.getElementById('set-display')) {
-            document.getElementById('set-display').innerText = randomSet;
+            // ၅။ Website ပေါ်မှာ ပြသခြင်း
+            // ဂဏန်းဝိုင်းကြီးနဲ့ Active ဖြစ်နေတဲ့ အကွက်ကို Update လုပ်ခြင်း
+            document.getElementById('big-num').innerText = result2D;
+            
+            let liveNumElem = document.getElementById('live-num');
+            if(liveNumElem) {
+                liveNumElem.innerText = result2D;
+                
+                // လက်ရှိ 05:00 PM အကွက်ထဲက SET နဲ့ VALUE ကိုပါ Update လုပ်ခြင်း
+                let card = liveNumElem.closest('.card');
+                if(card) {
+                    let details = card.querySelectorAll('b');
+                    if(details.length >= 2) {
+                        details[0].innerText = randomSet;
+                        details[1].innerText = randomValue;
+                    }
+                }
+            }
+
+            document.getElementById('clock').innerText = new Date().toLocaleString();
+        } catch (error) {
+            console.log("Update error: ", error);
         }
-        if(document.getElementById('val-display')) {
-            document.getElementById('val-display').innerText = randomValue;
-        }
-
-        document.getElementById('clock').innerText = new Date().toLocaleString();
     }
 
     // ၇ စက္ကန့်ခြား တစ်ခါ အသစ်လဲလှယ်ခြင်း
