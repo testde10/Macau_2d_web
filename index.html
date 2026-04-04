@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2D Live Digital Display</title>
+    <title>MACAU 2D</title>
     <link rel="stylesheet" href="style.css">
-</head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2D Live Digital Display</title>
 </head>
 <body>
 
-    <div id="main-display">
-        <div class="main-number" id="main-num">--</div>
-        <div class="current-info">
-            <span id="live-clock">00:00:00 AM</span>
+    <div class="app-header">
+        <div class="app-name">MACAU 2D</div>
+    </div>
+
+    <div id="main-display-container">
+        <div id="main-display">
+            <div class="main-number" id="main-num">--</div>
+        </div>
+        
+        <div class="update-bar">
+            <span class="update-icon">✔</span> 
+            Updated: <span id="live-clock">00:00:00 AM</span> (Macau Time)
         </div>
     </div>
 
     <div id="grid-container">
-        
         <div class="card" id="card-1000">
             <div class="time-label">10:00 AM</div>
             <div class="result-num" id="res-1000">--</div>
@@ -29,7 +32,6 @@
                 <span>VALUE: <small id="val-1000">--</small></span>
             </div>
         </div>
-
         <div class="card" id="card-1300">
             <div class="time-label">01:00 PM</div>
             <div class="result-num" id="res-1300">--</div>
@@ -38,7 +40,6 @@
                 <span>VALUE: <small id="val-1300">--</small></span>
             </div>
         </div>
-
         <div class="card" id="card-1500">
             <div class="time-label">03:00 PM</div>
             <div class="result-num" id="res-1500">--</div>
@@ -47,7 +48,6 @@
                 <span>VALUE: <small id="val-1500">--</small></span>
             </div>
         </div>
-
         <div class="card" id="card-1700">
             <div class="time-label">05:00 PM</div>
             <div class="result-num" id="res-1700">--</div>
@@ -56,7 +56,6 @@
                 <span>VALUE: <small id="val-1700">--</small></span>
             </div>
         </div>
-
         <div class="card" id="card-1900">
             <div class="time-label">07:00 PM</div>
             <div class="result-num" id="res-1900">--</div>
@@ -65,7 +64,6 @@
                 <span>VALUE: <small id="val-1900">--</small></span>
             </div>
         </div>
-
         <div class="card" id="card-2100">
             <div class="time-label">09:00 PM</div>
             <div class="result-num" id="res-2100">--</div>
@@ -74,7 +72,6 @@
                 <span>VALUE: <small id="val-2100">--</small></span>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -88,69 +85,33 @@
         ];
 
         function processLiveUpdate() {
-            // Get Myanmar Time
             const now = new Date();
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
             const hh = mmTime.getHours();
             const mm = mmTime.getMinutes();
             const totalMins = (hh * 60) + mm;
 
-            // Update Clock UI
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
             let activeSession = null;
             let isRunning = false;
 
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+
             for (let i = 0; i < schedule.length; i++) {
                 const drawTime = schedule[i];
                 const drawTotalMins = (drawTime.h * 60) + drawTime.m;
                 const startMins = (i === 0) ? (9 * 60) : (schedule[i-1].h * 60) + 15;
-
-                // Condition: Run between Start Time and Draw Time
-            if (totalMins >= startMins && totalMins < drawTotalMins) {
+                if (totalMins >= startMins && totalMins < (drawTotalMins + 15)) {
                     activeSession = drawTime.id;
-                    isRunning = true;
-                    break;
-                }
-                // Condition: Wait 15 mins after Draw Time
-                if (totalMins >= drawTotalMins && totalMins < (drawTotalMins + 15)) {
-                    activeSession = drawTime.id;
-                    isRunning = false; 
+                    isRunning = (totalMins < drawTotalMins);
+                    const activeCard = document.getElementById("card-" + activeSession);
+                    if (activeCard) activeCard.classList.add('active');
                     break;
                 }
             }
 
             if (activeSession && isRunning) {
-                // Generate Logic
                 const setVal = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
                 const valVal = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
-
-                const setDigit = setVal.toString().slice(-1);
-                const valPart = valVal.toString().split('.')[0];
-                const valDigit = valPart.slice(-1);
-                const final2D = setDigit + valDigit;
-
-                // Update UI
-                document.getElementById("main-num").innerText = final2D;
-                document.getElementById("res-" + activeSession).innerText = final2D;
-                document.getElementById("set-" + activeSession).innerText = setVal;
-                document.getElementById("val-" + activeSession).innerText = valVal;
-            }
-        }
-
-        // Cycle every 6 seconds
-        setInterval(processLiveUpdate, 6000);
-        processLiveUpdate();
-    </script>
-</body>
-</html>
-<div id="main-display-container">
-    <div id="main-display">
-        <div class="main-number" id="main-num">--</div>
-    </div>
-    
-    <div class="update-bar">
-        <span class="update-icon">↺</span> 
-        Updated: <span id="live-clock">00:00:00 AM</span> (Macau Time)
-    </div>
-</div>
+                const setDigit = setVal.
