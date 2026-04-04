@@ -1,48 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live - Background Only</title>
-    <style>
-        /* CSS Variables - အရောင်သတ်မှတ်ချက်များ */
-        :root {
-            --bg-deep-red: #3a0000; /* ဝိုင်နီရင့်ရင့် */
-            --bg-black: #000000;    /* အနက် */
-            --gold-bright: #f1c40f; /* တောက်ပသော ရွှေရောင် */
-            --gold-muted: #d4af37;  /* မှိန်သော ရွှေရောင် */
-            --gold-light: rgba(241, 196, 15, 0.2); /* ရွှေရောင်ဖျော့ဖျော့ */
-        }
+    <title>2D 3D Live Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        /* Full Background & Overlay Setup - နောက်ခံနှင့် အလွှာများ */
-        body { 
-            margin: 0; 
-            padding: 20px; 
-            min-height: 100vh;
-            background-color: var(--bg-black);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    <div class="container">
+        <header>
+            <div class="top-nav">
+                <span class="menu-icon">☰</span>
+                <div class="logo-area">
+                    <img src="logo.png" alt="Logo" class="main-logo">
+                </div>
+                <div class="right-icons">
+                    <span>📅</span>
+                    <span class="badge">2D 3D</span>
+                    <span>💬</span>
+                </div>
+            </div>
 
-        /* Layer 1: Base Gradient - အနီနှင့် အနက် နောက်ခံ */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at center, var(--bg-deep-red) 0%, var(--bg-black) 70%);
-            z-index: -2; /* အောက်ဆုံးအလွှာ */
-        }
+            <div class="main-result">
+                <div class="circle-border">
+                    <h1 class="big-number">29</h1>
+                </div>
+                <p class="update-time">Updated 2026-04-01 06:30 PM (Macau Time)</p>
+            </div>
+        </header>
 
-        /* Layer 2: Card Suits Pattern Overlay - ဖဲချပ်ပုံစံများ */
-        body::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            /* Card Suits pattern (Spades, Hearts, Clubs, Diamonds) */
-            /* This property allows creating complex repeated patterns with just CSS */
-            background-image: linear-gradient(30deg, #111 12%, transparent
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="card-time">08:30 AM</div>
+                <div class="card-number">77</div>
+                <div class="card-details">
+                    <div>SET<br><span>1068.17</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>16985.34</span></div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-time">10:30 AM</div>
+                <div class="card-number">56</div>
+                <div class="card-details">
+                    <div>SET<br><span>1201.34</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>49791.01</span></div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-time">12:30 PM</div>
+                <div class="card-number">04</div>
+                <div class="card-details">
+                    <div>SET<br><span>1160.40</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>11683.47</span></div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-time">02:30 PM</div>
+                <div class="card-number">81</div>
+                <div class="card-details">
+                    <div>SET<br><span>1122.69</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>22716.00</span></div>
+                </div>
+            </div>
+
+            <div class="result-card active">
+                <div class="card-time">04:30 PM</div>
+                <div class="card-number">29</div>
+                <div class="card-details">
+                    <div>SET<br><span>1089.22</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>74581.65</span></div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-time">06:30 PM</div>
+                <div class="card-number">--</div>
+                <div class="card-details">
+                    <div>SET<br><span>--</span></div>
+                    <div class="divider"></div>
+                    <div>VALUE<br><span>--</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
