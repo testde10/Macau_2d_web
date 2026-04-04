@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live - White Ring Theme</title>
+    <title>Macau 2D Live - Perfect Pattern</title>
     <style>
-        /* ၁။ နောက်ခံတွင် ဖဲချပ်ပုံစံများ */
+        /* ၁။ နောက်ခံတွင် ဖဲချပ်ပုံစံများကို တပုံစံထဲပေါ်အောင် ထည့်ခြင်း */
         body { 
             background-color: #1a0000;
             background-image: 
-                radial-gradient(circle at top, #4b0000 0%, #1a0000 70%, #000000 100%),
-                url('https://www.transparenttextures.com/patterns/playing-cards.png'); 
-            background-blend-mode: multiply;
+                /* အပေါ်မှ အမဲရောင် အုပ်ထားသည် (စာသားပေါ်ရန်) */
+                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                /* သင်ပြထားသည့်အတိုင်း Spade, Heart, Diamond, Club ပုံစံများ */
+                url('https://www.transparenttextures.com/patterns/poker.png'); 
             color: #f1d279; font-family: 'Segoe UI', Roboto, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             margin: 0; padding: 15px; min-height: 100vh;
         }
 
-        /* ၂။ ဂဏန်းထွက်သည့်အဝိုင်း (နောက်ခံ အဖြူရောင်သို့ ပြောင်းလဲထားသည်) */
+        /* ၂။ ဂဏန်းထွက်သည့်အဝိုင်း (Luxury) */
         .main-ring {
             width: 170px; height: 170px;
-            border: 5px solid #f1d279; border-radius: 50%;
+            border: 4px solid #f1d279; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            /* နောက်ခံအဖြူရောင်နှင့် Shadow ထည့်ခြင်း */
             background: #ffffff; 
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 15px rgba(0,0,0,0.2);
-            /* စာလုံးအရောင်ကို အနက်ရောင်သို့ ပြောင်းထားသည် */
-            font-size: 80px; font-weight: 900; color: #000000; 
+            box-shadow: 0 0 40px rgba(241, 210, 121, 0.4);
+            font-size: 85px; font-weight: bold; color: #000000; 
             margin: 20px auto;
-            position: relative;
         }
 
         /* ၃။ အကွက်များ (Cards) */
@@ -37,44 +35,44 @@
             gap: 12px; width: 100%; max-width: 480px; 
         }
         .card { 
-            background: rgba(15, 15, 15, 0.9); 
-            border: 1px solid #3d3111; border-radius: 8px; 
+            background: rgba(15, 10, 10, 0.95); 
+            border: 1px solid #4d3d11; border-radius: 10px; 
             padding: 15px; text-align: center; position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
 
-        /* L-Shape Corners */
+        /* L-Shape ထောင့်ဒီဇိုင်းများ */
         .card::before, .card::after { content: ''; position: absolute; width: 12px; height: 12px; }
         .card::before { bottom: 5px; left: 5px; border-left: 2px solid #f1d279; border-bottom: 2px solid #f1d279; }
         .card::after { bottom: 5px; right: 5px; border-right: 2px solid #f1d279; border-bottom: 2px solid #f1d279; }
 
-        .time { color: #f1d279; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
-        .num { font-size: 42px; font-weight: bold; color: #fff; margin: 5px 0; }
-        .details { display: flex; justify-content: space-between; font-size: 9px; color: #888; border-top: 1px solid #2a2211; padding-top: 8px; }
+        .time { color: #f1d279; font-size: 15px; font-weight: bold; margin-bottom: 8px; }
+        .num { font-size: 45px; font-weight: bold; color: #ffffff; margin: 5px 0; }
+        .details { display: flex; justify-content: space-between; font-size: 10px; color: #bbb; border-top: 1px solid #332211; padding-top: 8px; }
         b { color: #f1d279; }
         #clock { font-size: 12px; color: #aaa; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <h2 style="letter-spacing: 4px; text-shadow: 0 2px 4px #000;">MACAU 2D LIVE</h2>
+    <h2 style="letter-spacing: 5px; text-shadow: 2px 2px 4px #000;">MACAU 2D LIVE</h2>
     
     <div class="main-ring" id="big-num">--</div>
     <div id="clock">Loading...</div>
 
     <div class="grid">
-        <div class="card"><div class="time">11:00 AM</div><div class="num" id="num-0">--</div><div class="details"><span>SET: <b id="set-0">----.--</b></span><span>VAL: <b id="val-0">-----.--</b></span></div></div>
-        <div class="card"><div class="time">01:00 PM</div><div class="num" id="num-1">--</div><div class="details"><span>SET: <b id="set-1">----.--</b></span><span>VAL: <b id="val-1">-----.--</b></span></div></div>
-        <div class="card"><div class="time">03:00 PM</div><div class="num" id="num-2">--</div><div class="details"><span>SET: <b id="set-2">----.--</b></span><span>VAL: <b id="val-2">-----.--</b></span></div></div>
+        <div class="card"><div class="time">08:30 AM</div><div class="num" id="num-0">--</div><div class="details"><span>SET: <b id="set-0">--</b></span><span>VAL: <b id="val-0">--</b></span></div></div>
+        <div class="card"><div class="time">10:30 AM</div><div class="num" id="num-1">--</div><div class="details"><span>SET: <b id="set-1">--</b></span><span>VAL: <b id="val-1">--</b></span></div></div>
+        <div class="card"><div class="time">12:30 PM</div><div class="num" id="num-2">--</div><div class="details"><span>SET: <b id="set-2">--</b></span><span>VAL: <b id="val-2">--</b></span></div></div>
         
-        <div class="card" style="border: 2px solid #f1d279; background: rgba(30, 0, 0, 0.9);">
-            <div class="time">05:00 PM</div><div class="num" id="num-3">--</div>
-            <div class="details"><span>SET: <b id="set-3">----.--</b></span><span>VAL: <b id="val-3">-----.--</b></span></div>
+        <div class="card" style="border: 2px solid #fff;">
+            <div class="time">04:30 PM</div><div class="num" id="num-3">--</div>
+            <div class="details"><span>SET: <b id="set-3">--</b></span><span>VAL: <b id="val-3">--</b></span></div>
         </div>
-<div class="card"><div class="time">07:00 PM</div><div class="num" id="num-4">--</div><div class="details"><span>SET: <b id="set-4">----.--</b></span><span>VAL: <b id="val-4">-----.--</b></span></div></div>
-        <div class="card"><div class="time">09:00 PM</div><div class="num" id="num-5">--</div><div class="details"><span>SET: <b id="set-5">----.--</b></span><span>VAL: <b id="val-5">-----.--</b></span></div></div>
-    </div>
 
+        <div class="card"><div class="time">06:30 PM</div><div class="num" id="num-4">--</div><div class="details"><span>SET: <b id="set-4">--</b></span><span>VAL: <b id="val-4">--</b></span></div></div>
+        <div class="card"><div class="time">08:30 PM</div><div class="num" id="num-5">--</div><div class="details"><span>SET: <b id="set-5">--</b></span><span>VAL: <b id="val-5">--</b></span></div></div>
+    </div>
     <script>
         function updateClock() {
             const now = new Date();
@@ -85,7 +83,6 @@
             for (let i = 0; i < 6; i++) {
                 let randomSet = (Math.random() * 2000 + 1000).toFixed(2);
                 let randomValue = (Math.random() * 80000 + 10000).toFixed(2);
-
                 let firstNum = randomSet.split('.')[0].slice(-1); 
                 let lastNum = randomValue.split('.')[0].slice(-1);
                 let result2D = firstNum + lastNum;
@@ -99,7 +96,7 @@
         }
 
         setInterval(updateClock, 1000); 
-        setInterval(updateNumbers, 7000); // ၇ စက္ကန့်တစ်ခါ လည်မည်
+        setInterval(updateNumbers, 7000);
         updateClock(); updateNumbers();
     </script>
 </body>
