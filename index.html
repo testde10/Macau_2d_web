@@ -184,17 +184,21 @@
 
         setInterval(runEngine, 1000);
         runEngine();
-      function createFallingElements() {
+        function createFallingElements() {
         const items = [
-            // ၁။ တရုတ်ရွှေတုံး (Gold Yuanbao) - လှပသော SVG ပုံစံ
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 90c-60 0-110 30-150 70C70 190 56 230 56 270c0 100 90 190 200 190s200-90 200-190c0-40-14-80-50-110-40-40-90-70-150-70zm0 60c80 0 140 60 140 130 0 60-50 110-140 110s-140-50-140-110c0-70 60-130 140-130z" fill="%23FFD700" stroke="%23DAA520" stroke-width="15"/><circle cx="256" cy="270" r="50" fill="%23FFD700" stroke="%23DAA520" stroke-width="10"/></svg>',
+            // ၁။ တရုတ်ရွှေတုံး (Yuanbao) - အစ်ကိုပြတဲ့ပုံစံအတိုင်း ခုံးခုံးလေးဆွဲထားပါတယ်
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M50 200c0 0 50-60 206-60s206 60 206 60c0 80-80 180-206 180S50 280 50 200z" fill="%23FFD700" stroke="%23DAA520" stroke-width="10"/><path d="M150 200c0-60 50-100 106-100s106 40 106 100c0 30-40 50-106 50s-106-20-106-50z" fill="%23FFD700" stroke="%23DAA520" stroke-width="8"/><text x="50%" y="225%" font-family="Arial" font-size="40" fill="%23DAA520" text-anchor="middle" font-weight="bold">福</text></svg>',
+            
             // ၂။ တရုတ်ငွေတုံး (Silver Yuanbao)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 90c-60 0-110 30-150 70C70 190 56 230 56 270c0 100 90 190 200 190s200-90 200-190c0-40-14-80-50-110-40-40-90-70-150-70zm0 60c80 0 140 60 140 130 0 60-50 110-140 110s-140-50-140-110c0-70 60-130 140-130z" fill="%23C0C0C0" stroke="%23A9A9A9" stroke-width="15"/><circle cx="256" cy="270" r="50" fill="%23C0C0C0" stroke="%23A9A9A9" stroke-width="10"/></svg>',
-            // ၃။ ဒေါ်လာ (Dollar Note) - သေချာပေါက် ပုံပေါ်မည့် SVG
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M50 200c0 0 50-60 206-60s206 60 206 60c0 80-80 180-206 180S50 280 50 200z" fill="%23E0E0E0" stroke="%23A0A0A0" stroke-width="10"/><path d="M150 200c0-60 50-100 106-100s106 40 106 100c0 30-40 50-106 50s-106-20-106-50z" fill="%23E0E0E0" stroke="%23A0A0A0" stroke-width="8"/></svg>',
+            
+            // ၃။ ဒေါ်လာ (Dollar Note)
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="450" height="250" x="31" y="131" rx="20" fill="%2385bb65" stroke="%232e7d32" stroke-width="15"/><circle cx="256" cy="256" r="70" fill="none" stroke="%232e7d32" stroke-width="10"/><text x="50%" y="62%" font-family="Arial" font-size="150" fill="%232e7d32" text-anchor="middle" font-weight="bold">$</text></svg>',
+            
             // ၄။ အကြွေစေ့ (Gold Coin)
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // ၅= အန်စာတုံး (Dice 6)
+            
+            // ၅။ အန်စာတုံး (Dice 6)
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="160" cy="140" r="35" fill="black"/><circle cx="160" cy="256" r="35" fill="black"/><circle cx="160" cy="372" r="35" fill="black"/><circle cx="352" cy="140" r="35" fill="black"/><circle cx="352" cy="256" r="35" fill="black"/><circle cx="352" cy="372" r="35" fill="black"/></svg>'
         ];
 
@@ -204,21 +208,21 @@
             el.className = 'coin'; 
             el.style.left = Math.random() * 100 + "vw";
             
-            // အကြီး၊ အလတ်၊ အသေး ၃ မျိုး (အန်စာတုံးနဲ့ ရွှေတုံးတွေကို ပိုမြင်သာအောင် ဆိုဒ်နည်းနည်း တိုးထားပါတယ်)
+            // အကြီး အလတ် အသေး ၃ မျိုး
             const sizes = ['25px', '35px', '45px'];
             el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
             
-            // ကျလာတဲ့ အရှိန် (ကြဲကြဲလေးနဲ့ ငြိမ်ငြိမ်လေး ကျအောင်)
-            el.style.animationDuration = (Math.random() * 6 + 8) + "s"; 
+            // ကျလာတဲ့ အရှိန် (နှေးနှေးနဲ့ ကြဲကြဲလေး)
+            el.style.animationDuration = (Math.random() * 6 + 9) + "s"; 
             
-            // အမြင်မရှုပ်အောင် အရောင်ကို ဖျော့ထားပါတယ် (ဝဲနေရုံပဲ ထားပါတယ်)
-            el.style.opacity = Math.random() * 0.1 + 0.08;
+            // အရောင်ဖျော့နှုန်း (ဝဲနေရုံလေးပဲ ထားပါတယ်)
+            el.style.opacity = Math.random() * 0.12 + 0.08;
             
             document.body.appendChild(el);
-            setTimeout(() => { el.remove(); }, 14000);
-        }, 1800); // ၁.၈ စက္ကန့်မှ တစ်ခုကျအောင် ပိုကြဲပေးထားပါတယ်
+            setTimeout(() => { el.remove(); }, 15000);
+        }, 2000); // ၂ စက္ကန့်မှ တစ်ခုကျအောင် ပိုကြဲပေးထားပါတယ်
     }
     createFallingElements();
-    </script>
+          </script>
 </body>
 </html>
