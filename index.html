@@ -184,30 +184,34 @@
 
         setInterval(runEngine, 1000);
         runEngine();
-        function createCoins() {
-        // ၁။ အစ်ကိုတောင်းဆိုတဲ့ အရောင် ၅ မျိုး (SVG Code နဲ့)
+        function createFallingElements() {
         const coinImages = [
-            // ရွှေရောင် (Gold/Yellow)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // အနီရောင် (Red)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // အဖြူရောင် (White)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="%23ccc" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // အမဲရောင် (Black)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // အစိမ်းရောင် (Green)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%2328a745" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%2328a745" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
         ];
-
-        // ၂။ အကြီး/အလတ်/အသေး ၃ မျိုးအတွက် Size သတ်မှတ်ချက်
-        const sizes = [
-            '15px', // အသေး
-            '25px', // အလတ်
-            '35px'  // အကြီး
+        const diceImages = [
+            'https://cdn-icons-png.flaticon.com/512/7510/7510632.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510634.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510637.png'
         ];
-
+        const allItems = [...coinImages, ...diceImages];
         setInterval(() => {
-            const coin = document.createElement('img');
+            const el = document.createElement('img');
+            el.src = allItems[Math.floor(Math.random() * allItems.length)];
+            el.className = 'coin';
+            el.style.left = Math.random() * 100 + "vw";
+            const sizes = ['15px', '25px', '35px'];
+            el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
+            el.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
+            el.style.opacity = Math.random() * 0.15 + 0.1;
+            document.body.appendChild(el);
+            setTimeout(() => { el.remove(); }, 10000);
+        }, 1100);
+    }
+    createFallingElements();
             coin.src = coinImages[Math.floor(Math.random() * coinImages.length)];
             coin.className = 'coin';
             
