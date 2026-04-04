@@ -185,37 +185,38 @@
         setInterval(runEngine, 1000);
         runEngine();
       function createFallingElements() {
-        const items = [
-            // ၁။ အန်စာတုံး (Dice 1)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="40" fill="white" stroke="black" stroke-width="20"/><circle cx="256" cy="256" r="40" fill="red"/></svg>',
-            // ၂။ အန်စာတုံး (Dice 2)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="40" fill="white" stroke="black" stroke-width="20"/><circle cx="156" cy="156" r="35" fill="black"/><circle cx="356" cy="356" r="35" fill="black"/></svg>',
-            // ၃။ အန်စာတုံး (Dice 6)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="40" fill="white" stroke="black" stroke-width="20"/><circle cx="156" cy="136" r="30" fill="black"/><circle cx="156" cy="256" r="30" fill="black"/><circle cx="156" cy="376" r="30" fill="black"/><circle cx="356" cy="136" r="30" fill="black"/><circle cx="356" cy="256" r="30" fill="black"/><circle cx="356" cy="376" r="30" fill="black"/></svg>',
-            // ၄။ အကြွေစေ့ (Gold Coin)
+        const coinImages = [
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
-            // ၅။ အကြွေစေ့ (Red Coin)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%2328a745" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
         ];
+
+        const diceImages = [
+            'https://cdn-icons-png.flaticon.com/512/7510/7510632.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510633.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510634.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510635.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510636.png',
+            'https://cdn-icons-png.flaticon.com/512/7510/7510637.png'
+        ];
+
+        const allItems = [...coinImages, ...diceImages];
 
         setInterval(() => {
             const el = document.createElement('img');
-            el.src = items[Math.floor(Math.random() * items.length)];
+            el.src = allItems[Math.floor(Math.random() * allItems.length)];
             el.className = 'coin';
-            
             el.style.left = Math.random() * 100 + "vw";
-            
-            const sizes = ['20px', '30px', '40px'];
+            const sizes = ['15px', '25px', '35px'];
             el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
-            
             el.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
-            el.style.opacity = Math.random() * 0.2 + 0.1;
-            
+            el.style.opacity = Math.random() * 0.15 + 0.1;
             document.body.appendChild(el);
             setTimeout(() => { el.remove(); }, 10000);
-        }, 1000);
+        }, 1100);
     }
-
     createFallingElements();
     </script>
 </body>
