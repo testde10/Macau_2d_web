@@ -3,224 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live</title>
-    <style>
-        /* Background & Theme */
-        body { 
-            body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-    
-    /* --- Background Settings --- */
-    background-color: #1a0000; 
-    background-image: 
-        radial-gradient(circle at top, rgba(75, 0, 0, 0.6) 0%, rgba(26, 0, 0, 0.9) 75%, #000 100%),
-        url('https://www.transparenttextures.com/patterns/playing-cards.png');
-    background-blend-mode: multiply;
-    background-attachment: fixed; /* Screen ဆွဲတင်ရင် နောက်ခံက ငြိမ်နေဖို့ */
-    /* --------------------------- */
-    
-    color: #f1d279; /* စာသားအရောင်ကို ရွှေရောင်/ဝါကြန့်ကြန့် ထားခြင်း */
-}
-        }
-
-        /* Main Ring */
-        .ring-container {
-            width: 200px; height: 200px;
-            background: linear-gradient(135deg, #fce08b, #b78a28, #fce08b);
-            border-radius: 50%;
-            padding: 6px; 
-            margin: 10px auto 20px;
-            box-shadow: 0 0 40px rgba(216, 176, 86, 0.4);
-        }
-        .ring-inner {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, #5a0000, #150000); 
-            border: 4px solid #111;
-            display: flex; justify-content: center; align-items: center;
-            position: relative;
-        }
-        .ring-inner::before {
-            content: ''; position: absolute;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border-radius: 50%;
-            border: 2px solid rgba(216, 176, 86, 0.5);
-        }
-        #big-num {
-            font-size: 85px; font-weight: 900; 
-            background: linear-gradient(to bottom, #fffdea, #c99b3b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 5px rgba(0,0,0,1));
-            z-index: 2;
-        }
-
-        /* Updated Time Pill */
-        .updated-bar {
-            background: rgba(15, 10, 10, 0.9);
-            border: 1px solid #725721;
-            color: #d8b056; font-size: 11px;
-            padding: 6px 20px; border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        /* Grid System */
-        .grid { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 12px; width: 100%; max-width: 480px; 
-        }
-        .card { 
-            background: linear-gradient(to bottom, #25262a, #131418); 
-            border: 1px solid #8e7333; border-radius: 8px; 
-            display: flex; flex-direction: column; align-items: center;
-            position: relative; overflow: hidden;
-            padding-bottom: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-        }
-        .card::before {
-            content: ''; position: absolute;
-            top: 3px; left: 3px; right: 3px; bottom: 3px;
-            border: 1px solid rgba(216, 176, 86, 0.3);
-            border-radius: 5px; pointer-events: none;
-        }
-
-        /* Card Content */
-        .time-header {
-            color: #d8b056; font-size: 13px; font-weight: bold; 
-            width: 100%; text-align: center; padding: 10px 0;
-            border-bottom: 1px solid rgba(216, 176, 86, 0.2);
-            z-index: 1;
-        }
-        .num { font-size: 40px; font-weight: bold; color: #ffffff; margin: 10px 0 5px; text-shadow: 0 2px 5px #000; z-index: 1;}
-        
-        .details { 
-            display: flex; width: 90%; justify-content: space-between; align-items: flex-end; 
-            z-index: 1;
-        }
-        .stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
-        .stat span { font-size: 9px; color: #999; margin-bottom: 3px; }
-        .stat b { font-size: 12px; color: #eee; font-weight: normal; }
-        .divider { color: #d8b056; font-size: 16px; opacity: 0.5; margin: 0 5px; font-weight: 300; }
-            /* Highlighted 04:30 PM Card */
-        .active-card {
-            border-color: #ffd700;
-            box-shadow: 0 0 15px rgba(216, 176, 86, 0.3);
-        }
-        .active-card .time-header {
-            background: linear-gradient(to bottom, #fce08b, #a67c00);
-            color: #000; font-weight: 900;
-            border-bottom: none;
-        }
-    </style>
+    <title>2D Live Digital Display</title>
 </head>
 <body>
 
-    <div style="text-align: center; margin-bottom: 10px;">
-        <h2 style="margin:0; letter-spacing: 3px; color: #d8b056; text-shadow: 0 2px 5px #000;">MACAU 2D LIVE</h2>
-    </div>
-    
-    <div class="ring-container">
-        <div class="ring-inner">
-            <span id="big-num">--</span>
+    <div id="main-display">
+        <div class="main-number" id="main-num">--</div>
+        <div class="current-info">
+            <span id="live-clock">00:00:00 AM</span>
         </div>
-    </div>
-    
-    <div class="updated-bar">
-        🕒 Updated <span id="clock">Loading...</span> (Macau Time)
     </div>
 
-    <div class="grid">
-        <div class="card">
-            <div class="time-header">10:00 AM</div>
-            <div class="num" id="num-0">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-0">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-0">-----.--</b></div>
+    <div id="grid-container">
+        
+        <div class="card" id="card-1000">
+            <div class="time-label">10:00 AM</div>
+            <div class="result-num" id="res-1000">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-1000">--</small></span>
+                <span>VALUE: <small id="val-1000">--</small></span>
             </div>
         </div>
-        <div class="card">
-            <div class="time-header">01:00 AM</div>
-            <div class="num" id="num-1">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-1">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-1">-----.--</b></div>
+
+        <div class="card" id="card-1300">
+            <div class="time-label">01:00 PM</div>
+            <div class="result-num" id="res-1300">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-1300">--</small></span>
+                <span>VALUE: <small id="val-1300">--</small></span>
             </div>
         </div>
-        <div class="card">
-            <div class="time-header">03:00 PM</div>
-            <div class="num" id="num-2">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-2">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-2">-----.--</b></div>
+
+        <div class="card" id="card-1500">
+            <div class="time-label">03:00 PM</div>
+            <div class="result-num" id="res-1500">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-1500">--</small></span>
+                <span>VALUE: <small id="val-1500">--</small></span>
             </div>
         </div>
-        <div class="card">
-            <div class="time-header">05:00 PM</div>
-            <div class="num" id="num-3">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-3">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-3">-----.--</b></div>
+
+        <div class="card" id="card-1700">
+            <div class="time-label">05:00 PM</div>
+            <div class="result-num" id="res-1700">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-1700">--</small></span>
+                <span>VALUE: <small id="val-1700">--</small></span>
             </div>
         </div>
-        <div class="card active-card">
-            <div class="time-header">07:00 PM</div>
-            <div class="num" id="num-4">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-4">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-4">-----.--</b></div>
+
+        <div class="card" id="card-1900">
+            <div class="time-label">07:00 PM</div>
+            <div class="result-num" id="res-1900">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-1900">--</small></span>
+                <span>VALUE: <small id="val-1900">--</small></span>
             </div>
         </div>
-        <div class="card">
-            <div class="time-header">09:00 PM</div>
-            <div class="num" id="num-5">--</div>
-            <div class="details">
-                <div class="stat"><span>SET</span><b id="set-5">----.--</b></div>
-                <div class="divider">|</div>
-                <div class="stat"><span>VALUE</span><b id="val-5">-----.--</b></div>
+
+        <div class="card" id="card-2100">
+            <div class="time-label">09:00 PM</div>
+            <div class="result-num" id="res-2100">--</div>
+            <div class="data-row">
+                <span>SET: <small id="set-2100">--</small></span>
+                <span>VALUE: <small id="val-2100">--</small></span>
             </div>
         </div>
+
     </div>
 
     <script>
-        function updateClock() {
+        const schedule = [
+            { h: 10, m: 0, id: "1000" },
+            { h: 13, m: 0, id: "1300" },
+            { h: 15, m: 0, id: "1500" },
+            { h: 17, m: 0, id: "1700" },
+            { h: 19, m: 0, id: "1900" },
+            { h: 21, m: 0, id: "2100" }
+        ];
+
+        function processLiveUpdate() {
+            // Get Myanmar Time
             const now = new Date();
-            let dateStr = now.toISOString().split('T')[0];
-            let timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('clock').innerText = dateStr + " " + timeStr;
-        }
+            const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
+            const hh = mmTime.getHours();
+            const mm = mmTime.getMinutes();
+            const totalMins = (hh * 60) + mm;
 
-        function updateNumbers() {
-            for (let i = 0; i < 6; i++) {
-                let randomSet = (Math.random() * 2000 + 1000).toFixed(2);
-                let randomValue = (Math.random() * 80000 + 10000).toFixed(2);
+            // Update Clock UI
+            document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
-                let firstNum = randomSet.split('.')[0].slice(-1); 
-                let lastNum = randomValue.split('.')[0].slice(-1);
-                let result2D = firstNum + lastNum;
-                    document.getElementById(num-${i}).innerText = result2D;
-                document.getElementById(set-${i}).innerText = randomSet;
-                document.getElementById(val-${i}).innerText = randomValue;
+            let activeSession = null;
+            let isRunning = false;
 
-                // Index 4 is for 05:00 PM
-                if (i === 4) document.getElementById('big-num').innerText = result2D;
+            for (let i = 0; i < schedule.length; i++) {
+                const drawTime = schedule[i];
+                const drawTotalMins = (drawTime.h * 60) + drawTime.m;
+                const startMins = (i === 0) ? (9 * 60) : (schedule[i-1].h * 60) + 15;
+
+                // Condition: Run between Start Time and Draw Time
+            if (totalMins >= startMins && totalMins < drawTotalMins) {
+                    activeSession = drawTime.id;
+                    isRunning = true;
+                    break;
+                }
+                // Condition: Wait 15 mins after Draw Time
+                if (totalMins >= drawTotalMins && totalMins < (drawTotalMins + 15)) {
+                    activeSession = drawTime.id;
+                    isRunning = false; 
+                    break;
+                }
+            }
+
+            if (activeSession && isRunning) {
+                // Generate Logic
+                const setVal = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+                const valVal = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
+
+                const setDigit = setVal.toString().slice(-1);
+                const valPart = valVal.toString().split('.')[0];
+                const valDigit = valPart.slice(-1);
+                const final2D = setDigit + valDigit;
+
+                // Update UI
+                document.getElementById("main-num").innerText = final2D;
+                document.getElementById("res-" + activeSession).innerText = final2D;
+                document.getElementById("set-" + activeSession).innerText = setVal;
+                document.getElementById("val-" + activeSession).innerText = valVal;
             }
         }
 
-        setInterval(updateClock, 1000); 
-        setInterval(updateNumbers, 7000);
-        updateClock(); updateNumbers();
+        // Cycle every 6 seconds
+        setInterval(processLiveUpdate, 6000);
+        processLiveUpdate();
     </script>
 </body>
 </html>
