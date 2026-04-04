@@ -10,15 +10,9 @@
             color: #ffffff;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-
         .app-header { padding: 30px 10px 10px 10px; width: 100%; text-align: center; }
-
-        /* Premium Metallic Gold & White Title */
         .app-name {
             font-family: 'Times New Roman', serif;
             font-weight: 900; font-size: 48px;
@@ -27,8 +21,6 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 4px 5px rgba(0,0,0,1)); margin: 0;
         }
-
-        /* Glowing Main Circle */
         #main-display {
             width: 210px; height: 210px;
             background: radial-gradient(circle, #1a1a1a, #000);
@@ -37,55 +29,19 @@
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2);
             margin: 20px auto 15px auto;
         }
-
         .main-number { font-size: 110px; font-weight: bold; color: #d4af37; text-shadow: 3px 3px 10px #000; }
-
-        /* Pill-shaped Update Bar */
         .update-bar {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 8px 22px;
-            border-radius: 50px;
-            border: 1.5px solid #d4af37;
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.85); padding: 8px 22px; border-radius: 50px;
+            border: 1.5px solid #d4af37; font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 30px;
         }
-
-        /* 6 Cards Grid */
         #grid-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
             padding: 0 20px 30px 20px; width: 100%; max-width: 480px;
         }
-
-        .card {
-            background: #0d0d0d;
-            border: 1.2px solid #d4af37;
-            border-radius: 14px;
-            overflow: hidden;
-            text-align: center;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-        }
-
-        /* Golden Header for all sessions */
-        .time-label {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37);
-            color: #000 !important;
-            padding: 10px;
-            font-size: 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
+        .card { background: #0d0d0d; border: 1.2px solid #d4af37; border-radius: 14px; overflow: hidden; text-align: center; }
+        .time-label { background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37); color: #000 !important; padding: 10px; font-size: 15px; font-weight: 800; }
         .result-num { font-size: 46px; font-weight: 900; padding: 12px 0; color: #fff; }
-
-        .data-row {
-            display: flex; justify-content: space-around; padding: 10px;
-            font-size: 11px; color: #d4af37; border-top: 1px solid #222;
-            background: #050505;
-        }
-
+        .data-row { display: flex; justify-content: space-around; padding: 10px; font-size: 11px; color: #d4af37; border-top: 1px solid #222; background: #050505; }
         .data-row span { display: flex; flex-direction: column; gap: 3px; font-weight: bold; }
         .data-row small { color: #fff; font-size: 13px; font-weight: bold; }
     </style>
@@ -93,30 +49,26 @@
 <body>
 
     <div class="app-header"><div class="app-name">MACAU 2D</div></div>
-    
     <div id="main-display"><div class="main-number" id="main-num">--</div></div>
-    
     <div class="update-bar">Updated: <span id="live-clock">--:--:--</span></div>
 
     <div id="grid-container">
-        <div class="card" id="card-1000"><div class="time-label">10:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
-        <div class="card" id="card-1300"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
-        <div class="card" id="card-1500"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
-        <div class="card" id="card-1700"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
-        <div class="card" id="card-1900"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
-        <div class="card" id="card-2100"><div class="time-label">09:00 PM</div><div class="result-num" id="res-2100">--</div><div class="data-row"><span>SET<small id="set-2100">--</small></span><span>VALUE<small id="val-2100">--</small></span></div></div>
+        <div class="card"><div class="time-label">10:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
+        <div class="card"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
+        <div class="card"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
+        <div class="card"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
+<div class="card"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
+        <div class="card"><div class="time-label">09:00 PM</div><div class="result-num" id="res-2100">--</div><div class="data-row"><span>SET<small id="set-2100">--</small></span><span>VALUE<small id="val-2100">--</small></span></div></div>
     </div>
 
     <script>
-        // --- ADMIN CONTROL ---
-        // Put numbers to fix the result. Use "--" for random live.
         const resultsData = {
-            "1000": { res: "--", set: "--", val: "--" },
-            "1300": { res: "--", set: "--", val: "--" },
-            "1500": { res: "--", set: "--", val: "--" },
-            "1700": { res: "--", set: "--", val: "--" },
+            "1000": { res: "45", set: "1234.45", val: "54321.00" },
+            "1300": { res: "12", set: "1452.12", val: "34512.50" },
+            "1500": { res: "89", set: "1879.89", val: "48789.20" },
+            "1700": { res: "33", set: "1733.33", val: "47333.33" },
             "1900": { res: "16", set: "1925.16", val: "40516.88" },
-            "2100": { res: "--", set: "--", val: "--" }
+            "2100": { res: "07", set: "2107.07", val: "51007.07" }
         };
 
         const schedule = [
@@ -125,7 +77,7 @@
             { h: 19, m: 0, id: "1900" }, { h: 21, m: 0, id: "2100" }
         ];
 
-        function runLive() {
+        function runEngine() {
             const now = new Date();
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
             const hh = mmTime.getHours();
@@ -134,19 +86,28 @@
 
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
+            let activeSessionFound = false;
+
             schedule.forEach((draw, index) => {
                 const drawMins = (draw.h * 60) + draw.m;
-                const startMins = (index === 0) ? (9 * 60) : (schedule[index-1].h * 60) + 15;
+                const startRandomMins = drawMins - 45; 
+                const stopStaticMins = drawMins + 15;
                 const data = resultsData[draw.id];
 
-                if (data.res !== "--") {
+                // ၁။ ပွဲထွက်ပြီးသွားရင် (သို့) ၁၅ မိနစ်အတွင်းဖြစ်ရင် - အသေပြ
+                if (totalMins >= drawMins) {
                     document.getElementById("res-" + draw.id).innerText = data.res;
                     document.getElementById("set-" + draw.id).innerText = data.set;
                     document.getElementById("val-" + draw.id).innerText = data.val;
-                    if (totalMins >= startMins && totalMins < (drawMins + 15)) {
+                    
+                    // ည ၉:၀၀ ပွဲအတွက် ညလုံးပေါက်ပြထားမယ့် logic
+                    if (draw.id === "2100" || (totalMins >= drawMins && totalMins < stopStaticMins)) {
                         document.getElementById("main-num").innerText = data.res;
+                        activeSessionFound = true;
                     }
-                } else if (totalMins >= startMins && totalMins < drawMins) {
+                } 
+                // ၂။ ပွဲမထွက်ခင် ၄၅ မိနစ်အတွင်းဖြစ်ရင် (မနက် ၈:၀၀ နောက်ပိုင်းမှသာ အလုပ်လုပ်မည်)
+                else if (totalMins >= 480 && totalMins >= startRandomMins && totalMins < drawMins) {
                     const s = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
                     const v = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
                     const res = s.slice(-1) + v.split('.')[0].slice(-1);
@@ -154,11 +115,22 @@
                     document.getElementById("set-" + draw.id).innerText = s;
                     document.getElementById("val-" + draw.id).innerText = v;
                     document.getElementById("main-num").innerText = res;
+                    activeSessionFound = true;
                 }
             });
+
+            // ၃။ ည ၉:၀၀ နောက်ပိုင်းကနေ မနက် ၈:၀၀ မတိုင်ခင်အထိ ညပွဲဂဏန်းကိုပဲ အသေပြထားမယ်
+            if (!activeSessionFound && (totalMins >= 1260 || totalMins < 480)) {
+                document.getElementById("main-num").innerText = resultsData["2100"].res;
+            }
         }
-        setInterval(runLive, 2000);
-        runLive();
+
+        setInterval(runEngine, 100);
+        runEngine();
     </script>
 </body>
 </html>
+
+
+
+    
