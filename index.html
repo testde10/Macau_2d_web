@@ -1,17 +1,108 @@
-z-index: 1;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macau 2D Live</title>
+    <style>
+        /* Background & Theme */
+        body { 
+            background-color: #0a0000;
+            background-image: 
+                radial-gradient(circle at top center, rgba(120, 0, 0, 0.7) 0%, rgba(20, 0, 0, 0.95) 50%, #000 100%),
+                url('https://www.transparenttextures.com/patterns/poker.png'); 
+            background-blend-mode: multiply;
+            color: #d8b056; font-family: 'Segoe UI', Arial, sans-serif; 
+            display: flex; flex-direction: column; align-items: center; 
+            margin: 0; padding: 15px; min-height: 100vh;
+        }
+
+        /* Main Ring */
+        .ring-container {
+            width: 200px; height: 200px;
+            background: linear-gradient(135deg, #fce08b, #b78a28, #fce08b);
+            border-radius: 50%;
+            padding: 6px; 
+            margin: 10px auto 20px;
+            box-shadow: 0 0 40px rgba(216, 176, 86, 0.4);
+        }
+        .ring-inner {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #5a0000, #150000); 
+            border: 4px solid #111;
+            display: flex; justify-content: center; align-items: center;
+            position: relative;
+        }
+        .ring-inner::before {
+            content: ''; position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border-radius: 50%;
+            border: 2px solid rgba(216, 176, 86, 0.5);
+        }
+        #big-num {
+            font-size: 85px; font-weight: 900; 
+            background: linear-gradient(to bottom, #fffdea, #c99b3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 5px rgba(0,0,0,1));
+            z-index: 2;
+        }
+
+        /* Updated Time Pill */
+        .updated-bar {
+            background: rgba(15, 10, 10, 0.9);
+            border: 1px solid #725721;
+            color: #d8b056; font-size: 11px;
+            padding: 6px 20px; border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Grid System */
+        .grid { 
+            display: grid; grid-template-columns: 1fr 1fr; 
+            gap: 12px; width: 100%; max-width: 480px; 
+        }
+        .card { 
+            background: linear-gradient(to bottom, #25262a, #131418); 
+            border: 1px solid #8e7333; border-radius: 8px; 
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow: hidden;
+            padding-bottom: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+        .card::before {
+            content: ''; position: absolute;
+            top: 3px; left: 3px; right: 3px; bottom: 3px;
+            border: 1px solid rgba(216, 176, 86, 0.3);
+            border-radius: 5px; pointer-events: none;
+        }
+
+        /* Card Content */
+        .time-header {
+            color: #d8b056; font-size: 13px; font-weight: bold; 
+            width: 100%; text-align: center; padding: 10px 0;
+            border-bottom: 1px solid rgba(216, 176, 86, 0.2);
+            z-index: 1;
+        }
+        .num { font-size: 40px; font-weight: bold; color: #ffffff; margin: 10px 0 5px; text-shadow: 0 2px 5px #000; z-index: 1;}
+        
+        .details { 
+            display: flex; width: 90%; justify-content: space-between; align-items: flex-end; 
+            z-index: 1;
         }
         .stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
         .stat span { font-size: 9px; color: #999; margin-bottom: 3px; }
         .stat b { font-size: 12px; color: #eee; font-weight: normal; }
-        .divider { color: #d8b056; font-size: 16px; opacity: 0.5; margin: 0 5px; font-weight: light; }
-
-        /* ၄။ 04:30 PM (Active Card) ပုံထဲကအတိုင်း */
+        .divider { color: #d8b056; font-size: 16px; opacity: 0.5; margin: 0 5px; font-weight: 300; }
+            /* Highlighted 04:30 PM Card */
         .active-card {
             border-color: #ffd700;
             box-shadow: 0 0 15px rgba(216, 176, 86, 0.3);
         }
         .active-card .time-header {
-            background: linear-gradient(to bottom, #fce08b, #a67c00); /* ရွှေရောင်အပြည့် */
+            background: linear-gradient(to bottom, #fce08b, #a67c00);
             color: #000; font-weight: 900;
             border-bottom: none;
         }
@@ -35,7 +126,7 @@ z-index: 1;
 
     <div class="grid">
         <div class="card">
-            <div class="time-header">08:30 AM</div>
+            <div class="time-header">10:00 AM</div>
             <div class="num" id="num-0">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-0">----.--</b></div>
@@ -44,7 +135,7 @@ z-index: 1;
             </div>
         </div>
         <div class="card">
-            <div class="time-header">10:30 AM</div>
+            <div class="time-header">01:00 AM</div>
             <div class="num" id="num-1">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-1">----.--</b></div>
@@ -53,7 +144,7 @@ z-index: 1;
             </div>
         </div>
         <div class="card">
-            <div class="time-header">12:30 PM</div>
+            <div class="time-header">03:00 PM</div>
             <div class="num" id="num-2">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-2">----.--</b></div>
@@ -62,7 +153,7 @@ z-index: 1;
             </div>
         </div>
         <div class="card">
-            <div class="time-header">02:30 PM</div>
+            <div class="time-header">05:00 PM</div>
             <div class="num" id="num-3">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-3">----.--</b></div>
@@ -71,7 +162,7 @@ z-index: 1;
             </div>
         </div>
         <div class="card active-card">
-            <div class="time-header">04:30 PM</div>
+            <div class="time-header">07:00 PM</div>
             <div class="num" id="num-4">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-4">----.--</b></div>
@@ -80,7 +171,7 @@ z-index: 1;
             </div>
         </div>
         <div class="card">
-            <div class="time-header">06:30 PM</div>
+            <div class="time-header">09:00 PM</div>
             <div class="num" id="num-5">--</div>
             <div class="details">
                 <div class="stat"><span>SET</span><b id="set-5">----.--</b></div>
@@ -93,7 +184,6 @@ z-index: 1;
     <script>
         function updateClock() {
             const now = new Date();
-            // ပုံထဲက format အတိုင်း ပြရန်
             let dateStr = now.toISOString().split('T')[0];
             let timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             document.getElementById('clock').innerText = dateStr + " " + timeStr;
@@ -107,12 +197,11 @@ z-index: 1;
                 let firstNum = randomSet.split('.')[0].slice(-1); 
                 let lastNum = randomValue.split('.')[0].slice(-1);
                 let result2D = firstNum + lastNum;
-
-                document.getElementById(num-${i}).innerText = result2D;
+                    document.getElementById(num-${i}).innerText = result2D;
                 document.getElementById(set-${i}).innerText = randomSet;
                 document.getElementById(val-${i}).innerText = randomValue;
 
-                // 04:30 PM အကွက် (Index 4) ကို အပေါ်ဝိုင်းကြီးမှာ ပြရန်
+                // Index 4 is for 05:00 PM
                 if (i === 4) document.getElementById('big-num').innerText = result2D;
             }
         }
