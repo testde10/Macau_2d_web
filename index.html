@@ -57,12 +57,12 @@
 
     <script>
         const resultsData = {
-            "1000": { res: "51", set: "1432.45", val: "67401.00" },
-            "1300": { res: "23", set: "1367.02", val: "36513.50" },
-            "1500": { res: "99", set: "1860.79", val: "04309.20" },
-            "1700": { res: "60", set: "1733.86", val: "46830.83" },
-            "1900": { res: "74", set: "1925.17", val: "90514.88" },
-            "2100": { res: "86", set: "2107.08", val: "51006.07" }
+            "1000": { res: "51", set: "1234.45", val: "54321.02" },
+            "1300": { res: "08", set: "1452.40", val: "34518.50" },
+            "1500": { res: "29", set: "1879.92", val: "48789.47" },
+            "1700": { res: "83", set: "1733.78", val: "47333.69" },
+            "1900": { res: "64", set: "1925.06", val: "40514.91" },
+            "2100": { res: "97", set: "2107.39", val: "51007.83" }
         };
 
         const sessions = [
@@ -102,12 +102,10 @@
                 const valElem = document.getElementById("val-" + s.id);
 
                 if (currentTotalMins >= drawMins) {
-                    // ထွက်ပြီးသားပွဲများ
                     resElem.innerText = resultsData[s.id].res;
                     setElem.innerText = resultsData[s.id].set;
                     valElem.innerText = resultsData[s.id].val;
                 } else if (idx === activeIdx) {
-                    // လည်နေဆဲပွဲ (၆ စက္ကန့်တစ်ခါ ပြောင်းမည်)
                     if (currentSecs - lastChangeTime >= 6) {
                         const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                         const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
@@ -115,7 +113,11 @@
                             res: sNum.slice(-1) + vNum.split('.')[0].slice(-1),
                             set: sNum, val: vNum
                         };
+                        localStorage.setItem('current2D', JSON.stringify(currentRandom));
                         lastChangeTime = currentSecs;
+                    } else {
+                        const savedData = localStorage.getItem('current2D');
+                        if (savedData) currentRandom = JSON.parse(savedData);
                     }
                     resElem.innerText = currentRandom.res;
                     setElem.innerText = currentRandom.set;
@@ -125,7 +127,7 @@
                     resElem.innerText = "--"; setElem.innerText = "--"; valElem.innerText = "--";
                 }
             });
-        // ပွဲချိန်မဟုတ်ချိန်တွင် စက်ဝိုင်းထဲ၌ နောက်ဆုံးထွက်ဂဏန်းပြထားရန်
+
             if (activeIdx === -1) {
                 let lastId = "2100";
                 for(let i = sessions.length - 1; i >= 0; i--) {
