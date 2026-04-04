@@ -74,31 +74,40 @@
     </div>
 
     <script>
-        function update() {
-            try {
-                // SET နဲ့ VALUE ကို ကျပန်းထုတ်ခြင်း
-                let randomSet = (Math.random() * 2000 + 1000).toFixed(2);   
-                let randomValue = (Math.random() * 80000 + 10000).toFixed(2); 
+        <script>
+    // ၁။ နာရီကို စက္ကန့်အလိုက် အမြဲသွားနေစေမည့် Function
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleString(); // ရက်စွဲနှင့် အချိန်ကိုပြရန်
+        document.getElementById('clock').innerText = timeString;
+    }
 
-                // SET ရဲ့ နောက်ဆုံးဂဏန်း (ဥပမာ- 1234.56 ဆိုရင် 4)
-                let firstNum = randomSet.split('.')[0].slice(-1); 
+    // ၂။ ၂လုံးဂဏန်းနှင့် SET/VALUE များကို ၇ စက္ကန့်တစ်ခါ Update လုပ်မည့် Function
+    function updateNumbers() {
+        try {
+            let randomSet = (Math.random() * 2000 + 1000).toFixed(2);   
+            let randomValue = (Math.random() * 80000 + 10000).toFixed(2); 
 
-                // VALUE ရဲ့ ဒသမရှေ့ဂဏန်း (ဥပမာ- 56789.01 ဆိုရင် 9)
-                let lastNum = randomValue.split('.')[0].slice(-1);
-                let result2D = firstNum + lastNum;
+            let firstNum = randomSet.split('.')[0].slice(-1); 
+            let lastNum = randomValue.split('.')[0].slice(-1);
+            let result2D = firstNum + lastNum;
 
-                // Website ပေါ်မှာ ပြသခြင်း
-                document.getElementById('big-num').innerText = result2D;
-                document.getElementById('live-num').innerText = result2D;
-                document.getElementById('set-val').innerText = randomSet;
-                document.getElementById('val-val').innerText = randomValue;
-                document.getElementById('clock').innerText = new Date().toLocaleString();
-            } catch (e) { console.error(e); }
+            document.getElementById('big-num').innerText = result2D;
+            document.getElementById('live-num').innerText = result2D;
+            document.getElementById('set-val').innerText = randomSet;
+            document.getElementById('val-val').innerText = randomValue;
+        } catch (e) { 
+            console.error("Number update error:", e); 
         }
+    }
 
-        // ၇ စက္ကန့်တစ်ခါ လည်စေရန်
-        setInterval(update, 7000); 
-        update();
-    </script>
+    // ၃။ Function များကို သီးခြားစီ အချိန်သတ်မှတ်၍ Run ခြင်း
+    setInterval(updateClock, 1000);   // နာရီကို ၁ စက္ကန့် (1000ms) လျှင် တစ်ခါ Update လုပ်မည်
+    setInterval(updateNumbers, 7000); // ဂဏန်းများကို ၇ စက္ကန့် (7000ms) လျှင် တစ်ခါ Update လုပ်မည်
+
+    // Website စဖွင့်ချင်း တစ်ခါ Run ပေးခြင်း
+    updateClock();
+    updateNumbers();
+</script>
 </body>
 </html>
