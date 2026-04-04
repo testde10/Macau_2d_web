@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Macau 2D Live</title>
     <style>
+        /* ၁။ အပြင်အဆင်နှင့် နောက်ခံအရောင် */
         body { 
             background: radial-gradient(circle at top, #800000 0%, #2b0000 50%, #000000 100%); 
             color: #e4c666; font-family: 'Segoe UI', Arial, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             margin: 0; padding: 15px; min-height: 100vh;
         }
+
         .main-ring {
             width: 160px; height: 160px;
             border: 4px solid #e4c666; border-radius: 50%;
@@ -20,10 +22,13 @@
             font-size: 80px; font-weight: 900; color: #fff;
             margin: 20px auto;
         }
+
         .grid { 
             display: grid; grid-template-columns: 1fr 1fr; 
             gap: 12px; width: 100%; max-width: 480px; 
         }
+
+        /* ၂။ အချိန်ပြကွက် (Cards) ဒီဇိုင်း */
         .card { 
             background: rgba(20, 20, 20, 0.95); 
             border: 1px solid #3d3d3d; border-radius: 8px; 
@@ -31,21 +36,28 @@
             border-top: 3px solid #e4c666;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+
+        /* ထောင့်လေးများတွင် အလှဆင်ခြင်း */
         .card::after, .card::before {
             content: ''; position: absolute; bottom: 5px; width: 10px; height: 10px;
             border-bottom: 2px solid #e4c666;
         }
         .card::after { right: 5px; border-right: 2px solid #e4c666; }
         .card::before { left: 5px; border-left: 2px solid #e4c666; }
+
         .time { color: #e4c666; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
         .num { font-size: 40px; font-weight: bold; color: #fff; margin: 5px 0; }
         .details { display: flex; justify-content: space-between; font-size: 9px; color: #888; border-top: 1px solid #222; padding-top: 6px; }
+        
+        b { color: #fff; } /* SET/VALUE ဂဏန်းများကို အဖြူရောင်ပြရန် */
     </style>
 </head>
 <body>
+
     <h2 style="letter-spacing: 3px; margin-bottom: 5px;">MACAU 2D LIVE</h2>
+    
     <div class="main-ring" id="big-num">--</div>
-    <p style="font-size: 11px; color: #aaa;">Updated: <span id="clock"></span></p>
+    <p style="font-size: 11px; color: #aaa;">Updated: <span id="clock">Loading...</span></p>
 
     <div class="grid">
         <div class="card"><div class="time">11:00 AM</div><div class="num">77</div>
@@ -57,14 +69,16 @@
         <div class="card"><div class="time">03:00 PM</div><div class="num">04</div>
             <div class="details"><span>SET: 1160.40</span><span>VAL: 11683.47</span></div>
         </div>
+
         <div class="card" style="border: 2px solid #fff;">
             <div class="time">05:00 PM</div>
             <div class="num" id="live-num">--</div>
             <div class="details">
-                <span>SET: <b id="set-val">1089.22</b></span>
-                <span>VAL: <b id="val-val">74581.65</b></span>
+                <span>SET: <b id="set-val">----.--</b></span>
+                <span>VAL: <b id="val-val">-----.--</b></span>
             </div>
         </div>
+
         <div class="card"><div class="time">07:00 PM</div><div class="num">--</div>
             <div class="details"><span>SET: --</span><span>VAL: --</span></div>
         </div>
@@ -74,40 +88,48 @@
     </div>
 
     <script>
-        <script>
-    // ၁။ နာရီကို စက္ကန့်အလိုက် အမြဲသွားနေစေမည့် Function
-    function updateClock() {
-        const now = new Date();
-        const timeString = now.toLocaleString(); // ရက်စွဲနှင့် အချိန်ကိုပြရန်
-        document.getElementById('clock').innerText = timeString;
-    }
-
-    // ၂။ ၂လုံးဂဏန်းနှင့် SET/VALUE များကို ၇ စက္ကန့်တစ်ခါ Update လုပ်မည့် Function
-    function updateNumbers() {
-        try {
-            let randomSet = (Math.random() * 2000 + 1000).toFixed(2);   
-            let randomValue = (Math.random() * 80000 + 10000).toFixed(2); 
-
-            let firstNum = randomSet.split('.')[0].slice(-1); 
-            let lastNum = randomValue.split('.')[0].slice(-1);
-            let result2D = firstNum + lastNum;
-
-            document.getElementById('big-num').innerText = result2D;
-            document.getElementById('live-num').innerText = result2D;
-            document.getElementById('set-val').innerText = randomSet;
-            document.getElementById('val-val').innerText = randomValue;
-        } catch (e) { 
-            console.error("Number update error:", e); 
+       // ၁။ နာရီကို ၁ စက္ကန့်တစ်ခါ Update လုပ်ခြင်း
+        function updateClock() {
+            const now = new Date();
+            // မြန်မာစံတော်ချိန် ပုံစံဖြင့်ပြရန်
+            const options = { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const timeString = now.toLocaleTimeString('en-US', options);
+            const dateString = now.toLocaleDateString();
+            document.getElementById('clock').innerText = dateString + ", " + timeString;
         }
-    }
 
-    // ၃။ Function များကို သီးခြားစီ အချိန်သတ်မှတ်၍ Run ခြင်း
-    setInterval(updateClock, 1000);   // နာရီကို ၁ စက္ကန့် (1000ms) လျှင် တစ်ခါ Update လုပ်မည်
-    setInterval(updateNumbers, 7000); // ဂဏန်းများကို ၇ စက္ကန့် (7000ms) လျှင် တစ်ခါ Update လုပ်မည်
+        // ၂။ ၂လုံးဂဏန်းနှင့် SET/VALUE ကို ၇ စက္ကန့်တစ်ခါ Update လုပ်ခြင်း
+        function updateNumbers() {
+            try {
+                // SET နဲ့ VALUE ကို ကျပန်းထုတ်ယူခြင်း
+                let randomSet = (Math.random() * 2000 + 1000).toFixed(2);   
+                let randomValue = (Math.random() * 80000 + 10000).toFixed(2); 
 
-    // Website စဖွင့်ချင်း တစ်ခါ Run ပေးခြင်း
-    updateClock();
-    updateNumbers();
-</script>
+                // SET ရဲ့ နောက်ဆုံးဂဏန်း (ထိပ်စီး)
+                let firstNum = randomSet.split('.')[0].slice(-1); 
+
+                // VALUE ရဲ့ ဒသမရှေ့ဂဏန်း (နောက်ပိတ်)
+                let lastNum = randomValue.split('.')[0].slice(-1);
+
+                let result2D = firstNum + lastNum;
+
+                // Website ပေါ်တွင် အစားထိုးခြင်း
+                document.getElementById('big-num').innerText = result2D;
+                document.getElementById('live-num').innerText = result2D;
+                document.getElementById('set-val').innerText = randomSet;
+                document.getElementById('val-val').innerText = randomValue;
+            } catch (e) {
+                console.error("Update Error:", e);
+            }
+        }
+
+        // Function များကို သီးခြားစီ Run ခြင်း
+        setInterval(updateClock, 1000);   // နာရီအတွက် ၁ စက္ကန့်
+        setInterval(updateNumbers, 7000); // ဂဏန်းအတွက် ၇ စက္ကန့်
+
+        // စဖွင့်ချင်း တစ်ခါပြရန်
+        updateClock();
+        updateNumbers();
+    </script>
 </body>
 </html>
