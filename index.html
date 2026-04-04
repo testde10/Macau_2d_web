@@ -115,15 +115,29 @@
                         };
                         localStorage.setItem('current2D', JSON.stringify(currentRandom));
                         lastChangeTime = currentSecs;
-                    } else {
-                        const savedData = localStorage.getItem('current2D');
-                        if (savedData) currentRandom = JSON.parse(savedData);
-                    }
-                    resElem.innerText = currentRandom.res;
-                    setElem.innerText = currentRandom.set;
-                    valElem.innerText = currentRandom.val;
-                    document.getElementById("main-num").innerText = currentRandom.res;
+                } else if (idx === activeIdx) {
+                const savedData = localStorage.getItem('current2D');
+
+                if (currentSecs - lastChangeTime >= 6 || !savedData) {
+                    const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
+                    const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
+                    
+                    currentRandom = {
+                        res: sNum.slice(-1) + vNum.split('.')[0].slice(-1),
+                        set: sNum, 
+                        val: vNum
+                    };
+                    
+                    localStorage.setItem('current2D', JSON.stringify(currentRandom));
+                    lastChangeTime = currentSecs;
                 } else {
+                    currentRandom = JSON.parse(savedData);
+                }
+
+                resElem.innerText = currentRandom.res;
+                setElem.innerText = currentRandom.set;
+                valElem.innerText = currentRandom.val;
+                document.getElementById("main-num").innerText = currentRandom.res;
                     resElem.innerText = "--"; setElem.innerText = "--"; valElem.innerText = "--";
                 }
             });
