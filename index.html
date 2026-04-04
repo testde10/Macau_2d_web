@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MACAU 2D LIVE</title>
     <style>
-        /* CSS Settings */
         body {
             background: radial-gradient(circle, #4b0000 0%, #000 100%);
             color: #ffffff;
@@ -17,194 +16,100 @@
             min-height: 100vh;
         }
 
-        .app-header {
-            padding: 30px 10px 10px 10px;
-            width: 100%;
-            text-align: center;
-        }
+        .app-header { padding: 30px 10px 10px 10px; width: 100%; text-align: center; }
 
-        /* Gold & White Metallic Title */
+        /* Premium Metallic Gold & White Title */
         .app-name {
             font-family: 'Times New Roman', serif;
-            font-weight: 900;
-            font-size: 45px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            background: linear-gradient(
-                to bottom, 
-                #ffffff 0%,    
-                #fcf6ba 25%,   
-                #bf953f 50%,   
-                #8a6e2f 75%,   
-                #bf953f 100%
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.9));
-            margin: 0;
-            display: inline-block;
+            font-weight: 900; font-size: 48px;
+            text-transform: uppercase; letter-spacing: 4px;
+            background: linear-gradient(to bottom, #ffffff 0%, #fcf6ba 20%, #bf953f 45%, #8a6e2f 70%, #ffffff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 5px rgba(0,0,0,1)); margin: 0;
         }
 
-        /* Main Display Circle */
+        /* Glowing Main Circle */
         #main-display {
-            width: 220px;
-            height: 220px;
-            background: radial-gradient(circle, #222, #000);
-            border: 6px solid #d4af37;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
-            margin: 25px auto;
+            width: 210px; height: 210px;
+            background: radial-gradient(circle, #1a1a1a, #000);
+            border: 5px solid #d4af37; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2);
+            margin: 20px auto 15px auto;
         }
 
-        .main-number {
-            font-size: 100px;
-            font-weight: bold;
-            color: #d4af37;
-            text-shadow: 2px 2px 15px #000;
-        }
+        .main-number { font-size: 110px; font-weight: bold; color: #d4af37; text-shadow: 3px 3px 10px #000; }
 
-        /* Clock Bar */
+        /* Pill-shaped Update Bar */
         .update-bar {
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 25px;
-            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 8px 22px;
+            border-radius: 50px;
             border: 1.5px solid #d4af37;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            color: #ffffff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            margin-bottom: 30px;
         }
 
         /* 6 Cards Grid */
         #grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+            padding: 0 20px 30px 20px; width: 100%; max-width: 480px;
         }
 
         .card {
-            background: #111;
-            border: 1.5px solid #d4af37;
-            border-radius: 15px;
+            background: #0d0d0d;
+            border: 1.2px solid #d4af37;
+            border-radius: 14px;
             overflow: hidden;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
         }
 
-        /* Gold Header for all cards */
+        /* Golden Header for all sessions */
         .time-label {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37);
             color: #000 !important;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
-
-        
-        .result-num {
-            font-size: 45px;
-            font-weight: bold;
-            padding: 15px 0;
-            color: #ffffff;
-        }
+        .result-num { font-size: 46px; font-weight: 900; padding: 12px 0; color: #fff; }
 
         .data-row {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px;
-            font-size: 12px;
-            color: #d4af37;
-            border-top: 1px solid #222;
-            background: #0a0a0a;
+            display: flex; justify-content: space-around; padding: 10px;
+            font-size: 11px; color: #d4af37; border-top: 1px solid #222;
+            background: #050505;
         }
 
-        .data-row span {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .data-row small {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: bold;
-        }
+        .data-row span { display: flex; flex-direction: column; gap: 3px; font-weight: bold; }
+        .data-row small { color: #fff; font-size: 13px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="app-header">
-        <div class="app-name">MACAU 2D</div>
-    </div>
+    <div class="app-header"><div class="app-name">MACAU 2D</div></div>
+    
+    <div id="main-display"><div class="main-number" id="main-num">--</div></div>
+    
+    <div class="update-bar">Updated: <span id="live-clock">--:--:--</span></div>
 
-    <div id="main-display">
-        <div class="main-number" id="main-num">--</div>
-    </div>
-
-    <div class="update-bar">
-        Updated: <span id="live-clock">00:00:00 AM</span>
-    </div>
     <div id="grid-container">
-        <div class="card" id="card-1000">
-            <div class="time-label">10:00 AM</div>
-            <div class="result-num" id="res-1000">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-1000">--</small></span>
-                <span>VALUE<small id="val-1000">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1300">
-            <div class="time-label">01:00 PM</div>
-            <div class="result-num" id="res-1300">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-1300">--</small></span>
-                <span>VALUE<small id="val-1300">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1500">
-            <div class="time-label">03:00 PM</div>
-            <div class="result-num" id="res-1500">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-1500">--</small></span>
-                <span>VALUE<small id="val-1500">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1700">
-            <div class="time-label">05:00 PM</div>
-            <div class="result-num" id="res-1700">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-1700">--</small></span>
-                <span>VALUE<small id="val-1700">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1900">
-            <div class="time-label">07:00 PM</div>
-            <div class="result-num" id="res-1900">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-1900">--</small></span>
-                <span>VALUE<small id="val-1900">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-2100">
-            <div class="time-label">09:00 PM</div>
-            <div class="result-num" id="res-2100">--</div>
-            <div class="data-row">
-                <span>SET<small id="set-2100">--</small></span>
-                <span>VALUE<small id="val-2100">--</small></span>
-            </div>
-        </div>
+        <div class="card" id="card-1000"><div class="time-label">10:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
+        <div class="card" id="card-1300"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
+        <div class="card" id="card-1500"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
+        <div class="card" id="card-1700"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
+        <div class="card" id="card-1900"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
+        <div class="card" id="card-2100"><div class="time-label">09:00 PM</div><div class="result-num" id="res-2100">--</div><div class="data-row"><span>SET<small id="set-2100">--</small></span><span>VALUE<small id="val-2100">--</small></span></div></div>
     </div>
 
     <script>
-        // --- CONTROL PANEL (Edit results here) ---
+        // --- ADMIN CONTROL ---
+        // Put numbers to fix the result. Use "--" for random live.
         const resultsData = {
             "1000": { res: "--", set: "--", val: "--" },
             "1300": { res: "--", set: "--", val: "--" },
@@ -214,27 +119,46 @@
             "2100": { res: "--", set: "--", val: "--" }
         };
 
-        function updateDisplay() {
+        const schedule = [
+            { h: 10, m: 0, id: "1000" }, { h: 13, m: 0, id: "1300" },
+            { h: 15, m: 0, id: "1500" }, { h: 17, m: 0, id: "1700" },
+            { h: 19, m: 0, id: "1900" }, { h: 21, m: 0, id: "2100" }
+        ];
+
+        function runLive() {
             const now = new Date();
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
-            document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { 
-                hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true 
-            });
+            const hh = mmTime.getHours();
+            const mm = mmTime.getMinutes();
+            const totalMins = (hh * 60) + mm;
 
-            Object.keys(resultsData).forEach(id => {
-                const data = resultsData[id];
-                document.getElementById("res-" + id).innerText = data.res;
-                document.getElementById("set-" + id).innerText = data.set;
-                document.getElementById("val-" + id).innerText = data.val;
-                
-                // Example: Show 7:00 PM result in main circle
-                if(id === "1900" && data.res !== "--") {
-                    document.getElementById("main-num").innerText = data.res;
+            document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+
+            schedule.forEach((draw, index) => {
+                const drawMins = (draw.h * 60) + draw.m;
+                const startMins = (index === 0) ? (9 * 60) : (schedule[index-1].h * 60) + 15;
+                const data = resultsData[draw.id];
+
+                if (data.res !== "--") {
+                    document.getElementById("res-" + draw.id).innerText = data.res;
+                    document.getElementById("set-" + draw.id).innerText = data.set;
+                    document.getElementById("val-" + draw.id).innerText = data.val;
+                    if (totalMins >= startMins && totalMins < (drawMins + 15)) {
+                        document.getElementById("main-num").innerText = data.res;
+                    }
+                } else if (totalMins >= startMins && totalMins < drawMins) {
+                    const s = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+                    const v = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
+                    const res = s.slice(-1) + v.split('.')[0].slice(-1);
+                    document.getElementById("res-" + draw.id).innerText = res;
+                    document.getElementById("set-" + draw.id).innerText = s;
+                    document.getElementById("val-" + draw.id).innerText = v;
+                    document.getElementById("main-num").innerText = res;
                 }
             });
         }
-        updateDisplay();
-        setInterval(updateDisplay, 1000);
+        setInterval(runLive, 2000);
+        runLive();
     </script>
 </body>
 </html>
