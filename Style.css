@@ -1,112 +1,115 @@
-/* style.css */
+/* Overall Page Style */
 body {
-    background-color: #000;
-    color: #fff;
-    font-family: sans-serif;
+    background: radial-gradient(circle, #4b0000 0%, #000000 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     display: flex;
-    justify-content: center;
-}
-
-.container {
-    width: 100%;
-    max-width: 500px;
-    background: radial-gradient(circle, #1a0505 0%, #000000 100%);
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
 }
 
-header {
+/* App Header & Name */
+.app-header {
+    width: 100%;
     text-align: center;
-    padding: 20px;
+    padding: 20px 0;
+    border-bottom: 2px solid #d4af37;
+    margin-bottom: 20px;
 }
 
-.top-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
+.app-name {
+    color: #d4af37; /* Gold Color */
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px #000;
 }
 
-.badge {
-    background: #c29b40;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #000;
-}
-
-.main-result {
+/* Main Display Circle */
+#main-display {
     margin-top: 20px;
-}
-
-.circle-border {
-    width: 120px;
-    height: 120px;
-    border: 4px solid #c29b40;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #610000, #000);
+    border: 6px double #d4af37;
     border-radius: 50%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
-    background: radial-gradient(circle, #4d3a12 0%, #000 70%);
+    align-items: center;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-.big-number {
+.main-number {
     font-size: 60px;
-    color: #f1d289;
+    font-weight: bold;
+    color: #d4af37;
 }
 
-.update-time {
-    font-size: 11px;
-    color: #888;
+#live-clock {
+    color: #d4af37;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 15px;
+    border-radius: 20px;
     margin-top: 10px;
+    border: 1px solid #d4af37;
 }
 
-.results-grid {
+/* Grid for 6 Sessions */
+#grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 15px;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+    gap: 15px;
+    padding: 20px;
+    width: 95%;
+    max-width: 500px;
 }
 
-.result-card {
-    border: 1px solid #333;
-    border-radius: 8px;
-    background: #111;
+/* Card Styling */
+.card {
+    background: linear-gradient(180deg, #2c2c2c 0%, #000000 100%);
+    border: 1px solid #d4af37;
+    border-radius: 12px;
+    padding: 15px;
     text-align: center;
+    position: relative;
     overflow: hidden;
 }
 
-.active {
-    border: 1px solid #f1d289;
+/* Highlight for Active Session */
+.card.active {
+    background: linear-gradient(180deg, #d4af37 0%, #000000 100%);
 }
 
-.card-time {
-    background: #222;
-    padding: 5px;
-    font-size: 13px;
-    color: #f1d289;
+.time-label {
+    color: #d4af37;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-.active .card-time {
-    background: #f1d289;
-    color: #000;
+.result-num {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffffff;
 }
 
-.card-number {
-    font-size: 30px;
-    padding: 10px;
-}
-
-.card-details {
+.data-row {
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    font-size: 10px;
-    color: #777;
-    border-top: 1px solid #222;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #d4af37;
+    margin-top: 10px;
 }
 
-.card-details span {
-    color: #fff;
-    display: block;
+.data-row small {
+    color: #ffffff;
+    font-weight: bold;
 }
