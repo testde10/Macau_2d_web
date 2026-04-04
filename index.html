@@ -184,7 +184,7 @@
 
         setInterval(runEngine, 1000);
         runEngine();
-        function createFallingElements() {
+      function createFallingElements() {
         const coinImages = [
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
@@ -206,44 +206,15 @@
             el.src = allItems[Math.floor(Math.random() * allItems.length)];
             el.className = 'coin';
             el.style.left = Math.random() * 100 + "vw";
-            
             const sizes = ['15px', '25px', '35px'];
             el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
-            
             el.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
             el.style.opacity = Math.random() * 0.15 + 0.1;
-            
             document.body.appendChild(el);
             setTimeout(() => { el.remove(); }, 10000);
         }, 1100);
-    } // ဒီတွန့်ကွင်းက function ကို ပိတ်တာပါ
-
-    createFallingElements(); // ဒီစာသားက စက်ကို နှိုးလိုက်တာပါ
-    // စက်လည်ပတ်ဖို့အတွက် Function ကို ခေါ်လိုက်ပါပြီ
-    createFallingElements();
     }
     createFallingElements();
-            coin.src = coinImages[Math.floor(Math.random() * coinImages.length)];
-            coin.className = 'coin';
-            
-            // ၃။ နေရာကို Random ချခြင်း
-            coin.style.left = Math.random() * 100 + "vw";
-            
-            // ၄။ အရွယ်အစားကို Random ရွေးချယ်ခြင်း (အကြီး၊ အလတ်၊ အသေး)
-            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-            coin.style.width = randomSize;
-
-            // ၅။ အမြန်နှုန်းကို Random လုပ်ခြင်း
-            coin.style.animationDuration = (Math.random() * 5 + 5) + "s"; 
-            
-            // ၆။ ကြည့်ရမရှုပ်အောင် အရောင်ကို အတော်လေးဖျော့ထားခြင်း (0.1 မှ 0.3 ကြား)
-            coin.style.opacity = Math.random() * 0.2 + 0.1;
-
-            document.body.appendChild(coin);
-            setTimeout(() => { coin.remove(); }, 10000);
-        }, 1200); // ကျလာမယ့်နှုန်း
-    }
-    createCoins();
     </script>
 </body>
 </html>
