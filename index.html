@@ -55,6 +55,57 @@
             color: #888; border-top: 1px solid #222; padding-top: 6px; 
         }
     </style>
+    /* ဂဏန်းအကွက်များ (Time Cards) ဒီဇိုင်း */
+.card { 
+    background: rgba(20, 20, 20, 0.95); /* အမှောင်ရောင် နောက်ခံ */
+    border: 1px solid #3d3d3d; /* ပတ်ပတ်လည် ဘောင်အပါး */
+    border-radius: 8px; /* ထောင့်များကို အနည်းငယ် ဝိုင်းခြင်း */
+    padding: 15px; 
+    text-align: center; 
+    position: relative; /* အလှဆင်ပစ္စည်းများ တပ်ရန် */
+    border-top: 3px solid #e4c666; /* အပေါ်ဘောင်ကို ရွှေရောင် ပိုထူပေးခြင်း */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* အကွက်လေးများ ကြွတက်နေစေရန် */
+}
+
+/* ထောင့်လေးများတွင် ရွှေရောင် ဒီဇိုင်းလိုင်းလေးများ ထည့်ခြင်း */
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-right: 2px solid #e4c666;
+    border-bottom: 2px solid #e4c666;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    border-left: 2px solid #e4c666;
+    border-bottom: 2px solid #e4c666;
+}
+
+/* အချိန်ပြ စာသားဒီဇိုင်း */
+.time { 
+    color: #e4c666; 
+    font-size: 14px; 
+    font-weight: bold; 
+    margin-bottom: 8px;
+}
+
+/* ထွက်ဂဏန်း ဒီဇိုင်း */
+.num { 
+    font-size: 40px; 
+    font-weight: bold; 
+    color: #ffffff; 
+    margin: 5px 0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
 </head>
 <body>
 
