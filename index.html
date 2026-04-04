@@ -1,88 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live - Perfect Pattern</title>
-    <style>
-        /* ၁။ နောက်ခံတွင် ဖဲချပ်ပုံစံများကို တပုံစံထဲပေါ်အောင် ထည့်ခြင်း */
-        body { 
-            background-color: #1a0000;
-            background-image: 
-                /* အပေါ်မှ အမဲရောင် အုပ်ထားသည် (စာသားပေါ်ရန်) */
-                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                /* သင်ပြထားသည့်အတိုင်း Spade, Heart, Diamond, Club ပုံစံများ */
-                url('https://www.transparenttextures.com/patterns/poker.png'); 
-            color: #f1d279; font-family: 'Segoe UI', Roboto, sans-serif; 
-            display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 15px; min-height: 100vh;
+z-index: 1;
         }
+        .stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
+        .stat span { font-size: 9px; color: #999; margin-bottom: 3px; }
+        .stat b { font-size: 12px; color: #eee; font-weight: normal; }
+        .divider { color: #d8b056; font-size: 16px; opacity: 0.5; margin: 0 5px; font-weight: light; }
 
-        /* ၂။ ဂဏန်းထွက်သည့်အဝိုင်း (Luxury) */
-        .main-ring {
-            width: 170px; height: 170px;
-            border: 4px solid #f1d279; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            background: #ffffff; 
-            box-shadow: 0 0 40px rgba(241, 210, 121, 0.4);
-            font-size: 85px; font-weight: bold; color: #000000; 
-            margin: 20px auto;
+        /* ၄။ 04:30 PM (Active Card) ပုံထဲကအတိုင်း */
+        .active-card {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(216, 176, 86, 0.3);
         }
-
-        /* ၃။ အကွက်များ (Cards) */
-        .grid { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 12px; width: 100%; max-width: 480px; 
+        .active-card .time-header {
+            background: linear-gradient(to bottom, #fce08b, #a67c00); /* ရွှေရောင်အပြည့် */
+            color: #000; font-weight: 900;
+            border-bottom: none;
         }
-        .card { 
-            background: rgba(15, 10, 10, 0.95); 
-            border: 1px solid #4d3d11; border-radius: 10px; 
-            padding: 15px; text-align: center; position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-        }
-
-        /* L-Shape ထောင့်ဒီဇိုင်းများ */
-        .card::before, .card::after { content: ''; position: absolute; width: 12px; height: 12px; }
-        .card::before { bottom: 5px; left: 5px; border-left: 2px solid #f1d279; border-bottom: 2px solid #f1d279; }
-        .card::after { bottom: 5px; right: 5px; border-right: 2px solid #f1d279; border-bottom: 2px solid #f1d279; }
-
-        .time { color: #f1d279; font-size: 15px; font-weight: bold; margin-bottom: 8px; }
-        .num { font-size: 45px; font-weight: bold; color: #ffffff; margin: 5px 0; }
-        .details { display: flex; justify-content: space-between; font-size: 10px; color: #bbb; border-top: 1px solid #332211; padding-top: 8px; }
-        b { color: #f1d279; }
-        #clock { font-size: 12px; color: #aaa; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <h2 style="letter-spacing: 5px; text-shadow: 2px 2px 4px #000;">MACAU 2D LIVE</h2>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <h2 style="margin:0; letter-spacing: 3px; color: #d8b056; text-shadow: 0 2px 5px #000;">MACAU 2D LIVE</h2>
+    </div>
     
-    <div class="main-ring" id="big-num">--</div>
-    <div id="clock">Loading...</div>
+    <div class="ring-container">
+        <div class="ring-inner">
+            <span id="big-num">--</span>
+        </div>
+    </div>
+    
+    <div class="updated-bar">
+        🕒 Updated <span id="clock">Loading...</span> (Macau Time)
+    </div>
 
     <div class="grid">
-        <div class="card"><div class="time">08:30 AM</div><div class="num" id="num-0">--</div><div class="details"><span>SET: <b id="set-0">--</b></span><span>VAL: <b id="val-0">--</b></span></div></div>
-        <div class="card"><div class="time">10:30 AM</div><div class="num" id="num-1">--</div><div class="details"><span>SET: <b id="set-1">--</b></span><span>VAL: <b id="val-1">--</b></span></div></div>
-        <div class="card"><div class="time">12:30 PM</div><div class="num" id="num-2">--</div><div class="details"><span>SET: <b id="set-2">--</b></span><span>VAL: <b id="val-2">--</b></span></div></div>
-        
-        <div class="card" style="border: 2px solid #fff;">
-            <div class="time">04:30 PM</div><div class="num" id="num-3">--</div>
-            <div class="details"><span>SET: <b id="set-3">--</b></span><span>VAL: <b id="val-3">--</b></span></div>
+        <div class="card">
+            <div class="time-header">08:30 AM</div>
+            <div class="num" id="num-0">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-0">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-0">-----.--</b></div>
+            </div>
         </div>
-
-        <div class="card"><div class="time">06:30 PM</div><div class="num" id="num-4">--</div><div class="details"><span>SET: <b id="set-4">--</b></span><span>VAL: <b id="val-4">--</b></span></div></div>
-        <div class="card"><div class="time">08:30 PM</div><div class="num" id="num-5">--</div><div class="details"><span>SET: <b id="set-5">--</b></span><span>VAL: <b id="val-5">--</b></span></div></div>
+        <div class="card">
+            <div class="time-header">10:30 AM</div>
+            <div class="num" id="num-1">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-1">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-1">-----.--</b></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-header">12:30 PM</div>
+            <div class="num" id="num-2">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-2">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-2">-----.--</b></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-header">02:30 PM</div>
+            <div class="num" id="num-3">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-3">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-3">-----.--</b></div>
+            </div>
+        </div>
+        <div class="card active-card">
+            <div class="time-header">04:30 PM</div>
+            <div class="num" id="num-4">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-4">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-4">-----.--</b></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-header">06:30 PM</div>
+            <div class="num" id="num-5">--</div>
+            <div class="details">
+                <div class="stat"><span>SET</span><b id="set-5">----.--</b></div>
+                <div class="divider">|</div>
+                <div class="stat"><span>VALUE</span><b id="val-5">-----.--</b></div>
+            </div>
+        </div>
     </div>
+
     <script>
         function updateClock() {
             const now = new Date();
-            document.getElementById('clock').innerText = "Updated: " + now.toLocaleString();
+            // ပုံထဲက format အတိုင်း ပြရန်
+            let dateStr = now.toISOString().split('T')[0];
+            let timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('clock').innerText = dateStr + " " + timeStr;
         }
 
         function updateNumbers() {
             for (let i = 0; i < 6; i++) {
                 let randomSet = (Math.random() * 2000 + 1000).toFixed(2);
                 let randomValue = (Math.random() * 80000 + 10000).toFixed(2);
+
                 let firstNum = randomSet.split('.')[0].slice(-1); 
                 let lastNum = randomValue.split('.')[0].slice(-1);
                 let result2D = firstNum + lastNum;
@@ -91,7 +112,8 @@
                 document.getElementById(set-${i}).innerText = randomSet;
                 document.getElementById(val-${i}).innerText = randomValue;
 
-                if (i === 3) document.getElementById('big-num').innerText = result2D;
+                // 04:30 PM အကွက် (Index 4) ကို အပေါ်ဝိုင်းကြီးမှာ ပြရန်
+                if (i === 4) document.getElementById('big-num').innerText = result2D;
             }
         }
 
