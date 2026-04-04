@@ -184,7 +184,7 @@
 
         setInterval(runEngine, 1000);
         runEngine();
-        function createCoins() {
+      function createCoins() {
         const coinImages = [
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="%23ccc" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
             'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
@@ -194,7 +194,6 @@
 
         setInterval(() => {
             const coin = document.createElement('img');
-            // Line 201 မှာ length ဆိုတဲ့ စာသားကျန်ခဲ့လို့ ပြန်ထည့်ပေးထားပါတယ်
             coin.src = coinImages[Math.floor(Math.random() * coinImages.length)];
             coin.className = 'coin';
             
