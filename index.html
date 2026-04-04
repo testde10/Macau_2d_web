@@ -47,7 +47,7 @@
     <div class="update-bar">Updated: <span id="live-clock">--:--:--</span></div>
 
     <div id="grid-container">
-        <div class="card"><div class="time-label">10:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
+        <div class="card"><div class="time-label">11:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
         <div class="card"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
         <div class="card"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
         <div class="card"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
@@ -57,12 +57,12 @@
 
     <script>
         const resultsData = {
-            "1000": { res: "51", set: "1234.45", val: "54321.00" },
-            "1300": { res: "22", set: "1452.22", val: "34512.50" },
-            "1500": { res: "99", set: "1879.89", val: "48789.20" },
-            "1700": { res: "33", set: "1733.33", val: "47333.33" },
-            "1900": { res: "66", set: "1925.16", val: "40516.88" },
-            "2100": { res: "77", set: "2107.07", val: "51007.07" }
+            "1000": { res: "51", set: "1432.45", val: "67401.00" },
+            "1300": { res: "23", set: "1367.02", val: "36513.50" },
+            "1500": { res: "99", set: "1860.79", val: "04309.20" },
+            "1700": { res: "60", set: "1733.86", val: "46830.83" },
+            "1900": { res: "74", set: "1925.17", val: "90514.88" },
+            "2100": { res: "86", set: "2107.08", val: "51006.07" }
         };
 
         const sessions = [
@@ -71,7 +71,7 @@
             { id: "1900", h: 19, m: 0 }, { id: "2100", h: 21, m: 0 }
         ];
 
-        let currentRandomRes = "--";
+        let currentRandom = { res: "--", set: "--", val: "--" };
         let lastChangeTime = 0;
 
         function runEngine() {
@@ -85,59 +85,58 @@
 
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
-            let activeDrawIdx = -1;
-
+            let activeIdx = -1;
             for(let i=0; i < sessions.length; i++) {
                 const drawMins = (sessions[i].h * 60) + sessions[i].m;
-                const prevDrawMins = (i === 0) ? 0 : (sessions[i-1].h * 60);
-                const startRandomMins = (i === 0) ? 480 : prevDrawMins + 15;
-                
-                if (currentTotalMins >= startRandomMins && currentTotalMins < drawMins) {
-                    activeDrawIdx = i;
-                    break;
+                const prevMins = (i === 0) ? 0 : (sessions[i-1].h * 60);
+                const startMins = (i === 0) ? 480 : prevMins + 15;
+                if (currentTotalMins >= startMins && currentTotalMins < drawMins) {
+                    activeIdx = i; break;
                 }
             }
 
-            sessions.forEach(s => {
+            sessions.forEach((s, idx) => {
                 const drawMins = (s.h * 60) + s.m;
+                const resElem = document.getElementById("res-" + s.id);
+                const setElem = document.getElementById("set-" + s.id);
+                const valElem = document.getElementById("val-" + s.id);
+
                 if (currentTotalMins >= drawMins) {
-                    document.getElementById("res-" + s.id).innerText = resultsData[s.id].res;
-                    document.getElementById("set-" + s.id).innerText = resultsData[s.id].set;
-                    document.getElementById("val-" + s.id).innerText = resultsData[s.id].val;
+                    // ထွက်ပြီးသားပွဲများ
+                    resElem.innerText = resultsData[s.id].res;
+                    setElem.innerText = resultsData[s.id].set;
+                    valElem.innerText = resultsData[s.id].val;
+                } else if (idx === activeIdx) {
+                    // လည်နေဆဲပွဲ (၆ စက္ကန့်တစ်ခါ ပြောင်းမည်)
+                    if (currentSecs - lastChangeTime >= 6) {
+                        const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
+                        const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
+                        currentRandom = {
+                            res: sNum.slice(-1) + vNum.split('.')[0].slice(-1),
+                            set: sNum, val: vNum
+                        };
+                        lastChangeTime = currentSecs;
+                    }
+                    resElem.innerText = currentRandom.res;
+                    setElem.innerText = currentRandom.set;
+                    valElem.innerText = currentRandom.val;
+                    document.getElementById("main-num").innerText = currentRandom.res;
                 } else {
-                    document.getElementById("res-" + s.id).innerText = "--";
-                    document.getElementById("set-" + s.id).innerText = "--";
-                    document.getElementById("val-" + s.id).innerText = "--";
+                    resElem.innerText = "--"; setElem.innerText = "--"; valElem.innerText = "--";
                 }
             });
-
-            if (activeDrawIdx !== -1 && currentTotalMins >= 480) { 
-                // ၆ စက္ကန့်ပြည့်မှ ဂဏန်းအသစ်ပြောင်းမည့် logic
-                if (currentSecs - lastChangeTime >= 6) {
-                    const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
-                    const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
-                    
-                    const sLast = sNum.slice(-1);
-                    const vLast = vNum.split('.')[0].slice(-1);
-                    currentRandomRes = sLast + vLast;
-                    
-                    lastChangeTime = currentSecs;
-                }
-                document.getElementById("main-num").innerText = currentRandomRes;
-                } else {
-                let lastSession = sessions[0].id;
+        // ပွဲချိန်မဟုတ်ချိန်တွင် စက်ဝိုင်းထဲ၌ နောက်ဆုံးထွက်ဂဏန်းပြထားရန်
+            if (activeIdx === -1) {
+                let lastId = "2100";
                 for(let i = sessions.length - 1; i >= 0; i--) {
-                    if (currentTotalMins >= (sessions[i].h * 60)) {
-                        lastSession = sessions[i].id;
-                        break;
-                    }
+                    if (currentTotalMins >= (sessions[i].h * 60)) { lastId = sessions[i].id; break; }
                 }
-                if (currentTotalMins >= 1260 || currentTotalMins < 480) lastSession = "2100";
-                document.getElementById("main-num").innerText = resultsData[lastSession].res;
+                if (currentTotalMins >= 1260 || currentTotalMins < 480) lastId = "2100";
+                document.getElementById("main-num").innerText = resultsData[lastId].res;
             }
         }
 
-        setInterval(runEngine, 1000); // တစ်စက္ကန့်တစ်ခါစစ်ဆေးမယ်
+        setInterval(runEngine, 1000);
         runEngine();
     </script>
 </body>
