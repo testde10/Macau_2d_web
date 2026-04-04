@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D Live - Full Dynamic</title>
+    <title>Macau 2D Live</title>
     <style>
         body { 
             background: radial-gradient(circle at top, #800000 0%, #2b0000 50%, #000000 100%); 
@@ -49,57 +49,70 @@
     <div class="main-ring" id="big-num">--</div>
     <p style="font-size: 11px; color: #aaa;">Updated: <span id="clock">Loading...</span></p>
 
-    <div class="grid" id="all-cards">
+    <div class="grid">
+        <div class="card">
+            <div class="time">11:00 AM</div>
+            <div class="num" id="num-0">--</div>
+            <div class="details"><span>SET: <b id="set-0">----.--</b></span><span>VAL: <b id="val-0">-----.--</b></span></div>
         </div>
+        <div class="card">
+            <div class="time">01:00 PM</div>
+            <div class="num" id="num-1">--</div>
+            <div class="details"><span>SET: <b id="set-1">----.--</b></span><span>VAL: <b id="val-1">-----.--</b></span></div>
+        </div>
+        <div class="card">
+            <div class="time">03:00 PM</div>
+            <div class="num" id="num-2">--</div>
+            <div class="details"><span>SET: <b id="set-2">----.--</b></span><span>VAL: <b id="val-2">-----.--</b></span></div>
+        </div>
+        <div class="card" style="border: 2px solid #fff;">
+            <div class="time">05:00 PM</div>
+            <div class="num" id="num-3">--</div>
+            <div class="details"><span>SET: <b id="set-3">----.--</b></span><span>VAL: <b id="val-3">-----.--</b></span></div>
+        </div>
+        <div class="card">
+            <div class="time">07:00 PM</div>
+            <div class="num" id="num-4">--</div>
+            <div class="details"><span>SET: <b id="set-4">----.--</b></span><span>VAL: <b id="val-4">-----.--</b></span></div>
+        </div>
+        <div class="card">
+            <div class="time">09:00 PM</div>
+            <div class="num" id="num-5">--</div>
+            <div class="details"><span>SET: <b id="set-5">----.--</b></span><span>VAL: <b id="val-5">-----.--</b></span></div>
+        </div>
+    </div>
 
     <script>
-        const times = ["11:00 AM", "01:00 PM", "03:00 PM", "05:00 PM", "07:00 PM", "09:00 PM"];
-
-        // ၁။ အကွက်များအားလုံးကို စတင်တည်ဆောက်ခြင်း
-        function initCards() {
-            const grid = document.getElementById('all-cards');
-            grid.innerHTML = times.map((t, index) => 
-                <div class="card" id="card-${index}">
-                    <div class="time">${t}</div>
-                    <div class="num" id="num-${index}">--</div>
-                    <div class="details">
-                        <span>SET: <b id="set-${index}">----.--</b></span>
-                        <span>VAL: <b id="val-${index}">-----.--</b></span>
-                    </div>
-                </div>
-            ).join('');
-        }
-
-        // ၂။ နာရီကို ၁ စက္ကန့်တစ်ခါ Update လုပ်ခြင်း
         function updateClock() {
             const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleDateString() + ", " + now.toLocaleTimeString();
+            document.getElementById('clock').innerText = now.toLocaleString();
         }
-
-        // ၃။ အကွက်အားလုံးရှိ ဂဏန်းများကို ၇ စက္ကန့်တစ်ခါ Update လုပ်ခြင်း
         function updateAllNumbers() {
-            times.forEach((_, i) => {
-                let randomSet = (Math.random() * 2000 + 1000).toFixed(2);
-                let randomValue = (Math.random() * 80000 + 10000).toFixed(2);
+            try {
+                for (let i = 0; i < 6; i++) {
+                    let randomSet = (Math.random() * 2000 + 1000).toFixed(2);
+                    let randomValue = (Math.random() * 80000 + 10000).toFixed(2);
 
-                // သင်ပြောထားတဲ့ SET နောက်ဆုံးဂဏန်း + VALUE ဒသမရှေ့ဂဏန်း Logic
-                let firstNum = randomSet.split('.')[0].slice(-1);
-                let lastNum = randomValue.split('.')[0].slice(-1);
-                let result2D = firstNum + lastNum;
-                document.getElementById(num-${i}).innerText = result2D;
-                document.getElementById(set-${i}).innerText = randomSet;
-                document.getElementById(val-${i}).innerText = randomValue;
+                    let firstNum = randomSet.split('.')[0].slice(-1);
+                    let lastNum = randomValue.split('.')[0].slice(-1);
+                    let result2D = firstNum + lastNum;
 
-                // 05:00 PM အကွက် (index 3) ကို ဂဏန်းဝိုင်းကြီးမှာ ပြရန်
-                if (i === 3) {
-                    document.getElementById('big-num').innerText = result2D;
+                    document.getElementById(num-${i}).innerText = result2D;
+                    document.getElementById(set-${i}).innerText = randomSet;
+                    document.getElementById(val-${i}).innerText = randomValue;
+
+                    if (i === 3) { // 05:00 PM အကွက်ကို အပေါ်ဝိုင်းမှာပြရန်
+                        document.getElementById('big-num').innerText = result2D;
+                    }
                 }
-            });
+            } catch (e) {
+                console.error("Error updating numbers:", e);
+            }
         }
 
-        initCards();
-        setInterval(updateClock, 1000);   // နာရီအတွက်
-        setInterval(updateAllNumbers, 7000); // ဂဏန်းအားလုံးအတွက်
+        setInterval(updateClock, 1000); // နာရီက ၁ စက္ကန့်တစ်ခါ
+        setInterval(updateAllNumbers, 7000); // ဂဏန်းတွေက ၇ စက္ကန့်တစ်ခါ
+        
         updateClock();
         updateAllNumbers();
     </script>
