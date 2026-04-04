@@ -185,28 +185,27 @@
         setInterval(runEngine, 1000);
         runEngine();
         function createCoins() {
-    // ပုံမပွင့်တာမျိုးမဖြစ်အောင် ပိုစိတ်ချရတဲ့ URL တွေသုံးထားပါတယ်
-    const coinImages = [
-        'https://cdn-icons-png.flaticon.com/512/232/232537.png', // Gold Chip
-        'https://cdn-icons-png.flaticon.com/512/232/232534.png'  // Red Chip
-    ];
+        // ပုံ Link သေတာမျိုးမဖြစ်အောင် SVG Code နဲ့ တိုက်ရိုက်ထည့်ထားပါတယ်
+        const coinImages = [
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>', // Gold Chip
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'  // Red Chip
+        ];
 
-    setInterval(() => {
-        const coin = document.createElement('img');
-        coin.src = coinImages[Math.floor(Math.random() * coinImages.length)];
-        coin.className = 'coin';
-        
-        // ကျလာမယ့်ပုံစံ
-        coin.style.left = Math.random() * 100 + "vw";
-        coin.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
-        coin.style.width = (Math.random() * 15 + 25) + "px"; // ဆိုဒ်ကို နည်းနည်းကြီးလိုက်တယ်
-        coin.style.opacity = "0.4"; // အရိပ်လိုဖြစ်အောင် ဖျော့ထားတယ်
+        setInterval(() => {
+            const coin = document.createElement('img');
+            coin.src = coinImages[Math.floor(Math.random() * coinImages.length)];
+            coin.className = 'coin';
+            
+            coin.style.left = Math.random() * 100 + "vw";
+            coin.style.animationDuration = (Math.random() * 3 + 5) + "s"; 
+            coin.style.width = (Math.random() * 10 + 25) + "px"; 
+            coin.style.opacity = "0.5";
 
-        document.body.appendChild(coin);
-        setTimeout(() => { coin.remove(); }, 10000);
-    }, 1200); // ကြွေကျတဲ့နှုန်းကို နည်းနည်းလျှော့ထားတယ် (မျက်စိမနောက်အောင်)
-}
-createCoins();
+            document.body.appendChild(coin);
+            setTimeout(() => { coin.remove(); }, 8000);
+        }, 1000);
+    }
+    createCoins();
         
     </script>
 </body>
