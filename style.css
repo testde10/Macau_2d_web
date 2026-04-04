@@ -113,3 +113,54 @@ body {
     color: #ffffff;
     font-weight: bold;
 }
+/* Main Container */
+#main-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* စက်ဝိုင်းပုံစံ (အချိန်စာသား မပါတော့ပါ) */
+#main-display {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #4b0000 0%, #000 100%);
+    border: 5px solid #d4af37;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.main-number {
+    font-size: 85px;
+    font-weight: bold;
+    color: #d4af37;
+    text-shadow: 2px 2px 10px #000;
+}
+
+/* စက်ဝိုင်းအောက်က အချိန်ပြ Bar */
+.update-bar {
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.update-icon {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+#live-clock {
+    color: #fff;
+    font-weight: normal;
+}
