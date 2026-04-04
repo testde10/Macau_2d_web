@@ -186,20 +186,20 @@
         runEngine();
         function createFallingElements() {
         const items = [
-            // ၁။ တရုတ်ရွှေတုံး (Yuanbao) - အစ်ကိုပြတဲ့ပုံစံအတိုင်း ခုံးခုံးလေးဆွဲထားပါတယ်
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M50 200c0 0 50-60 206-60s206 60 206 60c0 80-80 180-206 180S50 280 50 200z" fill="%23FFD700" stroke="%23DAA520" stroke-width="10"/><path d="M150 200c0-60 50-100 106-100s106 40 106 100c0 30-40 50-106 50s-106-20-106-50z" fill="%23FFD700" stroke="%23DAA520" stroke-width="8"/><text x="50%" y="225%" font-family="Arial" font-size="40" fill="%23DAA520" text-anchor="middle" font-weight="bold">福</text></svg>',
+            // ၁။ တရုတ်ရွှေတုံး (Yuanbao Gold) - ပုံစံအစစ်
+            'https://img.icons8.com/emoji/96/gold-ingot-emoji.png',
             
-            // ၂။ တရုတ်ငွေတုံး (Silver Yuanbao)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M50 200c0 0 50-60 206-60s206 60 206 60c0 80-80 180-206 180S50 280 50 200z" fill="%23E0E0E0" stroke="%23A0A0A0" stroke-width="10"/><path d="M150 200c0-60 50-100 106-100s106 40 106 100c0 30-40 50-106 50s-106-20-106-50z" fill="%23E0E0E0" stroke="%23A0A0A0" stroke-width="8"/></svg>',
+            // ၂။ ဒေါ်လာရွက် (Flying Dollar) - အစ်ကိုပြတဲ့ပုံစံ
+            'https://img.icons8.com/emoji/96/money-with-wings-emoji.png',
             
-            // ၃။ ဒေါ်လာ (Dollar Note)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="450" height="250" x="31" y="131" rx="20" fill="%2385bb65" stroke="%232e7d32" stroke-width="15"/><circle cx="256" cy="256" r="70" fill="none" stroke="%232e7d32" stroke-width="10"/><text x="50%" y="62%" font-family="Arial" font-size="150" fill="%232e7d32" text-anchor="middle" font-weight="bold">$</text></svg>',
+            // ၃။ အန်စာတုံး (Dice)
+            'https://img.icons8.com/emoji/96/game-die-emoji.png',
             
-            // ၄။ အကြွေစေ့ (Gold Coin)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            // ၄။ ရွှေအကြွေစေ့ (Gold Coin)
+            'https://img.icons8.com/emoji/96/coin-emoji.png',
             
-            // ၅။ အန်စာတုံး (Dice 6)
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="400" height="400" x="56" y="56" rx="60" fill="white" stroke="%23333" stroke-width="15"/><circle cx="160" cy="140" r="35" fill="black"/><circle cx="160" cy="256" r="35" fill="black"/><circle cx="160" cy="372" r="35" fill="black"/><circle cx="352" cy="140" r="35" fill="black"/><circle cx="352" cy="256" r="35" fill="black"/><circle cx="352" cy="372" r="35" fill="black"/></svg>'
+            // ၅။ အိတ် (Money Bag) - အပိုလက်ဆောင်
+            'https://img.icons8.com/emoji/96/money-bag-emoji.png'
         ];
 
         setInterval(() => {
@@ -208,19 +208,19 @@
             el.className = 'coin'; 
             el.style.left = Math.random() * 100 + "vw";
             
-            // အကြီး အလတ် အသေး ၃ မျိုး
-            const sizes = ['25px', '35px', '45px'];
+            // ပုံတွေမို့လို့ အကြီးအသေးကို သေချာညှိပေးထားပါတယ်
+            const sizes = ['30px', '45px', '55px'];
             el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
             
-            // ကျလာတဲ့ အရှိန် (နှေးနှေးနဲ့ ကြဲကြဲလေး)
-            el.style.animationDuration = (Math.random() * 6 + 9) + "s"; 
+            // ကျလာတဲ့ အရှိန် (ကြဲကြဲနဲ့ ငြိမ်ငြိမ်လေး)
+            el.style.animationDuration = (Math.random() * 5 + 8) + "s"; 
             
-            // အရောင်ဖျော့နှုန်း (ဝဲနေရုံလေးပဲ ထားပါတယ်)
-            el.style.opacity = Math.random() * 0.12 + 0.08;
+            // အရောင်ဖျော့နှုန်း (0.3 ဆိုရင် ပုံကို ပီပီပြင်ပြင် မြင်ရပါပြီ)
+            el.style.opacity = Math.random() * 0.2 + 0.2;
             
             document.body.appendChild(el);
             setTimeout(() => { el.remove(); }, 15000);
-        }, 2000); // ၂ စက္ကန့်မှ တစ်ခုကျအောင် ပိုကြဲပေးထားပါတယ်
+        }, 2200); 
     }
     createFallingElements();
           </script>
