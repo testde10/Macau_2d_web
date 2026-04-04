@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MACAU 2D LIVE</title>
     <style>
-        /* CSS Design Settings */
+        /* CSS Settings */
         body {
             background: radial-gradient(circle, #4b0000 0%, #000 100%);
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -18,25 +18,34 @@
         }
 
         .app-header {
-            padding: 20px;
-            border-bottom: 1px solid #d4af37;
+            padding: 30px 10px 10px 10px;
             width: 100%;
             text-align: center;
         }
 
+        /* Gold & White Metallic Title */
         .app-name {
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 28px;
-            letter-spacing: 2px;
+            font-family: 'Times New Roman', serif;
+            font-weight: 900;
+            font-size: 45px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(
+                to bottom, 
+                #ffffff 0%,    
+                #fcf6ba 25%,   
+                #bf953f 50%,   
+                #8a6e2f 75%,   
+                #bf953f 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.9));
+            margin: 0;
+            display: inline-block;
         }
 
-        /* Main Circle Display */
-        #main-display-container {
-            margin: 30px 0;
-            text-align: center;
-        }
-
+        /* Main Display Circle */
         #main-display {
             width: 220px;
             height: 220px;
@@ -46,30 +55,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            margin: 0 auto;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+            margin: 25px auto;
         }
 
         .main-number {
-            font-size: 95px;
+            font-size: 100px;
             font-weight: bold;
             color: #d4af37;
             text-shadow: 2px 2px 15px #000;
         }
 
-        /* Update Time Bar under Circle */
+        /* Clock Bar */
         .update-bar {
-            margin-top: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.8);
             padding: 10px 25px;
             border-radius: 30px;
-            border: 1px solid #d4af37;
-            font-size: 14px;
-            color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            border: 1.5px solid #d4af37;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* Grid for 6 Sessions */
+        /* 6 Cards Grid */
         #grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -82,35 +92,35 @@
         .card {
             background: #111;
             border: 1.5px solid #d4af37;
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        /* 6 ကွက်လုံး အချိန်နေရာကို ရွှေရောင် Gradient လုပ်ခြင်း */
+        /* Gold Header for all cards */
         .time-label {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
             color: #000 !important;
             padding: 12px;
             font-size: 16px;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
+
+        
         .result-num {
             font-size: 45px;
             font-weight: bold;
             padding: 15px 0;
             color: #ffffff;
-            text-shadow: 1px 1px 5px #000;
         }
 
         .data-row {
             display: flex;
             justify-content: space-around;
             padding: 10px;
-            font-size: 11px;
+            font-size: 12px;
             color: #d4af37;
             border-top: 1px solid #222;
             background: #0a0a0a;
@@ -124,7 +134,7 @@
 
         .data-row small {
             color: #ffffff;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
         }
     </style>
@@ -135,13 +145,12 @@
         <div class="app-name">MACAU 2D</div>
     </div>
 
-    <div id="main-display-container">
-        <div id="main-display">
-            <div class="main-number" id="main-num">--</div>
-        </div>
-        <div class="update-bar">
-            Updated: <span id="live-clock">00:00:00 AM</span>
-        </div>
+    <div id="main-display">
+        <div class="main-number" id="main-num">--</div>
+    </div>
+
+    <div class="update-bar">
+        Updated: <span id="live-clock">00:00:00 AM</span>
     </div>
     <div id="grid-container">
         <div class="card" id="card-1000">
@@ -195,57 +204,37 @@
     </div>
 
     <script>
-        const schedule = [
-            { h: 10, m: 0, id: "1000" },
-            { h: 13, m: 0, id: "1300" },
-            { h: 15, m: 0, id: "1500" },
-            { h: 17, m: 0, id: "1700" },
-            { h: 19, m: 0, id: "1900" },
-            { h: 21, m: 0, id: "2100" }
-        ];
+        // --- CONTROL PANEL (Edit results here) ---
+        const resultsData = {
+            "1000": { res: "--", set: "--", val: "--" },
+            "1300": { res: "--", set: "--", val: "--" },
+            "1500": { res: "--", set: "--", val: "--" },
+            "1700": { res: "--", set: "--", val: "--" },
+            "1900": { res: "16", set: "1925.16", val: "40516.88" },
+            "2100": { res: "--", set: "--", val: "--" }
+        };
 
-        function runLiveEngine() {
+        function updateDisplay() {
             const now = new Date();
-            // Get Myanmar Time
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
-            const hh = mmTime.getHours();
-            const mm = mmTime.getMinutes();
-            const totalMins = (hh * 60) + mm;
-
-            // Update Clock Label
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { 
                 hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true 
             });
 
-            for (let i = 0; i < schedule.length; i++) {
-                const draw = schedule[i];
-                const drawTotalMins = (draw.h * 60) + draw.m;
-                // Calculate session range
-                const startMins = (i === 0) ? (9 * 60) : (schedule[i-1].h * 60) + 15;
-
-                // If current time is within session range
-                if (totalMins >= startMins && totalMins < (drawTotalMins + 15)) {
-                    // Update only if session is running (before draw time)
-                    if (totalMins < drawTotalMins) {
-                        const setVal = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-                        const valVal = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
-                        
-                        const setDigit = setVal.slice(-1);
-                        const valDigit = valVal.split('.')[0].slice(-1);
-                        const final2D = setDigit + valDigit;
-                        document.getElementById("main-num").innerText = final2D;
-                        document.getElementById("res-" + draw.id).innerText = final2D;
-                        document.getElementById("set-" + draw.id).innerText = setVal;
-                        document.getElementById("val-" + draw.id).innerText = valVal;
-                    }
-                    break;
+            Object.keys(resultsData).forEach(id => {
+                const data = resultsData[id];
+                document.getElementById("res-" + id).innerText = data.res;
+                document.getElementById("set-" + id).innerText = data.set;
+                document.getElementById("val-" + id).innerText = data.val;
+                
+                // Example: Show 7:00 PM result in main circle
+                if(id === "1900" && data.res !== "--") {
+                    document.getElementById("main-num").innerText = data.res;
                 }
-            }
+            });
         }
-
-        // Run every 5 seconds
-        setInterval(runLiveEngine, 5000);
-        runLiveEngine();
+        updateDisplay();
+        setInterval(updateDisplay, 1000);
     </script>
 </body>
 </html>
