@@ -83,16 +83,31 @@
             <div class="details"><span>SET: --</span><span>VAL: --</span></div>
         </div>
     </div>
+<script>
+    function update() {
+        // ၁။ SET နဲ့ VALUE တန်ဖိုးများကို သတ်မှတ်ခြင်း (ဒါက လက်ရှိနမူနာ တန်ဖိုးတွေပါ)
+        let setVal = "1068.17"; 
+        let valueVal = "16985.34";
 
-    <script>
-        function update() {
-            let n = Math.floor(Math.random() * 100).toString().padStart(2, '0');
-           document.getElementById('big-num').innerText = n;
-            document.getElementById('live-num').innerText = n;
-            document.getElementById('clock').innerText = new Date().toLocaleString();
-        }
-        setInterval(update, 2000);
-        update();
-    </script>
+        // ၂။ SET ရဲ့ နောက်ဆုံးဂဏန်း (ဥပမာ- 7) ကို ယူခြင်း
+        // ဒသမမပါတဲ့ ကိန်းပြည့်ရဲ့ နောက်ဆုံးစာလုံးကို ယူပါမယ်
+        let setMain = setVal.split('.')[0]; 
+        let firstNum = setMain.slice(-1); 
+
+        // ၃။ VALUE ရဲ့ ဒသမရှေ့ဂဏန်း (ဥပမာ- 5) ကို ယူခြင်း
+        let valueMain = valueVal.split('.')[0];
+        let lastNum = valueMain.slice(-1);
+
+        // ၄။ ဂဏန်းနှစ်ခုကို ပေါင်းစပ်ပြီး 2D ထုတ်ခြင်း (7 + 5 = 75)
+        let result2D = firstNum + lastNum;
+
+        // Website မှာ ပြသခြင်း
+        document.getElementById('big-num').innerText = result2D;
+        document.getElementById('live-num').innerText = result2D;
+        document.getElementById('clock').innerText = new Date().toLocaleString();
+    }
+    setInterval(update, 7000); 
+    update();
+</script>    
 </body>
 </html>
