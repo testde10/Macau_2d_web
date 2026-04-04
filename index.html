@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macau 2D - Ribbon Edition</title>
+    <title>Macau 2D Live</title>
     <style>
-        /* ၁။ နောက်ခံ Background နှင့် Body အပြင်အဆင် */
         body { 
             background: radial-gradient(circle at top, #800000 0%, #2b0000 50%, #000000 100%); 
             color: #e4c666; font-family: 'Segoe UI', Arial, sans-serif; 
@@ -13,7 +12,6 @@
             margin: 0; padding: 15px; min-height: 100vh;
         }
 
-        /* ၂။ ဂဏန်းဝိုင်းကြီး ဒီဇိုင်း */
         .main-ring {
             width: 160px; height: 160px;
             border: 4px solid #e4c666; border-radius: 50%;
@@ -21,91 +19,42 @@
             background: radial-gradient(circle, #222, #000);
             box-shadow: 0 0 25px rgba(228, 198, 102, 0.4);
             font-size: 80px; font-weight: 900; color: #fff;
-            margin: 20px auto; position: relative;
+            margin: 20px auto;
         }
 
-        /* ၃။ ဂဏန်းအကွက်များ (Cards) နှင့် ဖဲပွင့် (Ribbon) အလှ */
         .grid { 
             display: grid; grid-template-columns: 1fr 1fr; 
             gap: 12px; width: 100%; max-width: 480px; 
         }
+
+        /* အချိန်ပြကွက် ဘောင်ဒီဇိုင်း */
         .card { 
             background: rgba(20, 20, 20, 0.95); 
-            border: 1px solid #333; border-radius: 10px; 
-            padding: 15px; text-align: center; position: relative;
-            border-top: 3px solid #e4c666;
-            overflow: hidden; /* ဖဲပွင့်အပြင်မထွက်စေရန် */
-        }
-        
-        /* ဖဲပွင့် (Ribbon) နေရာချခြင်း */
-        .ribbon {
-            position: absolute; top: 0; right: 0;
-            background: #e4c666; color: #000;
-            font-size: 10px; font-weight: bold;
-            padding: 2px 15px;
-            transform: rotate(45deg) translate(10px, -10px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            border: 1px solid #3d3d3d; 
+            border-radius: 8px; 
+            padding: 15px; 
+            text-align: center; 
+            position: relative;
+            border-top: 3px solid #e4c666; /* အပေါ်ဘောင် ရွှေရောင် */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .card.active { border: 2px solid #fff; background: #400000; }
-        .time { color: #e4c666; font-size: 13px; font-weight: bold; }
-        .num { font-size: 38px; font-weight: bold; color: #fff; margin: 5px 0; }
-        .details { 
-            display: flex; justify-content: space-between; font-size: 9px; 
-            color: #888; border-top: 1px solid #222; padding-top: 6px; 
+        /* ထောင့်လေးများတွင် ရွှေရောင်လိုင်းထည့်ခြင်း */
+        .card::after {
+            content: ''; position: absolute; bottom: 5px; right: 5px;
+            width: 10px; height: 10px;
+            border-right: 2px solid #e4c666; border-bottom: 2px solid #e4c666;
         }
+        .card::before {
+            content: ''; position: absolute; bottom: 5px; left: 5px;
+            width: 10px; height: 10px;
+            border-left: 2px solid #e4c666; border-bottom: 2px solid #e4c666;
+        }
+
+        .time { color: #e4c666; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
+        .num { font-size: 40px; font-weight: bold; color: #fff; margin: 5px 0; }
+        .details { display: flex; justify-content: space-between; font-size: 9px; color: #888; border-top: 1px solid #222; padding-top: 6px; }
     </style>
-    /* ဂဏန်းအကွက်များ (Time Cards) ဒီဇိုင်း */
-.card { 
-    background: rgba(20, 20, 20, 0.95); /* အမှောင်ရောင် နောက်ခံ */
-    border: 1px solid #3d3d3d; /* ပတ်ပတ်လည် ဘောင်အပါး */
-    border-radius: 8px; /* ထောင့်များကို အနည်းငယ် ဝိုင်းခြင်း */
-    padding: 15px; 
-    text-align: center; 
-    position: relative; /* အလှဆင်ပစ္စည်းများ တပ်ရန် */
-    border-top: 3px solid #e4c666; /* အပေါ်ဘောင်ကို ရွှေရောင် ပိုထူပေးခြင်း */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* အကွက်လေးများ ကြွတက်နေစေရန် */
-}
-
-/* ထောင့်လေးများတွင် ရွှေရောင် ဒီဇိုင်းလိုင်းလေးများ ထည့်ခြင်း */
-.card::after {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 15px;
-    height: 15px;
-    border-right: 2px solid #e4c666;
-    border-bottom: 2px solid #e4c666;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    width: 15px;
-    height: 15px;
-    border-left: 2px solid #e4c666;
-    border-bottom: 2px solid #e4c666;
-}
-
-/* အချိန်ပြ စာသားဒီဇိုင်း */
-.time { 
-    color: #e4c666; 
-    font-size: 14px; 
-    font-weight: bold; 
-    margin-bottom: 8px;
-}
-
-/* ထွက်ဂဏန်း ဒီဇိုင်း */
-.num { 
-    font-size: 40px; 
-    font-weight: bold; 
-    color: #ffffff; 
-    margin: 5px 0;
-    text-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
 </head>
 <body>
 
@@ -115,35 +64,35 @@
     <p style="font-size: 11px; color: #aaa;">Updated: <span id="clock"></span></p>
 
     <div class="grid">
-        <div class="card"><div class="ribbon">LIVE</div><div class="time">11:00 AM</div><div class="num">77</div>
+        <div class="card"><div class="time">11:00 AM</div><div class="num">77</div>
             <div class="details"><span>SET: 1068.17</span><span>VAL: 16985.34</span></div>
         </div>
-        <div class="card"><div class="ribbon">LIVE</div><div class="time">01:00 PM</div><div class="num">56</div>
+        <div class="card"><div class="time">01:00 PM</div><div class="num">56</div>
             <div class="details"><span>SET: 1201.34</span><span>VAL: 49791.01</span></div>
         </div>
-        <div class="card"><div class="ribbon">LIVE</div><div class="time">03:00 PM</div><div class="num">04</div>
+        <div class="card"><div class="time">03:00 PM</div><div class="num">04</div>
             <div class="details"><span>SET: 1160.40</span><span>VAL: 11683.47</span></div>
         </div>
-        <div class="card active"><div class="ribbon" style="background:#ff0000; color:#fff;">NOW</div><div class="time">05:00 PM</div><div class="num" id="live-num">--</div>
+        <div class="card" style="border: 2px solid #fff;"><div class="time">05:00 PM</div><div class="num" id="live-num">--</div>
             <div class="details"><span>SET: 1089.22</span><span>VAL: 74581.65</span></div>
         </div>
-        <div class="card"><div class="ribbon">LIVE</div><div class="time">07:00 PM</div><div class="num">--</div>
+        <div class="card"><div class="time">07:00 PM</div><div class="num">--</div>
             <div class="details"><span>SET: --</span><span>VAL: --</span></div>
         </div>
-        <div class="card"><div class="ribbon">LIVE</div><div class="time">09:00 PM</div><div class="num">--</div>
+        <div class="card"><div class="time">09:00 PM</div><div class="num">--</div>
             <div class="details"><span>SET: --</span><span>VAL: --</span></div>
         </div>
     </div>
+
     <script>
-        function startLive() {
+        function update() {
             let n = Math.floor(Math.random() * 100).toString().padStart(2, '0');
-            document.getElementById('big-num').innerText = n;
+           document.getElementById('big-num').innerText = n;
             document.getElementById('live-num').innerText = n;
             document.getElementById('clock').innerText = new Date().toLocaleString();
         }
-        setInterval(startLive, 2500);
-        startLive();
+        setInterval(update, 2000);
+        update();
     </script>
-
 </body>
 </html>
