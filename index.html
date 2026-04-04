@@ -7,27 +7,21 @@
     <style>
         body {
             background: radial-gradient(circle, #4b0000 0%, #000 100%);
-            color: #ffffff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
         .app-header { padding: 30px 10px 10px 10px; width: 100%; text-align: center; }
         .app-name {
-            font-family: 'Times New Roman', serif;
-            font-weight: 900; font-size: 48px;
+            font-family: 'Times New Roman', serif; font-weight: 900; font-size: 48px;
             text-transform: uppercase; letter-spacing: 4px;
             background: linear-gradient(to bottom, #ffffff 0%, #fcf6ba 20%, #bf953f 45%, #8a6e2f 70%, #ffffff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 4px 5px rgba(0,0,0,1)); margin: 0;
         }
         #main-display {
-            width: 210px; height: 210px;
-            background: radial-gradient(circle, #1a1a1a, #000);
-            border: 5px solid #d4af37; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2);
-            margin: 20px auto 15px auto;
+            width: 210px; height: 210px; background: radial-gradient(circle, #1a1a1a, #000);
+            border: 5px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2); margin: 20px auto 15px auto;
         }
         .main-number { font-size: 110px; font-weight: bold; color: #d4af37; text-shadow: 3px 3px 10px #000; }
         .update-bar {
@@ -57,24 +51,24 @@
         <div class="card"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
         <div class="card"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
         <div class="card"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
-<div class="card"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
+        <div class="card"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
         <div class="card"><div class="time-label">09:00 PM</div><div class="result-num" id="res-2100">--</div><div class="data-row"><span>SET<small id="set-2100">--</small></span><span>VALUE<small id="val-2100">--</small></span></div></div>
     </div>
 
     <script>
         const resultsData = {
-            "1000": { res: "45", set: "1234.45", val: "54321.00" },
-            "1300": { res: "12", set: "1452.12", val: "34512.50" },
-            "1500": { res: "89", set: "1879.89", val: "48789.20" },
+            "1000": { res: "51", set: "1234.45", val: "54321.00" },
+            "1300": { res: "22", set: "1452.22", val: "34512.50" },
+            "1500": { res: "99", set: "1879.89", val: "48789.20" },
             "1700": { res: "33", set: "1733.33", val: "47333.33" },
-            "1900": { res: "16", set: "1925.16", val: "40516.88" },
-            "2100": { res: "07", set: "2107.07", val: "51007.07" }
+            "1900": { res: "66", set: "1925.16", val: "40516.88" },
+            "2100": { res: "77", set: "2107.07", val: "51007.07" }
         };
 
-        const schedule = [
-            { h: 10, m: 0, id: "1000" }, { h: 13, m: 0, id: "1300" },
-            { h: 15, m: 0, id: "1500" }, { h: 17, m: 0, id: "1700" },
-            { h: 19, m: 0, id: "1900" }, { h: 21, m: 0, id: "2100" }
+        const sessions = [
+            { id: "1000", h: 10, m: 0 }, { id: "1300", h: 13, m: 0 },
+            { id: "1500", h: 15, m: 0 }, { id: "1700", h: 17, m: 0 },
+            { id: "1900", h: 19, m: 0 }, { id: "2100", h: 21, m: 0 }
         ];
 
         function runEngine() {
@@ -82,55 +76,61 @@
             const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
             const hh = mmTime.getHours();
             const mm = mmTime.getMinutes();
-            const totalMins = (hh * 60) + mm;
+            const currentTotal = (hh * 60) + mm;
 
             document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 
-            let activeSessionFound = false;
+            let activeDrawIdx = -1;
 
-            schedule.forEach((draw, index) => {
-                const drawMins = (draw.h * 60) + draw.m;
-                const startRandomMins = drawMins - 45; 
-                const stopStaticMins = drawMins + 15;
-                const data = resultsData[draw.id];
+            // ၇:၁၅ ကျော်တာနဲ့ နောက်ပွဲအတွက် စတင်လည်မယ့် Logic
+            for(let i=0; i < sessions.length; i++) {
+                const drawMins = (sessions[i].h * 60) + sessions[i].m;
+                const prevDrawMins = (i === 0) ? 0 : (sessions[i-1].h * 60);
+                const startRandomMins = (i === 0) ? 480 : prevDrawMins + 15;
+                
+                if (currentTotal >= startRandomMins && currentTotal < drawMins) {
+                    activeDrawIdx = i;
+                    break;
+                }
+            }
 
-                // ၁။ ပွဲထွက်ပြီးသွားရင် (သို့) ၁၅ မိနစ်အတွင်းဖြစ်ရင် - အသေပြ
-                if (totalMins >= drawMins) {
-                    document.getElementById("res-" + draw.id).innerText = data.res;
-                    document.getElementById("set-" + draw.id).innerText = data.set;
-                    document.getElementById("val-" + draw.id).innerText = data.val;
-                    
-                    // ည ၉:၀၀ ပွဲအတွက် ညလုံးပေါက်ပြထားမယ့် logic
-                    if (draw.id === "2100" || (totalMins >= drawMins && totalMins < stopStaticMins)) {
-                        document.getElementById("main-num").innerText = data.res;
-                        activeSessionFound = true;
-                    }
-                } 
-                // ၂။ ပွဲမထွက်ခင် ၄၅ မိနစ်အတွင်းဖြစ်ရင် (မနက် ၈:၀၀ နောက်ပိုင်းမှသာ အလုပ်လုပ်မည်)
-                else if (totalMins >= 480 && totalMins >= startRandomMins && totalMins < drawMins) {
-                    const s = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-                    const v = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
-                    const res = s.slice(-1) + v.split('.')[0].slice(-1);
-                    document.getElementById("res-" + draw.id).innerText = res;
-                    document.getElementById("set-" + draw.id).innerText = s;
-                    document.getElementById("val-" + draw.id).innerText = v;
-                    document.getElementById("main-num").innerText = res;
-                    activeSessionFound = true;
+            sessions.forEach(s => {
+                const drawMins = (s.h * 60) + s.m;
+                if (currentTotal >= drawMins) {
+                    document.getElementById("res-" + s.id).innerText = resultsData[s.id].res;
+                    document.getElementById("set-" + s.id).innerText = resultsData[s.id].set;
+                    document.getElementById("val-" + s.id).innerText = resultsData[s.id].val;
+                } else {
+                    document.getElementById("res-" + s.id).innerText = "--";
+                    document.getElementById("set-" + s.id).innerText = "--";
+                    document.getElementById("val-" + s.id).innerText = "--";
                 }
             });
 
-            // ၃။ ည ၉:၀၀ နောက်ပိုင်းကနေ မနက် ၈:၀၀ မတိုင်ခင်အထိ ညပွဲဂဏန်းကိုပဲ အသေပြထားမယ်
-            if (!activeSessionFound && (totalMins >= 1260 || totalMins < 480)) {
-                document.getElementById("main-num").innerText = resultsData["2100"].res;
+            if (activeDrawIdx !== -1 && currentTotal >= 480) { 
+                const sNum = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+                const vNum = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
+                
+                // SET: ဒသမနောက်က နောက်ဆုံးဂဏန်း (5)
+                const sLast = sNum.slice(-1);
+                // VALUE: ဒသမအရှေ့က နောက်ဆုံးဂဏန်း (1)
+                const vLast = vNum.split('.')[0].slice(-1);
+                
+                document.getElementById("main-num").innerText = sLast + vLast;
+            } else {
+                let lastSession = sessions[0].id;
+                for(let i = sessions.length - 1; i >= 0; i--) {
+                    if (currentTotal >= (sessions[i].h * 60)) {
+                        lastSession = sessions[i].id;
+                        break;
+                    }
+                }
+                if (currentTotal >= 1260 || currentTotal < 480) lastSession = "2100";
+                document.getElementById("main-num").innerText = resultsData[lastSession].res;
             }
         }
-
         setInterval(runEngine, 100);
         runEngine();
     </script>
 </body>
 </html>
-
-
-
-    
