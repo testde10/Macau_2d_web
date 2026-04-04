@@ -1,117 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MACAU 2D</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+body {
+    background: radial-gradient(circle, #4b0000 0%, #000 100%);
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    <div class="app-header">
-        <div class="app-name">MACAU 2D</div>
-    </div>
+.app-header { padding: 15px; border-bottom: 1px solid #d4af37; width: 100%; text-align: center; }
+.app-name { color: #d4af37; font-weight: bold; font-size: 24px; }
 
-    <div id="main-display-container">
-        <div id="main-display">
-            <div class="main-number" id="main-num">--</div>
-        </div>
-        
-        <div class="update-bar">
-            <span class="update-icon">✔</span> 
-            Updated: <span id="live-clock">00:00:00 AM</span> (Macau Time)
-        </div>
-    </div>
+#main-display-container { margin: 20px 0; text-align: center; }
 
-    <div id="grid-container">
-        <div class="card" id="card-1000">
-            <div class="time-label">10:00 AM</div>
-            <div class="result-num" id="res-1000">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-1000">--</small></span>
-                <span>VALUE: <small id="val-1000">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1300">
-            <div class="time-label">01:00 PM</div>
-            <div class="result-num" id="res-1300">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-1300">--</small></span>
-                <span>VALUE: <small id="val-1300">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1500">
-            <div class="time-label">03:00 PM</div>
-            <div class="result-num" id="res-1500">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-1500">--</small></span>
-                <span>VALUE: <small id="val-1500">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1700">
-            <div class="time-label">05:00 PM</div>
-            <div class="result-num" id="res-1700">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-1700">--</small></span>
-                <span>VALUE: <small id="val-1700">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-1900">
-            <div class="time-label">07:00 PM</div>
-            <div class="result-num" id="res-1900">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-1900">--</small></span>
-                <span>VALUE: <small id="val-1900">--</small></span>
-            </div>
-        </div>
-        <div class="card" id="card-2100">
-            <div class="time-label">09:00 PM</div>
-            <div class="result-num" id="res-2100">--</div>
-            <div class="data-row">
-                <span>SET: <small id="set-2100">--</small></span>
-                <span>VALUE: <small id="val-2100">--</small></span>
-            </div>
-        </div>
-    </div>
+#main-display {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, #222, #000);
+    border: 5px solid #d4af37;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 0 20px #d4af3755;
+    margin: 0 auto;
+}
 
-    <script>
-        const schedule = [
-            { h: 10, m: 0, id: "1000" },
-            { h: 13, m: 0, id: "1300" },
-            { h: 15, m: 0, id: "1500" },
-            { h: 17, m: 0, id: "1700" },
-            { h: 19, m: 0, id: "1900" },
-            { h: 21, m: 0, id: "2100" }
-        ];
+.main-number { font-size: 80px; font-weight: bold; color: #d4af37; }
 
-        function processLiveUpdate() {
-            const now = new Date();
-            const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
-            const hh = mmTime.getHours();
-            const mm = mmTime.getMinutes();
-            const totalMins = (hh * 60) + mm;
+.update-bar {
+    margin-top: 15px; background: rgba(0,0,0,0.6);
+    padding: 5px 15px; border-radius: 20px; border: 1px solid #d4af37;
+    font-size: 12px; color: #aaa;
+}
+.update-icon { color: #d4af37; margin-right: 5px; }
 
-            document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+#grid-container {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; padding: 15px; width: 100%; max-width: 450px;
+}
 
-            let activeSession = null;
-            let isRunning = false;
+.card {
+    background: #111; border: 1.5px solid #333;
+    border-radius: 10px; padding: 0; text-align: center; overflow: hidden;
+}
 
-            document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+.time-label {
+    background: #222; color: #d4af37; padding: 8px;
+    font-size: 14px; font-weight: bold; border-bottom: 1px solid #333;
+}
 
-            for (let i = 0; i < schedule.length; i++) {
-                const drawTime = schedule[i];
-                const drawTotalMins = (drawTime.h * 60) + drawTime.m;
-                const startMins = (i === 0) ? (9 * 60) : (schedule[i-1].h * 60) + 15;
-                if (totalMins >= startMins && totalMins < (drawTotalMins + 15)) {
-                    activeSession = drawTime.id;
-                    isRunning = (totalMins < drawTotalMins);
-                    const activeCard = document.getElementById("card-" + activeSession);
-                    if (activeCard) activeCard.classList.add('active');
-                    break;
-                }
-            }
+/* လက်ရှိပွဲမှာ အချိန်ပြကွက်လေးကို ရွှေရောင်ပြောင်းရန် */
+.card.active .time-label {
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
+    color: #000;
+}
 
-            if (activeSession && isRunning) {
-                const setVal = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-                const valVal = (Math.random() * (50000 - 10000) + 10000).toFixed(2);
-                const setDigit = setVal.
+.result-num { font-size: 38px; font-weight: bold; padding: 15px 0; }
+
+.data-row {
+    display: flex; justify-content: space-around;
+    padding: 5px; font-size: 10px; color: #d4af37; border-top: 1px solid #222;
+}
+.data-row small { color: #fff; display: block; font-size: 12px; }
+body {
+    background: radial-gradient(circle, #4b0000 0%, #000 100%);
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header { padding: 15px; border-bottom: 1px solid #d4af37; width: 100%; text-align: center; }
+.app-name { color: #d4af37; font-weight: bold; font-size: 24px; }
+
+#main-display-container { margin: 20px 0; text-align: center; }
+
+#main-display {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, #222, #000);
+    border: 5px solid #d4af37;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 0 20px #d4af3755;
+    margin: 0 auto;
+}
+
+.main-number { font-size: 80px; font-weight: bold; color: #d4af37; }
+
+.update-bar {
+    margin-top: 15px; background: rgba(0,0,0,0.6);
+    padding: 5px 15px; border-radius: 20px; border: 1px solid #d4af37;
+    font-size: 12px; color: #aaa;
+}
+.update-icon { color: #d4af37; margin-right: 5px; }
+
+#grid-container {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; padding: 15px; width: 100%; max-width: 450px;
+}
+
+.card {
+    background: #111; border: 1.5px solid #333;
+    border-radius: 10px; padding: 0; text-align: center; overflow: hidden;
+}
+
+.time-label {
+    background: #222; color: #d4af37; padding: 8px;
+    font-size: 14px; font-weight: bold; border-bottom: 1px solid #333;
+}
+
+/* လက်ရှိပွဲမှာ အချိန်ပြကွက်လေးကို ရွှေရောင်ပြောင်းရန် */
+.card.active .time-label {
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
+    color: #000;
+}
+
+.result-num { font-size: 38px; font-weight: bold; padding: 15px 0; }
+
+.data-row {
+    display: flex; justify-content: space-around;
+    padding: 5px; font-size: 10px; color: #d4af37; border-top: 1px solid #222;
+}
+.data-row small { color: #fff; display: block; font-size: 12px; }
