@@ -7,14 +7,26 @@
     <style>
         /* Background & Theme */
         body { 
-            background-color: #1a0000;
-            background-image: 
-                radial-gradient(circle at top center, rgba(120, 0, 0, 0.7) 0%, rgba(20, 0, 0, 0.95) 50%, #000 100%),
-                url('https://www.transparenttextures.com/patterns/poker.png'); 
-            background-blend-mode: multiply;
-            color: #d8b056; font-family: 'Segoe UI', Arial, sans-serif; 
-            display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 15px; min-height: 100vh;
+            body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    
+    /* --- Background Settings --- */
+    background-color: #1a0000; 
+    background-image: 
+        radial-gradient(circle at top, rgba(75, 0, 0, 0.6) 0%, rgba(26, 0, 0, 0.9) 75%, #000 100%),
+        url('https://www.transparenttextures.com/patterns/playing-cards.png');
+    background-blend-mode: multiply;
+    background-attachment: fixed; /* Screen ဆွဲတင်ရင် နောက်ခံက ငြိမ်နေဖို့ */
+    /* --------------------------- */
+    
+    color: #f1d279; /* စာသားအရောင်ကို ရွှေရောင်/ဝါကြန့်ကြန့် ထားခြင်း */
+}
         }
 
         /* Main Ring */
