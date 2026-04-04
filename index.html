@@ -185,10 +185,15 @@
         setInterval(runEngine, 1000);
         runEngine();
         function createCoins() {
-        // ပုံ Link သေတာမျိုးမဖြစ်အောင် SVG Code နဲ့ တိုက်ရိုက်ထည့်ထားပါတယ်
         const coinImages = [
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23d4af37" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>', // Gold Chip
-            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23b00000" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'  // Red Chip
+            // အဖြူ (White)
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="white" stroke="%23ccc" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="%23ccc" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="%23666" text-anchor="middle" font-weight="bold">105</text></svg>',
+            // အမဲ (Black)
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="black" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            // အစိမ်း (Green)
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%2328a745" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>',
+            // အပြာ (Blue)
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="%23007bff" stroke="white" stroke-width="20" stroke-dasharray="80,40"/><circle cx="256" cy="256" r="160" fill="none" stroke="white" stroke-width="10"/><text x="50%" y="55%" font-family="Arial" font-size="100" fill="white" text-anchor="middle" font-weight="bold">105</text></svg>'
         ];
 
         setInterval(() => {
@@ -197,16 +202,21 @@
             coin.className = 'coin';
             
             coin.style.left = Math.random() * 100 + "vw";
-            coin.style.animationDuration = (Math.random() * 3 + 5) + "s"; 
-            coin.style.width = (Math.random() * 10 + 25) + "px"; 
-            coin.style.opacity = "0.5";
+            
+            // အရွယ်အစား အကြီးအသေး (15px မှ 35px ကြား)
+            const size = Math.random() * 20 + 15;
+            coin.style.width = size + "px";
+
+            // အနှေးအမြန် (5s မှ 10s ကြား)
+            coin.style.animationDuration = (Math.random() * 5 + 5) + "s"; 
+            
+            // အလင်းအမှောင်ဖျော့ဖျော့ (0.15 မှ 0.3)
+            coin.style.opacity = Math.random() * 0.15 + 0.15;
 
             document.body.appendChild(coin);
-            setTimeout(() => { coin.remove(); }, 8000);
-        }, 1000);
+            setTimeout(() => { coin.remove(); }, 10000);
+        }, 1200);
     }
     createCoins();
-        
-    </script>
 </body>
 </html>
