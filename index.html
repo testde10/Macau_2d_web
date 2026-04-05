@@ -114,23 +114,18 @@
             const currentSecs = Math.floor(now.getTime() / 1000);
             document.getElementById('live-clock').innerText = now.toLocaleTimeString();
 
-            // Storage key name changed slightly to reset previous error data
-            const savedData = localStorage.getItem('macau2d_fixed_data');
+            const savedData = localStorage.getItem('macau_live_v2');
             let currentRandom;
 
             if (savedData) {
                 currentRandom = JSON.parse(savedData);
             }
 
-            // 300 seconds (5 minutes) အထိ ဂဏန်းမပြောင်းအောင် ထိန်းထားပါမည်
-            if (!currentRandom || (currentSecs - currentRandom.timestamp >= 300)) {
+            if (!currentRandom || (currentSecs - currentRandom.timestamp >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                 const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
 
-                // Set ရဲ့ နောက်ဆုံးဂဏန်းယူခြင်း (Last char of string)
                 const setDigit = sNum.slice(-1); 
-                
-                // Value ရဲ့ ဒသမရှေ့ဂဏန်းယူခြင်း (Integer part's last char)
                 const valDigit = vNum.split('.')[0].slice(-1); 
 
                 currentRandom = {
@@ -140,12 +135,11 @@
                     timestamp: currentSecs
                 };
 
-                localStorage.setItem('macau2d_fixed_data', JSON.stringify(currentRandom));
+                localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
             }
 
-            // Sync Main Display
             document.getElementById("main-num").innerText = currentRandom.res;
-            // Sync First Card (11:00 AM)
+            
             const liveRes = document.getElementById("res-1100");
             const liveSet = document.getElementById("set-1100");
             const liveVal = document.getElementById("val-1100");
@@ -154,6 +148,7 @@
             if(liveSet) liveSet.innerText = currentRandom.set;
             if(liveVal) liveVal.innerText = currentRandom.val;
         }
+
         function createFalling() {
             const coin = document.createElement('div');
             coin.className = 'coin';
@@ -164,6 +159,7 @@
             document.body.appendChild(coin);
             setTimeout(() => coin.remove(), 5000);
         }
+
         setInterval(runEngine, 1000);
         setInterval(createFalling, 400);
         runEngine();
