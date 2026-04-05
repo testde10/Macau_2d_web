@@ -176,9 +176,8 @@
         // Freeze logic: 
         // 11:00 AM Draw -> Freeze from 10:59:51 to 11:30:00
         // 01:00 PM Draw -> Freeze from 12:59:51 to 13:30:00
-        const isFrozen = (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
+       const isFrozen = (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
                          (hrs === 12 && mins === 59 && secs >= 51) || (hrs === 13 && mins < 30);
-
         if (!isFrozen) {
             if (!currentRandom || (currentSecs - currentRandom.timestamp >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
@@ -197,7 +196,6 @@
                 localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
             }
         }
-
         if (currentRandom) {
             const mainNum = document.getElementById("main-num");
             const res1100 = document.getElementById("res-1100");
