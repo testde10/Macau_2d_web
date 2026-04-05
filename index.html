@@ -19,24 +19,56 @@
 .app-name {
     font-family: 'Times New Roman', serif;
     font-weight: 900;
-    font-size: 42px;
+    font-size: 45px;
     text-transform: uppercase;
-    letter-spacing: 5px;
-    position: relative;
+    letter-spacing: 8px;
     display: inline-block;
+    position: relative;
+    
+    /* Multicolor Flow: Red, White, Gold, Black Blend */
     background: linear-gradient(
         to right, 
-        #bf953f 0%,   
-        #ff0000 25%,  
-        #ffffff 50%,  
-        #ff0000 75%,  
-        #fcf6ba 100%  
+        #000000 0%,   /* Black */
+        #ff0000 25%,  /* Red */
+        #ffffff 50%,  /* White Flash */
+        #bf953f 75%,  /* Gold */
+        #fcf6ba 100%  /* Bright Gold */
     );
-    background-size: 300% auto;
+    background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-    animation: flowAndGlow 4s ease-in-out infinite;
+    
+    /* Cinematic Animation */
+    animation: movieTitleReveal 5s ease-in-out infinite;
+}
+
+@keyframes movieTitleReveal {
+    0% {
+        background-position: 0% center;
+        filter: brightness(0.5) blur(2px);
+        letter-spacing: 15px;
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+        filter: brightness(1) blur(0px);
+    }
+    50% {
+        background-position: 150% center;
+        /* Flash effect at the middle */
+        filter: drop-shadow(0 0 25px #ffffff);
+        letter-spacing: 8px;
+    }
+    80% {
+        background-position: 300% center;
+        filter: drop-shadow(0 0 15px #ffd700);
+    }
+    100% {
+        background-position: 400% center;
+        /* Final Solid Gold Look */
+        filter: drop-shadow(0 0 10px #bf953f);
+        opacity: 1;
+    }
 }
 @keyframes flowAndGlow {
     0% {
