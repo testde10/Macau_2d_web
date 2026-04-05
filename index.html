@@ -35,21 +35,36 @@
     background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: movieTitleReveal 65s ease-in-out infinite;
+    /* Total duration 62s (Fast Reveal 2s + Pause 60s) */
+    animation: movieTitleReveal 62s ease-in-out infinite;
 }
 
 @keyframes movieTitleReveal {
+    /* 0% to 3% (Approx 2 seconds): Fast Cinematic Reveal */
     0% {
         background-position: 400% center;
         filter: brightness(0.3) blur(3px);
         letter-spacing: 20px;
         opacity: 0;
     }
-    4% {
+    1.5% {
         opacity: 1;
         filter: brightness(1.2) blur(0px);
         letter-spacing: 8px;
     }
+    3% {
+        background-position: 0% center;
+        filter: drop-shadow(0 0 15px #bf953f);
+        opacity: 1;
+    }
+    /* 4% to 100%: Stay still for 60 seconds */
+    4%, 100% {
+        background-position: 0% center;
+        filter: drop-shadow(0 0 10px #bf953f);
+        opacity: 1;
+        letter-spacing: 8px;
+    }
+}
     8% {
         background-position: 0% center;
         filter: drop-shadow(0 0 15px #bf953f);
