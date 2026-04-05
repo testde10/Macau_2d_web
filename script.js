@@ -4,11 +4,10 @@ function runEngine() {
     const mins = now.getMinutes();
     const secs = now.getSeconds();
 
-    // ၆ စက္ကန့်တစ်ခါ ဂဏန်းပြောင်းလဲရန် index တွက်ချက်ခြင်း
+    // ၆ စက္ကန့်တစ်ခါ ဂဏန်းပြောင်းရန်
     const totalSeconds = (hrs * 3600) + (mins * 60) + secs;
     const cycleIndex = Math.floor(totalSeconds / 6);
 
-    // ပိတ်ချိန်/နားချိန် သတ်မှတ်ချက်များ
     let isFrozen = false;
     let freezeTime = null;
     const checkSlots = [11, 13, 15, 17, 19, 21];
@@ -26,7 +25,6 @@ function runEngine() {
         freezeTime = 21; 
     }
 
-    // ဂဏန်းများ ထုတ်ယူခြင်း
     let displayData;
     if (isFrozen) {
         let targetHour = freezeTime - 1;
@@ -56,7 +54,6 @@ function generateNumbers(index) {
 }
 
 function updateUI(data, h, m, s) {
-    // HTML ထဲက ID များအတိုင်း ဖြည့်သွင်းခြင်း
     const clockEl = document.getElementById('live-clock');
     if (clockEl) clockEl.innerText = ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')};
 
@@ -74,7 +71,6 @@ function updateUI(data, h, m, s) {
     });
 }
 
-// Background Animation
 function createFalling() {
     const coin = document.createElement('div');
     coin.innerHTML = "💰";
