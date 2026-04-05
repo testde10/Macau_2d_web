@@ -16,7 +16,7 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
-.app-name {
+        .app-name {
     font-family: 'Times New Roman', serif;
     font-weight: 900;
     font-size: 45px;
@@ -35,117 +35,31 @@
     background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* Total duration 62s (Fast Reveal 2s + Pause 60s) */
-    animation: movieTitleReveal 62s ease-in-out infinite;
+    animation: movieTitleReveal 70s ease-in-out infinite;
 }
 
 @keyframes movieTitleReveal {
-    /* 0% to 3% (Approx 2 seconds): Fast Cinematic Reveal */
     0% {
         background-position: 400% center;
         filter: brightness(0.3) blur(3px);
         letter-spacing: 20px;
         opacity: 0;
     }
-    1.5% {
+    4% {
         opacity: 1;
         filter: brightness(1.2) blur(0px);
         letter-spacing: 8px;
     }
-    3% {
+    14% {
         background-position: 0% center;
         filter: drop-shadow(0 0 15px #bf953f);
         opacity: 1;
     }
-    /* 4% to 100%: Stay still for 60 seconds */
-    4%, 100% {
+    15%, 100% {
         background-position: 0% center;
         filter: drop-shadow(0 0 10px #bf953f);
         opacity: 1;
         letter-spacing: 8px;
-    }
-}
-    8% {
-        background-position: 0% center;
-        filter: drop-shadow(0 0 15px #bf953f);
-        opacity: 1;
-    }
-    9%, 100% {
-        background-position: 0% center;
-        filter: drop-shadow(0 0 10px #bf953f);
-        opacity: 1;
-        letter-spacing: 8px;
-    }
-}
-@keyframes movieTitleReveal {
-    0% {
-        background-position: 0% center;
-        filter: brightness(0.5) blur(2px);
-        letter-spacing: 15px;
-        opacity: 0;
-    }
-    20% {
-        opacity: 1;
-        filter: brightness(1) blur(0px);
-    }
-    50% {
-        background-position: 150% center;
-        /* Flash effect at the middle */
-        filter: drop-shadow(0 0 25px #ffffff);
-        letter-spacing: 8px;
-    }
-    80% {
-        background-position: 300% center;
-        filter: drop-shadow(0 0 15px #ffd700);
-    }
-    100% {
-        background-position: 400% center;
-        /* Final Solid Gold Look */
-        filter: drop-shadow(0 0 10px #bf953f);
-        opacity: 1;
-    }
-}
-@keyframes flowAndGlow {
-    0% {
-        background-position: 0% center;
-    }
-    50% {
-        background-position: 150% center;
-        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
-    }
-    100% {
-        background-position: 300% center;
-        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
-    }
-}
-@keyframes shine {
-    to {
-        background-position: 200% center;
-    }
-}
-@keyframes textReveal {
-    /* Start: Pure White */
-    0% { 
-        background-position: 100% 0;
-        filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
-    }
-    /* Wipe from Left to Right (White to Black to Gold transition) */
-    2% { 
-        background-position: 0% 0; 
-        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-    }
-    /* Final Bright Shine */
-    4% { 
-        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) brightness(1.5);
-    }
-    /* Stay Gold & Glow for the rest of the minute */
-    6%, 98% { 
-        background-position: 0% 0; 
-        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-    }
-    /* Reset for next minute */
-    100% { 
-        background-position: 100% 0; 
     }
 }
         #main-display {
