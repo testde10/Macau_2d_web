@@ -152,8 +152,6 @@ if (currentSecs - lastChangeTime >= 6 || !savedData) {
             const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
 
             currentRandom = {
-                // SET (sNum) ရဲ့ နောက်ဆုံး ဒသမ ၂ လုံးကိုပဲ ဖြတ်ယူပြီး အဝိုင်းထဲမှာ ပြရန်
-            currentRandom = {
                 res: sNum.split('.')[1], 
                 set: sNum,
                 val: vNum
@@ -161,12 +159,15 @@ if (currentSecs - lastChangeTime >= 6 || !savedData) {
 
             localStorage.setItem('current2D', JSON.stringify(currentRandom));
             lastChangeTime = currentSecs;
+        } else {
+            currentRandom = JSON.parse(savedData);
+        }
 
-            // အဝိုင်းရော၊ အောက်ကအကွက်ရော ဂဏန်းချင်း တူသွားအောင် ဒီမှာ တစ်ခါတည်း သတ်မှတ်ပါ
-            document.getElementById("main-num").innerText = currentRandom.res;
-            resElem.innerText = currentRandom.res;
-            setElem.innerText = currentRandom.set;
-            valElem.innerText = currentRandom.val;
+        // Displaying the values correctly on screen
+        document.getElementById("main-num").innerText = currentRandom.res;
+        resElem.innerText = currentRandom.res;
+        setElem.innerText = currentRandom.set;
+        valElem.innerText = currentRandom.val;
         } else {
             currentRandom = JSON.parse(savedData);
             document.getElementById("main-num").innerText = currentRandom.res;
