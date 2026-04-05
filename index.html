@@ -24,18 +24,33 @@
     letter-spacing: 5px;
     position: relative;
     display: inline-block;
-    color: #ffd700;
-    /* ရွှေရောင် Metallic ဖြစ်အောင် Shadow ထည့်ခြင်း */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.2);
-    
-    /* အလင်းတန်းဖြတ်ပြေးမည့် Animation */
-    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fcf6ba, #bf953f);
+    background: linear-gradient(
+        to right, 
+        #bf953f 0%,   
+        #ff0000 25%,  
+        #ffffff 50%,  
+        #ff0000 75%,  
+        #fcf6ba 100%  
+    );
+    background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
-    animation: shine 3s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+    animation: flowAndGlow 4s ease-in-out infinite;
 }
-
+@keyframes flowAndGlow {
+    0% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 150% center;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+    }
+    100% {
+        background-position: 300% center;
+        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+    }
+}
 @keyframes shine {
     to {
         background-position: 200% center;
