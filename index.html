@@ -24,24 +24,44 @@
     letter-spacing: 8px;
     display: inline-block;
     position: relative;
-    
-    /* Multicolor Flow: Red, White, Gold, Black Blend */
     background: linear-gradient(
         to right, 
-        #000000 0%,   /* Black */
-        #ff0000 25%,  /* Red */
-        #ffffff 50%,  /* White Flash */
-        #bf953f 75%,  /* Gold */
-        #fcf6ba 100%  /* Bright Gold */
+        #bf953f 0%,   
+        #ffffff 20%,  
+        #ff0000 40%,  
+        #000000 60%,  
+        #bf953f 100%
     );
     background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-    /* Cinematic Animation */
-    animation: movieTitleReveal 5s ease-in-out infinite;
+    animation: movieTitleReveal 65s ease-in-out infinite;
 }
 
+@keyframes movieTitleReveal {
+    0% {
+        background-position: 400% center;
+        filter: brightness(0.3) blur(3px);
+        letter-spacing: 20px;
+        opacity: 0;
+    }
+    4% {
+        opacity: 1;
+        filter: brightness(1.2) blur(0px);
+        letter-spacing: 8px;
+    }
+    8% {
+        background-position: 0% center;
+        filter: drop-shadow(0 0 15px #bf953f);
+        opacity: 1;
+    }
+    9%, 100% {
+        background-position: 0% center;
+        filter: drop-shadow(0 0 10px #bf953f);
+        opacity: 1;
+        letter-spacing: 8px;
+    }
+}
 @keyframes movieTitleReveal {
     0% {
         background-position: 0% center;
