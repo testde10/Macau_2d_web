@@ -160,59 +160,25 @@
         </div>
     </div>
 <script>
-    function runEngine() {
-        const now = new Date();
-        const currentSecs = Math.floor(now.getTime() / 1000);
-        const hrs = now.getHours();
-        const mins = now.getMinutes();
-        const secs = now.getSeconds();
-        
-        const clockEl = document.getElementById('live-clock');
-        if (clockEl) clockEl.innerText = now.toLocaleTimeString();
-
-        const savedData = localStorage.getItem('macau_live_v2');
-        let currentRandom = savedData ? JSON.parse(savedData) : null;
-
-        // Freeze logic: 
-        // 11:00 AM Draw -> Freeze from 10:59:51 to 11:30:00
-        // 01:00 PM Draw -> Freeze from 12:59:51 to 13:30:00
-       const isFrozen = 
-            (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
-            (hrs === 12 && mins === 59 && secs >= 51)  (hrs === 13 && mins < 30) 
-            (hrs === 14 && mins === 59 && secs >= 51)  (hrs === 15 && mins < 30) 
-            (hrs === 16 && mins === 59 && secs >= 51)  (hrs === 17 && mins < 30) 
-            (hrs === 18 && mins === 59 && secs >= 51)  (hrs === 19 && mins < 30) 
-            (hrs === 20 && mins === 59 && secs >= 51) || (hrs === 21 && mins < 30);
-            if (!currentRandom || (currentSecs - currentRandom.timestamp >= 6)) {
-                const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
-                const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
-
-                const setDigit = sNum.slice(-1);
-                const valDigit = vNum.split('.')[0].slice(-1);
-
-                currentRandom = {
-                    res: setDigit + valDigit,
-                    set: sNum,
-                    val: vNum,
-                    timestamp: currentSecs
-                };
-
-                localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
-            }
-        }
-        if (currentRandom) {
-            const mainNum = document.getElementById("main-num");
-            const res1100 = document.getElementById("res-1100");
-            const set1100 = document.getElementById("set-1100");
-            const val1100 = document.getElementById("val-1100");
-
-            if (mainNum) mainNum.innerText = currentRandom.res;
-            if (res1100) res1100.innerText = currentRandom.res;
-            if (set1100) set1100.innerText = currentRandom.set;
-            if (val1100) val1100.innerText = currentRandom.val;
+    timestamp: currentSecs
+            };
+            localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
         }
     }
 
+    if (currentRandom) {
+        const ids = ["main-num", "res-1100", "res-1300", "res-1500", "res-1700", "res-1900", "res-2100"];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.innerText = currentRandom.res;
+        });
+
+        const set1100 = document.getElementById("set-1100");
+        const val1100 = document.getElementById("val-1100");
+        if (set1100) set1100.innerText = currentRandom.set;
+        if (val1100) val1100.innerText = currentRandom.val;
+    }
+}
     function createFalling() {
         const coin = document.createElement('div');
         coin.className = 'coin';
