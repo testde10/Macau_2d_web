@@ -16,7 +16,7 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
-        .app-name {
+      .app-name {
     font-family: 'Times New Roman', serif;
     font-weight: 900;
     font-size: 45px;
@@ -35,7 +35,8 @@
     background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: movieTitleReveal 70s ease-in-out infinite;
+    /* Duration: 40s (10s Animation + 30s Pause) */
+    animation: movieTitleReveal 40s ease-in-out infinite;
 }
 
 @keyframes movieTitleReveal {
@@ -45,17 +46,18 @@
         letter-spacing: 20px;
         opacity: 0;
     }
-    4% {
+    10% {
         opacity: 1;
         filter: brightness(1.2) blur(0px);
         letter-spacing: 8px;
     }
-    14% {
+    25% {
         background-position: 0% center;
         filter: drop-shadow(0 0 15px #bf953f);
         opacity: 1;
     }
-    15%, 100% {
+    /* Stay still from 26% to 100% (approx 30 seconds) */
+    26%, 100% {
         background-position: 0% center;
         filter: drop-shadow(0 0 10px #bf953f);
         opacity: 1;
