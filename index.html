@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MACAU 2D LIVE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
   body {
     background: radial-gradient(circle, #ff6666 0%, #4b0000 70%, #000000 100%);
@@ -151,10 +152,58 @@
     font-size: 15px; 
     font-weight: bold; 
 }
+        /* Side Navigation Buttons Style */
+.side-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 10px 5px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 1000;
+    width: 60px;
+    transition: 0.3s;
+}
+
+.side-btn i {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.side-btn:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+.left-btn {
+    left: 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.right-btn {
+    right: 0;
+    border-radius: 10px 0 0 10px;
+}
     </style>
 </head>
 <body>
+    <a href="history.html" class="side-btn left-btn">
+    <i class="fas fa-history"></i>
+    <span>2D History</span>
+</a>
 
+<a href="holidays.html" class="side-btn right-btn">
+    <i class="fas fa-calendar-alt"></i>
+    <span>2D Holidays</span>
+</a>
     <div class="app-header"><div class="app-name">MACAU 2D</div></div>
     <div id="main-display"><div class="main-number" id="main-num">--</div></div>
     <div class="update-bar">Updated: <span id="live-clock">--:--:--</span></div>
