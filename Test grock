@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACAU 2D LIVE</title>
+    
+    <style>
+        body {
+            background: radial-gradient(circle, #4b0000 0%, #000000 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .coin {
+            position: fixed;
+            top: -60px;
+            z-index: -1;
+            pointer-events: none;
+            animation: fall linear infinite;
+            background: transparent !important;
+            display: block;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .app-header {
+            padding: 30px 10px 10px 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .app-name {
+            font-family: 'Times New Roman', serif;
+            font-weight: 900;
+            font-size: 48px;
+            letter-spacing: 4px;
+            margin: 0;
+        }
+
+    </style>
+</head>
