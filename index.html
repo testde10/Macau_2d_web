@@ -153,32 +153,27 @@ if (currentSecs - lastChangeTime >= 6 || !savedData) {
 
             currentRandom = {
                 // SET (sNum) ရဲ့ နောက်ဆုံး ဒသမ ၂ လုံးကိုပဲ ဖြတ်ယူပြီး အဝိုင်းထဲမှာ ပြရန်
+            currentRandom = {
                 res: sNum.split('.')[1], 
                 set: sNum,
                 val: vNum
             };
-                
-                    localStorage.setItem('current2D', JSON.stringify(currentRandom));
-                    lastChangeTime = currentSecs;
-                } else {
-                    currentRandom = JSON.parse(savedData);
-                }
 
-                resElem.innerText = currentRandom.res;
-                setElem.innerText = currentRandom.set;
-                valElem.innerText = currentRandom.val;
-                document.getElementById("main-num").innerText = currentRandom.res;
-                    resElem.innerText = "--"; setElem.innerText = "--"; valElem.innerText = "--";
-                }
-            });
+            localStorage.setItem('current2D', JSON.stringify(currentRandom));
+            lastChangeTime = currentSecs;
 
-            if (activeIdx === -1) {
-                let lastId = "2100";
-                for(let i = sessions.length - 1; i >= 0; i--) {
-                    if (currentTotalMins >= (sessions[i].h * 60)) { lastId = sessions[i].id; break; }
-                }
-                if (currentTotalMins >= 1260 || currentTotalMins < 480) lastId = "2100";
-                document.getElementById("main-num").innerText = resultsData[lastId].res;
+            // အဝိုင်းရော၊ အောက်ကအကွက်ရော ဂဏန်းချင်း တူသွားအောင် ဒီမှာ တစ်ခါတည်း သတ်မှတ်ပါ
+            document.getElementById("main-num").innerText = currentRandom.res;
+            resElem.innerText = currentRandom.res;
+            setElem.innerText = currentRandom.set;
+            valElem.innerText = currentRandom.val;
+        } else {
+            currentRandom = JSON.parse(savedData);
+            document.getElementById("main-num").innerText = currentRandom.res;
+            resElem.innerText = currentRandom.res;
+            setElem.innerText = currentRandom.set;
+            valElem.innerText = currentRandom.val;
+        }    
             }
         }
 
