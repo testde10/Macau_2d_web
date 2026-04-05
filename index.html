@@ -34,45 +34,51 @@
     overflow-x: hidden;
 }
 .app-name {
-    font-family: 'Times New Roman', serif; 
-    font-weight: 900; 
+    font-family: 'Times New Roman', serif;
+    font-weight: 900;
     font-size: 42px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     letter-spacing: 4px;
-    animation: moveAndShine 180s ease-in-out infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     position: relative;
     display: inline-block;
+    
+    /* Set Initial Color */
+    color: #ffffff;
+    
+    /* Background wipe setup */
+    background: linear-gradient(to right, #ffd700 0%, #ffd700 50%, #ffffff 50%, #ffffff 100%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* 60s = 1 Minute cycle */
+    animation: textReveal 60s ease-in-out infinite;
 }
-        @keyframes moveAndShine {
+
+@keyframes textReveal {
+    /* Start: Pure White */
     0% { 
-        transform: translateX(-100vw); 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%); 
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        background-position: 100% 0;
+        filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
     }
-    1.5% { 
-        transform: translateX(0); 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%); 
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
-    }
-    1.8% { 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
-        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
-    }
+    /* Wipe from Left to Right (White to Black to Gold transition) */
     2% { 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
-        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        background-position: 0% 0; 
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
     }
-    98.5% { 
-        transform: translateX(0); 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
-        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    /* Final Bright Shine */
+    4% { 
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) brightness(1.5);
     }
+    /* Stay Gold & Glow for the rest of the minute */
+    6%, 98% { 
+        background-position: 0% 0; 
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+    }
+    /* Reset for next minute */
     100% { 
-        transform: translateX(100vw); 
-        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
-        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1));
+        background-position: 100% 0; 
     }
 }
         #main-display {
