@@ -9,23 +9,18 @@
             background: radial-gradient(circle, #4b0000 0%, #000 100%);
             color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            overflow-x: hidden;
         }
-      .coin {
-    position: fixed;
-    top: -60px;
-    z-index: -1;
-    pointer-events: none;
-    animation: fall linear infinite;
-    background: transparent !important;
-          display: block; /* လေးထောင့်ကွက်မဖြစ်အောင် */
-}
-
-@keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.5; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
+        .coin {
+            position: fixed; top: -60px; z-index: -1; pointer-events: none;
+            animation: fall linear infinite; background: transparent !important; display: block;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
         .app-header { padding: 30px 10px 10px 10px; width: 100%; text-align: center; }
         .app-name {
             font-family: 'Times New Roman', serif; font-weight: 900; font-size: 48px;
@@ -39,7 +34,7 @@
             border: 5px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center;
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2); margin: 20px auto 15px auto;
         }
-        .main-number { font-size: 110px; font-weight: bold; color: #white; text-shadow: 3px 3px 10px #000; }
+        .main-number { font-size: 110px; font-weight: bold; color: white; text-shadow: 3px 3px 10px #000; }
         .update-bar {
             background: rgba(0, 0, 0, 0.85); padding: 8px 22px; border-radius: 50px;
             border: 1.5px solid #d4af37; font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 30px;
@@ -63,162 +58,97 @@
     <div class="update-bar">Updated: <span id="live-clock">--:--:--</span></div>
 
     <div id="grid-container">
-        <div class="card"><div class="time-label">11:00 AM</div><div class="result-num" id="res-1000">--</div><div class="data-row"><span>SET<small id="set-1000">--</small></span><span>VALUE<small id="val-1000">--</small></span></div></div>
-        <div class="card"><div class="time-label">01:00 PM</div><div class="result-num" id="res-1300">--</div><div class="data-row"><span>SET<small id="set-1300">--</small></span><span>VALUE<small id="val-1300">--</small></span></div></div>
-        <div class="card"><div class="time-label">03:00 PM</div><div class="result-num" id="res-1500">--</div><div class="data-row"><span>SET<small id="set-1500">--</small></span><span>VALUE<small id="val-1500">--</small></span></div></div>
-        <div class="card"><div class="time-label">05:00 PM</div><div class="result-num" id="res-1700">--</div><div class="data-row"><span>SET<small id="set-1700">--</small></span><span>VALUE<small id="val-1700">--</small></span></div></div>
-        <div class="card"><div class="time-label">07:00 PM</div><div class="result-num" id="res-1900">--</div><div class="data-row"><span>SET<small id="set-1900">--</small></span><span>VALUE<small id="val-1900">--</small></span></div></div>
-        <div class="card"><div class="time-label">09:00 PM</div><div class="result-num" id="res-2100">--</div><div class="data-row"><span>SET<small id="set-2100">--</small></span><span>VALUE<small id="val-2100">--</small></span></div></div>
+        <div class="card">
+            <div class="time-label">11:00 AM</div>
+            <div class="result-num" id="res-1100">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-1100">--</small></span>
+                <span>VALUE<small id="val-1100">--</small></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-label">01:00 PM</div>
+            <div class="result-num" id="res-1300">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-1300">--</small></span>
+                <span>VALUE<small id="val-1300">--</small></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-label">03:00 PM</div>
+            <div class="result-num" id="res-1500">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-1500">--</small></span>
+                <span>VALUE<small id="val-1500">--</small></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-label">05:00 PM</div>
+            <div class="result-num" id="res-1700">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-1700">--</small></span>
+                <span>VALUE<small id="val-1700">--</small></span>
+            </div>
+        </div>
     </div>
 
     <script>
-        const resultsData = {
-            "1000": { res: "51", set: "1234.45", val: "54321.02" },
-            "1300": { res: "08", set: "1452.40", val: "34518.50" },
-            "1500": { res: "29", set: "1879.92", val: "48789.47" },
-            "1700": { res: "83", set: "1733.78", val: "47333.69" },
-            "1900": { res: "64", set: "1925.06", val: "40514.91" },
-            "2100": { res: "97", set: "2107.39", val: "51007.83" }
-        };
-
-        const sessions = [
-            { id: "1000", h: 10, m: 0 }, { id: "1300", h: 13, m: 0 },
-            { id: "1500", h: 15, m: 0 }, { id: "1700", h: 17, m: 0 },
-            { id: "1900", h: 19, m: 0 }, { id: "2100", h: 21, m: 0 }
-        ];
-
-        let currentRandom = { res: "--", set: "--", val: "--" };
         let lastChangeTime = 0;
 
         function runEngine() {
             const now = new Date();
-            const mmTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Yangon"}));
-            const hh = mmTime.getHours();
-            const mm = mmTime.getMinutes();
-            const ss = mmTime.getSeconds();
-            const currentTotalMins = (hh * 60) + mm;
-            const currentSecs = (currentTotalMins * 60) + ss;
+            const currentSecs = Math.floor(now.getTime() / 1000);
+            
+            // နာရီပတ်တီး
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString();
 
-            document.getElementById("live-clock").innerText = mmTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-
-            let activeIdx = -1;
-            for(let i=0; i < sessions.length; i++) {
-                const drawMins = (sessions[i].h * 60) + sessions[i].m;
-                const prevMins = (i === 0) ? 0 : (sessions[i-1].h * 60);
-                const startMins = (i === 0) ? 480 : prevMins + 15;
-                if (currentTotalMins >= startMins && currentTotalMins < drawMins) {
-                    activeIdx = i; break;
-                }
-            }
-
-            sessions.forEach((s, idx) => {
-                const drawMins = (s.h * 60) + s.m;
-                const resElem = document.getElementById("res-" + s.id);
-                const setElem = document.getElementById("set-" + s.id);
-                const valElem = document.getElementById("val-" + s.id);
-
-                if (currentTotalMins >= drawMins) {
-                    resElem.innerText = resultsData[s.id].res;
-                    setElem.innerText = resultsData[s.id].set;
-                    valElem.innerText = resultsData[s.id].val;
-             } else if (idx === activeIdx) {
             const savedData = localStorage.getItem('current2D');
-            const savedTime = localStorage.getItem('lastTime');
-            let lastChangeTime = savedTime ? parseInt(savedTime) : 0;
+            let currentRandom;
 
-            if (currentSecs - lastChangeTime >= 6 || !savedData) {
+            // ၆ စက္ကန့်ပြည့်မှ ဂဏန်းအသစ်လှည့်ရန်
+            if (!savedData || (currentSecs - lastChangeTime >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                 const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
-                
+
                 currentRandom = {
-                    res: sNum.slice(-1) + vNum.split('.')[0].slice(-1),
-                    set: sNum, 
+                    res: sNum.split('.')[1], // SET ရဲ့ ဒသမနောက်က ၂ လုံး
+                    set: sNum,
                     val: vNum
                 };
-                
+
                 localStorage.setItem('current2D', JSON.stringify(currentRandom));
-                localStorage.setItem('lastTime', currentSecs.toString());
+                lastChangeTime = currentSecs;
             } else {
                 currentRandom = JSON.parse(savedData);
             }
 
-            resElem.innerText = currentRandom.res;
-            setElem.innerText = currentRandom.set;
-            valElem.innerText = currentRandom.val;
+            // ဂဏန်းတွေကို Screen ပေါ်မှာ ပြသခြင်း
             document.getElementById("main-num").innerText = currentRandom.res;
-        } else {   
-if (currentSecs - lastChangeTime >= 6 || !savedData) {
-            const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
-            const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
-
-            currentRandom = {
-                res: sNum.split('.')[1], 
-                set: sNum,
-                val: vNum
-            };
-
-            localStorage.setItem('current2D', JSON.stringify(currentRandom));
-            lastChangeTime = currentSecs;
-        } else {
-            currentRandom = JSON.parse(savedData);
+            
+            // ၁၁:၀၀ အကွက်ကို Live ပြောင်းပေးခြင်း
+            if(document.getElementById("res-1100")) document.getElementById("res-1100").innerText = currentRandom.res;
+            if(document.getElementById("set-1100")) document.getElementById("set-1100").innerText = currentRandom.set;
+            if(document.getElementById("val-1100")) document.getElementById("val-1100").innerText = currentRandom.val;
         }
 
-        // Displaying the values correctly on screen
-        document.getElementById("main-num").innerText = currentRandom.res;
-        resElem.innerText = currentRandom.res;
-        setElem.innerText = currentRandom.set;
-        valElem.innerText = currentRandom.val;
-        } else {
-            currentRandom = JSON.parse(savedData);
-            document.getElementById("main-num").innerText = currentRandom.res;
-            resElem.innerText = currentRandom.res;
-            setElem.innerText = currentRandom.set;
-            valElem.innerText = currentRandom.val;
-        }    
-            }
+        // ရွှေတုံး ဒေါ်လာရွက် Animation
+        function createFalling() {
+            const coin = document.createElement('img');
+            coin.className = 'coin';
+            coin.src = Math.random() > 0.5 ? '36660.jpg' : '36661.png'; 
+            coin.style.left = Math.random() * 100 + 'vw';
+            coin.style.width = (Math.random() * 30 + 20) + 'px';
+            coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(coin);
+            setTimeout(() => coin.remove(), 5000);
         }
 
-        setInterval(runEngine, 6000);
+        // စက္ကန့်တိုင်း လည်ပတ်စေရန်
+        setInterval(runEngine, 1000);
+        setInterval(createFalling, 300);
+        
+        // စစချင်းမှာ တစ်ခါ Run ပေးရန်
         runEngine();
-        function createFallingElements() {
-        const items = [
-            // ၁။ တရုတ်ရွှေတုံး (Yuanbao Gold) - ပုံစံအစစ်
-            'https://img.icons8.com/emoji/96/gold-ingot-emoji.png',
-            
-            // ၂။ ဒေါ်လာရွက် (Flying Dollar) - အစ်ကိုပြတဲ့ပုံစံ
-            'https://img.icons8.com/emoji/96/money-with-wings-emoji.png',
-            
-            // ၃။ အန်စာတုံး (Dice)
-            'https://img.icons8.com/emoji/96/game-die-emoji.png',
-            
-            // ၄။ ရွှေအကြွေစေ့ (Gold Coin)
-            'https://img.icons8.com/emoji/96/coin-emoji.png',
-            
-            // ၅။ အိတ် (Money Bag) - အပိုလက်ဆောင်
-            'https://img.icons8.com/emoji/96/money-bag-emoji.png'
-        ];
-
-        setInterval(() => {
-            const el = document.createElement('img');
-            el.src = items[Math.floor(Math.random() * items.length)];
-            el.className = 'coin'; 
-            el.style.left = Math.random() * 100 + "vw";
-            
-            // ပုံတွေမို့လို့ အကြီးအသေးကို သေချာညှိပေးထားပါတယ်
-            const sizes = ['30px', '45px', '55px'];
-            el.style.width = sizes[Math.floor(Math.random() * sizes.length)];
-            
-            // ကျလာတဲ့ အရှိန် (ကြဲကြဲနဲ့ ငြိမ်ငြိမ်လေး)
-            el.style.animationDuration = (Math.random() * 5 + 8) + "s"; 
-            
-            // အရောင်ဖျော့နှုန်း (0.3 ဆိုရင် ပုံကို ပီပီပြင်ပြင် မြင်ရပါပြီ)
-            el.style.opacity = Math.random() * 0.2 + 0.2;
-            
-            document.body.appendChild(el);
-            setTimeout(() => { el.remove(); }, 15000);
-        }, 2200); 
-    }
-    createFallingElements();
-          </script>
+    </script>
 </body>
 </html>
