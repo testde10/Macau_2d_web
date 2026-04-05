@@ -33,33 +33,47 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
-
 .app-name {
     font-family: 'Times New Roman', serif; 
     font-weight: 900; 
     font-size: 42px;
     text-transform: uppercase; 
     letter-spacing: 4px;
-    color: #ffffff;
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
-    animation: shake 0.3s infinite;
+    animation: moveAndShine 180s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
 }
-
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+        @keyframes moveAndShine {
+    0% { 
+        transform: translateX(-100vw); 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%); 
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    }
+    1.5% { 
+        transform: translateX(0); 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%); 
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    }
+    1.8% { 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+    }
+    2% { 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    }
+    98.5% { 
+        transform: translateX(0); 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+    }
+    100% { 
+        transform: translateX(100vw); 
+        background-image: linear-gradient(to bottom, #ffffff 0%, #fff59d 20%, #ffd700 50%, #fbc02d 100%);
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1));
+    }
 }
         #main-display {
             width: 190px; height: 190px; background: radial-gradient(circle, #1a1a1a, #000);
