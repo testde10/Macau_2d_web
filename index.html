@@ -159,26 +159,33 @@
             </div>
         </div>
     </div>
+<script>
+    function runEngine() {
+        const now = new Date();
+        const currentSecs = Math.floor(now.getTime() / 1000);
+        const hrs = now.getHours();
+        const mins = now.getMinutes();
+        const secs = now.getSeconds();
+        
+        const clockEl = document.getElementById('live-clock');
+        if (clockEl) clockEl.innerText = now.toLocaleTimeString();
 
-    <script>
-        function runEngine() {
-            const now = new Date();
-            const currentSecs = Math.floor(now.getTime() / 1000);
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString();
+        const savedData = localStorage.getItem('macau_live_v2');
+        let currentRandom = savedData ? JSON.parse(savedData) : null;
 
-            const savedData = localStorage.getItem('macau_live_v2');
-            let currentRandom;
+        // Freeze logic: 
+        // 11:00 AM Draw -> Freeze from 10:59:51 to 11:30:00
+        // 01:00 PM Draw -> Freeze from 12:59:51 to 13:30:00
+        const isFrozen = (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
+                         (hrs === 12 && mins === 59 && secs >= 51) || (hrs === 13 && mins < 30);
 
-            if (savedData) {
-                currentRandom = JSON.parse(savedData);
-            }
-
+        if (!isFrozen) {
             if (!currentRandom || (currentSecs - currentRandom.timestamp >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                 const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
 
-                const setDigit = sNum.slice(-1); 
-                const valDigit = vNum.split('.')[0].slice(-1); 
+                const setDigit = sNum.slice(-1);
+                const valDigit = vNum.split('.')[0].slice(-1);
 
                 currentRandom = {
                     res: setDigit + valDigit,
@@ -189,32 +196,35 @@
 
                 localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
             }
-
-            document.getElementById("main-num").innerText = currentRandom.res;
-            
-            const liveRes = document.getElementById("res-1100");
-            const liveSet = document.getElementById("set-1100");
-            const liveVal = document.getElementById("val-1100");
-
-            if(liveRes) liveRes.innerText = currentRandom.res;
-            if(liveSet) liveSet.innerText = currentRandom.set;
-            if(liveVal) liveVal.innerText = currentRandom.val;
         }
 
-        function createFalling() {
-            const coin = document.createElement('div');
-            coin.className = 'coin';
-            coin.innerHTML = "💰"; 
-            coin.style.left = Math.random() * 100 + 'vw';
-            coin.style.fontSize = (Math.random() * 25 + 15) + 'px';
-            coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(coin);
-            setTimeout(() => coin.remove(), 5000);
-        }
+        if (currentRandom) {
+            const mainNum = document.getElementById("main-num");
+            const res1100 = document.getElementById("res-1100");
+            const set1100 = document.getElementById("set-1100");
+            const val1100 = document.getElementById("val-1100");
 
-        setInterval(runEngine, 1000);
-        setInterval(createFalling, 400);
-        runEngine();
-    </script>
+            if (mainNum) mainNum.innerText = currentRandom.res;
+            if (res1100) res1100.innerText = currentRandom.res;
+            if (set1100) set1100.innerText = currentRandom.set;
+            if (val1100) val1100.innerText = currentRandom.val;
+        }
+    }
+
+    function createFalling() {
+        const coin = document.createElement('div');
+        coin.className = 'coin';
+        coin.innerHTML = "💰"; 
+        coin.style.left = Math.random() * 100 + 'vw';
+        coin.style.fontSize = (Math.random() * 25 + 15) + 'px';
+        coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(coin);
+        setTimeout(() => coin.remove(), 5000);
+    }
+
+    setInterval(runEngine, 1000);
+    setInterval(createFalling, 400);
+    runEngine();
+</script>
 </body>
 </html>
