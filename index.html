@@ -156,30 +156,6 @@
             </div>
         </div>
     </div>
-<script>
-    timestamp: currentSecs
-            };
-            localStorage.setItem('macau_live_v2', JSON.stringify(currentRandom));
-        }
-    }
-    if (currentRandom) {
-        const ids = ["main-num", "res-1100", "res-1300", "res-1500", "res-1700", "res-1900", "res-2100"];
-        ids.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.innerText = currentRandom.res;
-        });
-        const coin = document.createElement('div');
-        coin.className = 'coin';
-        coin.innerHTML = "💰"; 
-        coin.style.left = Math.random() * 100 + 'vw';
-        coin.style.fontSize = (Math.random() * 25 + 15) + 'px';
-        coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        document.body.appendChild(coin);
-        setTimeout(() => coin.remove(), 5000);
-    }
-    setInterval(runEngine, 1000);
-    setInterval(createFalling, 400);
-    runEngine();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
