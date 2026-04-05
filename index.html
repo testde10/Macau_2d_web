@@ -176,9 +176,13 @@
         // Freeze logic: 
         // 11:00 AM Draw -> Freeze from 10:59:51 to 11:30:00
         // 01:00 PM Draw -> Freeze from 12:59:51 to 13:30:00
-       const isFrozen = (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
-                         (hrs === 12 && mins === 59 && secs >= 51) || (hrs === 13 && mins < 30);
-        if (!isFrozen) {
+       const isFrozen = 
+            (hrs === 10 && mins === 59 && secs >= 51)  (hrs === 11 && mins < 30) 
+            (hrs === 12 && mins === 59 && secs >= 51)  (hrs === 13 && mins < 30) 
+            (hrs === 14 && mins === 59 && secs >= 51)  (hrs === 15 && mins < 30) 
+            (hrs === 16 && mins === 59 && secs >= 51)  (hrs === 17 && mins < 30) 
+            (hrs === 18 && mins === 59 && secs >= 51)  (hrs === 19 && mins < 30) 
+            (hrs === 20 && mins === 59 && secs >= 51) || (hrs === 21 && mins < 30);
             if (!currentRandom || (currentSecs - currentRandom.timestamp >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                 const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
