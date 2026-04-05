@@ -13,7 +13,7 @@
         }
         .coin {
             position: fixed; top: -60px; z-index: -1; pointer-events: none;
-            animation: fall linear infinite; background: transparent !important; display: block;
+            animation: fall linear infinite; background: transparent !important;
         }
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
@@ -21,31 +21,31 @@
             90% { opacity: 0.5; }
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
-        .app-header { padding: 30px 10px 10px 10px; width: 100%; text-align: center; }
+        .app-header { padding: 20px 10px 5px 10px; width: 100%; text-align: center; }
         .app-name {
-            font-family: 'Times New Roman', serif; font-weight: 900; font-size: 48px;
+            font-family: 'Times New Roman', serif; font-weight: 900; font-size: 42px;
             text-transform: uppercase; letter-spacing: 4px;
             background: linear-gradient(to bottom, #ffffff 0%, #fcf6ba 20%, #bf953f 45%, #8a6e2f 70%, #ffffff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 4px 5px rgba(0,0,0,1)); margin: 0;
         }
         #main-display {
-            width: 210px; height: 210px; background: radial-gradient(circle, #1a1a1a, #000);
+            width: 190px; height: 190px; background: radial-gradient(circle, #1a1a1a, #000);
             border: 5px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2); margin: 20px auto 15px auto;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2); margin: 15px auto;
         }
-        .main-number { font-size: 110px; font-weight: bold; color: white; text-shadow: 3px 3px 10px #000; }
+        .main-number { font-size: 100px; font-weight: bold; color: white; text-shadow: 3px 3px 10px #000; }
         .update-bar {
-            background: rgba(0, 0, 0, 0.85); padding: 8px 22px; border-radius: 50px;
-            border: 1.5px solid #d4af37; font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.85); padding: 8px 25px; border-radius: 50px;
+            border: 1.5px solid #d4af37; font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 25px;
         }
         #grid-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-            padding: 0 20px 30px 20px; width: 100%; max-width: 480px;
+            padding: 0 20px 40px 20px; width: 100%; max-width: 480px; box-sizing: border-box;
         }
         .card { background: #0d0d0d; border: 1.2px solid #d4af37; border-radius: 14px; overflow: hidden; text-align: center; }
         .time-label { background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37); color: #000 !important; padding: 10px; font-size: 15px; font-weight: 800; }
-        .result-num { font-size: 46px; font-weight: 900; padding: 12px 0; color: #fff; }
+        .result-num { font-size: 45px; font-weight: 900; padding: 12px 0; color: #fff; }
         .data-row { display: flex; justify-content: space-around; padding: 10px; font-size: 11px; color: #d4af37; border-top: 1px solid #222; background: #050505; }
         .data-row span { display: flex; flex-direction: column; gap: 3px; font-weight: bold; }
         .data-row small { color: #fff; font-size: 13px; font-weight: bold; }
@@ -90,6 +90,22 @@
                 <span>VALUE<small id="val-1700">--</small></span>
             </div>
         </div>
+        <div class="card">
+            <div class="time-label">07:00 PM</div>
+            <div class="result-num" id="res-1900">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-1900">--</small></span>
+                <span>VALUE<small id="val-1900">--</small></span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="time-label">09:00 PM</div>
+            <div class="result-num" id="res-2100">--</div>
+            <div class="data-row">
+                <span>SET<small id="set-2100">--</small></span>
+                <span>VALUE<small id="val-2100">--</small></span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -98,20 +114,17 @@
         function runEngine() {
             const now = new Date();
             const currentSecs = Math.floor(now.getTime() / 1000);
-            
-            // နာရီပတ်တီး
             document.getElementById('live-clock').innerText = now.toLocaleTimeString();
 
             const savedData = localStorage.getItem('current2D');
             let currentRandom;
 
-            // ၆ စက္ကန့်ပြည့်မှ ဂဏန်းအသစ်လှည့်ရန်
             if (!savedData || (currentSecs - lastChangeTime >= 6)) {
                 const sNum = (Math.random() * (1999.99 - 1000.00) + 1000.00).toFixed(2);
                 const vNum = (Math.random() * (59999.99 - 10000.00) + 10000.00).toFixed(2);
 
                 currentRandom = {
-                    res: sNum.split('.')[1], // SET ရဲ့ ဒသမနောက်က ၂ လုံး
+                    res: sNum.split('.')[1],
                     set: sNum,
                     val: vNum
                 };
@@ -122,32 +135,31 @@
                 currentRandom = JSON.parse(savedData);
             }
 
-            // ဂဏန်းတွေကို Screen ပေါ်မှာ ပြသခြင်း
             document.getElementById("main-num").innerText = currentRandom.res;
             
-            // ၁၁:၀၀ အကွက်ကို Live ပြောင်းပေးခြင်း
-            if(document.getElementById("res-1100")) document.getElementById("res-1100").innerText = currentRandom.res;
-            if(document.getElementById("set-1100")) document.getElementById("set-1100").innerText = currentRandom.set;
-            if(document.getElementById("val-1100")) document.getElementById("val-1100").innerText = currentRandom.val;
+            // Sync current data to the first slot as an example
+            const liveRes = document.getElementById("res-1100");
+            const liveSet = document.getElementById("set-1100");
+            const liveVal = document.getElementById("val-1100");
+
+            if(liveRes) liveRes.innerText = currentRandom.res;
+            if(liveSet) liveSet.innerText = currentRandom.set;
+            if(liveVal) liveVal.innerText = currentRandom.val;
         }
 
-        // ရွှေတုံး ဒေါ်လာရွက် Animation
         function createFalling() {
-            const coin = document.createElement('img');
+            const coin = document.createElement('div');
             coin.className = 'coin';
-            coin.src = Math.random() > 0.5 ? '36660.jpg' : '36661.png'; 
+            coin.innerHTML = "💰"; 
             coin.style.left = Math.random() * 100 + 'vw';
-            coin.style.width = (Math.random() * 30 + 20) + 'px';
+            coin.style.fontSize = (Math.random() * 25 + 15) + 'px';
             coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.body.appendChild(coin);
             setTimeout(() => coin.remove(), 5000);
         }
 
-        // စက္ကန့်တိုင်း လည်ပတ်စေရန်
         setInterval(runEngine, 1000);
-        setInterval(createFalling, 300);
-        
-        // စစချင်းမှာ တစ်ခါ Run ပေးရန်
+        setInterval(createFalling, 400);
         runEngine();
     </script>
 </body>
