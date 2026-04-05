@@ -64,26 +64,90 @@
         letter-spacing: 8px;
     }
 }
-        #main-display {
-            width: 190px; height: 190px; background: radial-gradient(circle, #1a1a1a, #000);
-            border: 5px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2); margin: 15px auto;
-        }
-        .main-number { font-size: 100px; font-weight: bold; color: white; text-shadow: 3px 3px 10px #000; }
-        .update-bar {
-            background: rgba(0, 0, 0, 0.85); padding: 8px 25px; border-radius: 50px;
-            border: 1.5px solid #d4af37; font-size: 14px; font-weight: bold; color: #fff; margin-bottom: 25px;
-        }
-        #grid-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-            padding: 0 20px 40px 20px; width: 100%; max-width: 480px; box-sizing: border-box;
-        }
-        .card { background: #0d0d0d; border: 1.2px solid #d4af37; border-radius: 14px; overflow: hidden; text-align: center; }
-        .time-label { background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37); color: #000 !important; padding: 10px; font-size: 15px; font-weight: 800; }
-        .result-num { font-size: 45px; font-weight: 900; padding: 12px 0; color: #fff; }
-        .data-row { display: flex; justify-content: space-around; padding: 10px; font-size: 11px; color: #d4af37; border-top: 1px solid #222; background: #050505; }
-        .data-row span { display: flex; flex-direction: column; gap: 3px; font-weight: bold; }
-        .data-row small { color: #fff; font-size: 13px; font-weight: bold; }
+     #main-display {
+    width: 220px; 
+    height: 220px;
+    background: radial-gradient(circle, #1a1a1a, #000);
+    border: 5px solid #d4af37;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.2);
+    margin: 20px auto;
+}
+
+.main-number { 
+    font-size: 110px; 
+    font-weight: bold; 
+    color: white; 
+    text-shadow: 3px 3px 10px #000; 
+}
+
+.update-bar {
+    background: rgba(0, 0, 0, 0.85); 
+    padding: 10px 30px; 
+    border-radius: 50px;
+    border: 1.5px solid #d4af37; 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #fff; 
+    margin-bottom: 30px;
+}
+
+#grid-container {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+    padding: 0 20px 40px 20px; 
+    width: 100%; 
+    max-width: 550px; 
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.card { 
+    background: #0d0d0d; 
+    border: 1.5px solid #d4af37; 
+    border-radius: 18px; 
+    overflow: hidden; 
+}
+
+.time-label { 
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #d4af37); 
+    color: #000 !important; 
+    font-weight: bold; 
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+.result-num { 
+    font-size: 55px; 
+    font-weight: 900; 
+    padding: 15px 0; 
+    color: #fff; 
+}
+
+.data-row { 
+    display: flex; 
+    justify-content: space-around; 
+    padding: 12px; 
+    font-size: 14px; 
+    color: #ccc;
+}
+
+.data-row span { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; 
+    font-weight: bold; 
+}
+
+.data-row small { 
+    color: #fff; 
+    font-size: 15px; 
+    font-weight: bold; 
+}
     </style>
 </head>
 <body>
